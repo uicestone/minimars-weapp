@@ -1,9 +1,8 @@
 <template lang="pug">
   view
-    tab-bar.bottom-fixed.tabbar
+    tab-bar
     home(v-if="currentTab=='首页'")
-
-      
+    create-booking(v-if="currentTab=='首页/创建预约'")
 </template>
 
 
@@ -157,8 +156,6 @@ export default {
 .page
   height 100vh
   widows 100vw
-.tabbar
-  z-index 10
 .banner
   background-size cover
   height 380upx

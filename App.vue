@@ -17,6 +17,7 @@ export default {
 @import 'common/colorui/icon.css'
 @import 'common/colorui/animation.css'
 
+$color-primary = #57ff9a
 .page
   min-height 100vh
   min-width 100vw
@@ -56,9 +57,9 @@ export default {
 .color-basalt
   color #252525
 .color-primary
-  color #57ff9a
+  color $color-primary
 .bg-primary
-  background #57ff9a
+  background $color-primary
 .bottom-fixed
   position fixed
   bottom 0
@@ -73,4 +74,7 @@ export default {
   height 100%
 .w-full
   width 100%
+.action-button
+  background $color-primary
+  height 70upx
 </style>

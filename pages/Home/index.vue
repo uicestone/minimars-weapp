@@ -18,7 +18,7 @@
         view.text-center
           menu-link(title="线下活动" subTitle="Events")
         view.text-center
-          menu-link(title="预约/购票" subTitle="Book")
+          menu-link(title="预约/购票" subTitle="Book" @click="switchTab('首页/创建预约')")
       view.store
         view.h3 门店介绍
         img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg")
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { sync } from "vuex-pathify";
 export default {
   data() {
     return {
@@ -72,6 +73,19 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    currentTab: sync("currentTab")
+  },
+  methods: {
+    navigateTo(url) {
+      uni.navigateTo({
+        url
+      });
+    },
+    switchTab(tab) {
+      this.currentTab = tab;
+    }
   }
 };
 </script>

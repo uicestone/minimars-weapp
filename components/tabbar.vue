@@ -1,7 +1,7 @@
 <template lang="pug">
-  view.cu-bar.bg-white.tabbar
-    view.action(v-for="(item,index) in routes" :key="index" @click="handleRouteChange(item)"  v-if="checkTab(item)")
-      img.icon(:src="currentTab=== item.name ? item.iconActive :item.icon")
+  view.cu-bar.bg-white.tabbar.bottom-fixed
+    view.action(v-for="(item,index) in routes" :key="index" @click="handleRouteChange(item)" )
+      img.icon(:src="currentTab.includes(item.name) ? item.iconActive :item.icon")
       view {{item.name}}
 </template>
 
@@ -41,17 +41,6 @@ export default {
     user: sync("auth/user")
   },
   methods: {
-    checkTab(item) {
-      if (item.name === "管理") {
-        if (!this.user.roles) {
-          return false;
-        }
-      }
-      if (item.name !== "管理" && this.user.roles) {
-        return false;
-      }
-      return true;
-    },
     handleRouteChange(item) {
       this.currentTab = item.name;
       if (this.redirect) {
@@ -68,6 +57,8 @@ export default {
 <style lang="stylus" scoped>
 .tabbar
   border-top 1px solid #f3f4f5
+  z-index 10
+  width 100vw
 .icon
   width 20px
   height 20px
