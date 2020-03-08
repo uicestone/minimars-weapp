@@ -18,8 +18,8 @@ export default {
 @import 'common/colorui/animation.css'
 
 .page
-  height 100vh
-  widows 100vw
+  min-height 100vh
+  min-width 100vw
 .logo
   width 100%
   height 100upx
@@ -47,7 +47,7 @@ export default {
   position absolute
 .relative
   position relative
-.corlor-quartz
+.color-quartz
   color #e1e1e1
 .color-magnetit
   color #bbb
@@ -57,6 +57,8 @@ export default {
   color #252525
 .color-primary
   color #57ff9a
+.bg-primary
+  background #57ff9a
 .bottom-fixed
   position fixed
   bottom 0
@@ -66,5 +68,9 @@ export default {
 .top-fixed
   position fixed
   top 0
+  width 100%
+.h-full
+  height 100%
+.w-full
   width 100%
 </style>

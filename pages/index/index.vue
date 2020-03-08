@@ -1,6 +1,6 @@
 <template lang="pug">
   view
-    tab-bar.bottom-fixed
+    tab-bar.bottom-fixed.tabbar
     home(v-if="currentTab=='首页'")
 
       
@@ -157,6 +157,8 @@ export default {
 .page
   height 100vh
   widows 100vw
+.tabbar
+  z-index 10
 .banner
   background-size cover
   height 380upx

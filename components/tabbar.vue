@@ -1,9 +1,8 @@
 <template lang="pug">
-  view
-    view.cu-bar.tabbar.bg-white
-      view.action(v-for="(item,index) in routes" :key="index" @click="handleRouteChange(item)"  v-if="checkTab(item)")
-        img.icon(:src="currentTab=== item.name ? item.iconActive :item.icon")
-        view {{item.name}}
+  view.cu-bar.bg-white.tabbar
+    view.action(v-for="(item,index) in routes" :key="index" @click="handleRouteChange(item)"  v-if="checkTab(item)")
+      img.icon(:src="currentTab=== item.name ? item.iconActive :item.icon")
+      view {{item.name}}
 </template>
 
 <script>
@@ -67,6 +66,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.tabbar
+  border-top 1px solid #f3f4f5
 .icon
   width 20px
   height 20px
