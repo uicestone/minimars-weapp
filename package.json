@@ -1,0 +1,18 @@
+{
+  "name": "kangazone-weapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/moment": "^2.13.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "tki-qrcode": "^0.1.5",
+    "vuex-pathify": "^1.2.2"
+  },
+  "devDependencies": {
+    "@types/uni-app": "^1.4.1"
+  }
+}
