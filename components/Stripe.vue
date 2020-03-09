@@ -13,13 +13,13 @@ export default {
 <style lang="stylus" scoped>
 .stripe
   position relative
-  min-height 200upx
+  min-height 100upx
   background #b2b2b2
   border-top-right-radius 80upx
   .tail
     z-index -1
     position absolute
-    bottom -100upx
+    bottom -198upx
     left 0
     width 100%
     height 200upx

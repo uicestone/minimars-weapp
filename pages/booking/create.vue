@@ -14,7 +14,7 @@
       //-       text.text （展开选择到店日期）
       //-     text.down(class='cuIcon-triangledownfill')
       //-   text.add(class='cuIcon-add color-primary')
-      card.card
+      card.card(withShape)
         view.form
           view.form-input
             view

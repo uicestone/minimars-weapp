@@ -15,6 +15,8 @@ import TopEvent from "./components/TopEvent.vue";
 import Stripe from "./components/Stripe.vue";
 import EventItem from "./components/EventItem.vue";
 import UserProfileHead from "./components/UserProfileHead.vue";
+import CardTitle from "./components/CardTitle.vue";
+import CardListItem from "./components/CardListItem.vue";
 
 Vue.config.productionTip = false;
 
@@ -26,6 +28,8 @@ Vue.component("top-event", TopEvent);
 Vue.component("stripe", Stripe);
 Vue.component("event-item", EventItem);
 Vue.component("user-profile-head", UserProfileHead);
+Vue.component("card-title", CardTitle);
+Vue.component("card-list-item", CardListItem);
 
 Vue.component("home", home);
 Vue.component("event", eventPage);

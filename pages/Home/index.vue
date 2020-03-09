@@ -1,5 +1,5 @@
 <template lang="pug">
-  scroll-view(scroll-y).bg-white
+  scroll-view(scroll-y).bg-white.page
     //- swiper
     view(style="height: 1000upx")
       swiper.screen-swiper.h-full(class='round-dot' :indicator-dots='true' :circular='true' :autoplay='true' interval='5000' duration='500')

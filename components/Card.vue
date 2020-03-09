@@ -33,10 +33,10 @@ export default {
       position relative
       &:after
         position: absolute;
-        height: 10upx;
-        width: 10upx;
+        height: 14upx;
+        width: 14upx;
         left: -30upx;
-        top: 6upx;
+        top: 5upx;
         content: '';
         border-radius: 50%;
         border: 20upx solid white;

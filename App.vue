@@ -17,7 +17,12 @@ export default {
 @import 'common/colorui/icon.css'
 @import 'common/colorui/animation.css'
 
+body {
+  --primary #57ff9a
+}
+
 $color-primary = #57ff9a
+
 .page
   min-height 100vh
   min-width 100vw
