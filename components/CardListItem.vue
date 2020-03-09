@@ -30,11 +30,12 @@ export default {
   .center
     flex 1
     margin-left 60upx
+    font-family Helvetica
     .title
       font-size 38upx
       color var(--darkGray)
-      font-weight bold
     .sub-title
+      margin-top 20upx
       font-size 28upx
       line-height 22upx
       color var(--gray)
