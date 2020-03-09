@@ -1590,8 +1590,8 @@ button.icon.lg {
 	box-sizing: border-box;
 	width: 200%;
 	height: 200%;
-	border-right: 1px solid rgba(0, 0, 0, .1);
-	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	/* border-right: 1px solid rgba(0, 0, 0, .1);
+	border-bottom: 1px solid rgba(0, 0, 0, .1); */
 	border-radius: inherit;
 	content: " ";
 	transform: scale(.5);

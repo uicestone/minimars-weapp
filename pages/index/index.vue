@@ -3,8 +3,10 @@
     tab-bar
     home(v-if="currentTab=='首页'")
     create-booking(v-if="currentTab=='首页/创建预约'")
-</template>
+    event(v-if="currentTab=='活动'")
+    user-profile(v-if="currentTab=='我的'")
 
+</template>
 
 <script>
 import { sync } from "vuex-pathify";
@@ -16,72 +18,17 @@ export default {
     login
   },
   data() {
-    return {
-      logo: "/static/logo.png",
-      buttonBgUrl: "/static/button_bg_1.png",
-      menus1: [
-        {
-          icon: "profile",
-          color: "yellow",
-          title: "个人资料",
-          to: "/pages/user/detail"
-        },
-        {
-          icon: "ticket",
-          color: "red",
-          title: "券码",
-          to: "/pages/coupons/index"
-        },
-        {
-          icon: "form",
-          color: "purple",
-          title: "所有预约",
-          to: "/pages/booking/list"
-        },
-        {
-          icon: "vipcard",
-          color: "orange",
-          title: "会员卡",
-          to: "/pages/membership/index"
-        }
-      ],
-      bannerImageUrls: [
-        {
-          url: "https://cdn.uice.lu/kanga/banner1.jpg"
-        },
-        {
-          url: "https://cdn.uice.lu/kanga/banner2.jpg"
-        },
-        {
-          url: "https://cdn.uice.lu/kanga/banner3.jpg"
-        },
-        {
-          url: "https://cdn.uice.lu/kanga/banner4.jpg"
-        },
-        {
-          url: "https://cdn.uice.lu/kanga/banner5.jpg"
-        }
-      ]
-    };
+    return {};
   },
   computed: {
-    currentTab: sync("currentTab"),
-    session_key: sync("auth/session_key"),
-    currentStore: sync("store/currentStore"),
-    nearStores: sync("store/nearStores"),
-    auth: sync("auth"),
-    configs: sync("configs"),
-    bookings: sync("booking/bookings")
+    currentTab: sync("currentTab")
   },
-  async onLoad() {
-    // this.loadInitData();
-    // await this.checkLogin();
-    // await this.checkLocation();
-    // await this.getBookings();
-  },
-  async onShow() {
-    if (!this.session_key) return;
-    await this.getBookings();
+  async onLoad({ tab }) {
+    if (tab) {
+      setTimeout(() => {
+        this.currentTab = tab;
+      }, 1000);
+    }
   },
   methods: {
     async loadInitData() {
@@ -109,24 +56,6 @@ export default {
       const stores = await getStores();
       this.nearStores = stores.data;
       this.currentStore = stores.data[0];
-      // uni.getLocation({
-      //   success: async res => {
-      //     const { latitude, longitude } = res;
-      //     const stores = await getStores();
-      //     this.nearStores = stores.data;
-      //     this.currentStore = stores.data[0];
-      //   },
-      //   fail: async err => {
-      //     uni.navigateTo({
-      //       url: "/pages/store/list"
-      //     });
-      //     uni.showModal({
-      //       title: "获取位置失败, 手动选择您最近的门店",
-      //       showCancel: false,
-      //       icon: "none"
-      //     });
-      //   }
-      // });
     },
     async getBookings() {
       const res = await getBookings();

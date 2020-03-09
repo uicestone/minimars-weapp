@@ -26,7 +26,7 @@
               view.flex.justify-between
                 view
                   view.box.flex.justify-between.align-center
-                    button(class="cu-btn icon bg-white")
+                    button(class="cu-btn icon ")
                       text(class="cuIcon-move")
                     text 2
                     button(class="cu-btn icon bg-primary radius shadow shadow-lg")
@@ -34,7 +34,7 @@
                   view.text-center(style="color: #c5c8c8;") 成人
                 view
                   view.box.flex.justify-between.align-center
-                    button(class="cu-btn icon bg-white")
+                    button(class="cu-btn icon ")
                       text(class="cuIcon-move")
                     text 2
                     button(class="cu-btn icon bg-primary radius shadow shadow-lg" disabled)
