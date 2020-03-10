@@ -26,7 +26,7 @@
         view.with-padding(@click="navigateTo('/pages/user/booking')")
           card-title(title="我的预约" action="所有预约")
         swiper.card-swiper(:circular='true' :autoplay='true' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
-          swiper-item(v-for='(item,index) in swiperList' :key='index')
+          swiper-item(v-for='(item,index) in swiperList' :key='index' @click="navigateTo('/pages/user/booking')")
             view.swiper-item
               img(:src='item.url' mode='aspectFill' )
         view.with-padding

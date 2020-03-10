@@ -1,5 +1,5 @@
 <template lang="pug">
-  view.user-booking
+  scroll-view(scroll-y).user-booking.page
     img.img
     card.card
       view.content
@@ -43,10 +43,13 @@ export default {
 <style lang="stylus" scoped>
 .user-booking
   padding 120upx 0 0
+  display flex
+  flex-direction column
   .img
     height 110upx
   .card
     .content
+      min-height calc(100vh - 230upx)
       padding 60upx 40upx
       .tabs
         display flex
