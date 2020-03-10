@@ -18,10 +18,10 @@
         view.text-center
           menu-link(title="线下活动" subTitle="Events")
         view.text-center
-          menu-link(title="预约/购票" subTitle="Book" @click="switchTab(tabs.createBooking)")
+          menu-link(title="预约/购票" subTitle="Book" @click="navigateTo('/pages/booking/create')")
       view.store
         view.h3 门店介绍
-        img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" mode='aspectFill' @click="switchTab(tabs.storeDetail)")
+        img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
         view.h3 品牌介绍
         img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" mode='aspectFill' @click="navigateTo('/pages/about')")
 
@@ -75,19 +75,9 @@ export default {
     };
   },
   computed: {
-    currentTab: sync("currentTab"),
-    tabs: sync("configs@tabs")
+    currentTab: sync("currentTab")
   },
-  methods: {
-    navigateTo(url) {
-      uni.navigateTo({
-        url
-      });
-    },
-    switchTab(tab) {
-      this.currentTab = tab;
-    }
-  }
+  methods: {}
 };
 </script>
 

@@ -23,7 +23,7 @@
               img.icon(src="/static/icon/code.svg")
     card.card(withShape)
       view.content
-        view.with-padding
+        view.with-padding(@click="navigateTo('/pages/user/booking')")
           card-title(title="我的预约" action="所有预约")
         swiper.card-swiper(:circular='true' :autoplay='true' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
           swiper-item(v-for='(item,index) in swiperList' :key='index')
@@ -33,7 +33,7 @@
           card-title(title="我的卡券包" action="购买更多")
         view.card-list.with-padding
           view.card-list-item(v-for="(item,index) in cards" :key="index")
-            card-list-item(:item="item")
+            card-list-item(:item="item" withAction)
         
 </template>
 
@@ -97,7 +97,7 @@ export default {
             height 48upx
         .stat
           margin-left 20upx
-          font-family:PingFangSC-Medium,PingFang SC;
+          font-family PingFangSC-Medium, PingFang SC
           flex 1
           .count
             font-size 30upx
@@ -118,7 +118,7 @@ export default {
       .with-padding
         padding 0 60upx
       .card-swiper
-        height 200upx!important
+        height 200upx !important
         padding 10upx 0 30upx
       .card-list
         margin-top 20upx

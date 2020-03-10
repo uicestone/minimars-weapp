@@ -4,14 +4,14 @@
     view.center
       view.title {{item.title}}
       view.sub-title {{item.subTitle}}
-    view.action
+    view.action(v-if="withAction")
       text.arrow(class='cuIcon-right')
 
 </template>
 
 <script>
 export default {
-  props: ["item"]
+  props: ["item", "withAction"]
 };
 </script>
 
@@ -22,7 +22,7 @@ export default {
   border-radius 30upx
   height 140upx
   align-items center
-  box-shadow:0px 2px 12px 0px rgba(0,0,0,0.1);
+  box-shadow 0px 2px 12px 0px rgba(0, 0, 0, 0.1)
   .img
     height 100%
     width 120upx
@@ -36,7 +36,7 @@ export default {
       color var(--darkGray)
     .sub-title
       margin-top 20upx
-      font-size 28upx
+      font-size 24upx
       line-height 22upx
       color var(--gray)
   .action

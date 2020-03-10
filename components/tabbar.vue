@@ -1,13 +1,13 @@
 <template lang="pug">
   view.cu-bar.bg-white.tabbar.bottom-fixed
-    view.action(v-for="(item,index) in routes" :key="index" @click="handleRouteChange(item)" )
-      img.icon(:src="currentTab.includes(item.key) ? item.iconActive :item.icon")
+    view.action(v-for="(item,index) in routes" :key="item.key" @click="handleRouteChange(item)" )
+      img.icon(:src="curTabConfig.active == item.key ? item.iconActive :item.icon")
       view {{item.name}}
 </template>
 
 <script>
 import _ from "lodash";
-import { sync } from "vuex-pathify";
+import { sync, get } from "vuex-pathify";
 export default {
   props: ["redirect"],
   data() {
@@ -16,32 +16,33 @@ export default {
         {
           icon: "/static/icon/home.svg",
           iconActive: "/static/icon/home-active.svg",
-          key: "home",
-          name: "首页"
+          name: "首页",
+          key: "/pages/home/index"
         },
         {
           icon: "/static/icon/events.svg",
           iconActive: "/static/icon/events-active.svg",
-          key: "event",
-          name: "活动"
+          name: "活动",
+          key: "/pages/event/index"
         },
         {
           icon: "/static/icon/food.svg",
           iconActive: "/static/icon/food-active.svg",
-          key: "food",
-          name: "点餐"
+          name: "点餐",
+          key: "/pages/food/index"
         },
         {
           icon: "/static/icon/profile.svg",
           iconActive: "/static/icon/profile-active.svg",
-          key: "user",
-          name: "我的"
+          name: "我的",
+          key: "/pages/user/index"
         }
       ]
     };
   },
   computed: {
     currentTab: sync("currentTab"),
+    curTabConfig: get("curTabConfig"),
     user: sync("auth/user")
   },
   methods: {
@@ -53,8 +54,7 @@ export default {
         });
       }
     }
-  },
-  mounted() {}
+  }
 };
 </script>
 

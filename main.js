@@ -7,6 +7,7 @@ import StoreDetail from "./pages/store/detail.vue";
 import eventPage from "./pages/event/index.vue";
 import createBooking from "./pages/booking/create.vue";
 import user from "./pages/user/index.vue";
+import userBooking from "./pages/user/booking.vue";
 
 import TabBar from "./components/TabBar.vue";
 import Card from "./components/Card.vue";
@@ -43,6 +44,7 @@ Vue.component("store-detail", StoreDetail);
 Vue.component("event", eventPage);
 Vue.component("create-booking", createBooking);
 Vue.component("user", user);
+Vue.component("user-booking", userBooking);
 
 App.mpType = "app";
 global.store = store; // for debug
@@ -50,6 +52,15 @@ global.store = store; // for debug
 Vue.prototype.goHome = () => {
   store.state.currentTab = "home";
   uni.navigateBack({ delta: 10 });
+};
+
+Vue.prototype.navigateTo = url => {
+  const tab = store.state.configs.tabMap[url];
+  if (tab) {
+    store.state.currentTab = url;
+  } else {
+    uni.navigateTo({ url });
+  }
 };
 
 const app = new Vue({

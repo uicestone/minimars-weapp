@@ -1,11 +1,13 @@
 <template lang="pug">
   view
     tab-bar
-    home(v-if="currentTab==tabs.home")
-    store-detail(v-if="currentTab==tabs.storeDetail")
-    create-booking(v-if="currentTab==tabs.createBooking")
-    event(v-if="currentTab==tabs.event")
-    user(v-if="currentTab==tabs.user")
+    home(v-if="currentTab=='/pages/home/index'")
+    store-detail(v-if="currentTab=='/pages/store/detail'")
+    create-booking(v-if="currentTab=='/pages/booking/create'")
+    event(v-if="currentTab=='/pages/event/index'")
+    user(v-if="currentTab=='/pages/user/index'")
+    user-booking(v-if="currentTab=='/pages/user/booking'")
+
 
 </template>
 
@@ -15,7 +17,7 @@ import { wechatLogin, wechatGetUserInfo } from "../../services";
 import login from "../login";
 import { getStores, getConfigs, getBookings } from "../../common/vmeitime-http";
 export default {
-  components: {
+  coπmponents: {
     login
   },
   data() {

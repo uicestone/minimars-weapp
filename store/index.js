@@ -12,23 +12,41 @@ pathify.options.mapping = "simple";
 
 const state = {
   loading: false,
-  currentTab: "home",
+  currentTab: "/pages/home/index",
   configs: {
-    tabs: {
-      home: "home",
-      createBooking: "home/createBooking",
-      storeDetail: "home/StoreDetail",
-      event: "event",
-      user: "user"
+    tabMap: {
+      "/pages/home/index": {
+        active: "/pages/home/index"
+      },
+      "/pages/user/booking": {
+        active: "/pages/user/index"
+      },
+      "/pages/user/index": {
+        active: "/pages/user/index"
+      },
+      "/pages/store/detail": {
+        active: "/pages/home/index"
+      },
+      "/pages/booking/create": {
+        active: "/pages/home/index"
+      },
+      "/pages/event/index": {
+        active: "/pages/event/index"
+      }
     }
   }
 };
 
 const mutations = make.mutations(state);
 
+const getters = {
+  curTabConfig: state => state.configs.tabMap[state.currentTab]
+};
+
 const store = new Vuex.Store({
   plugins: [pathify.plugin],
   state,
+  getters,
   mutations,
   modules: { auth, store: _store, booking }
 });
