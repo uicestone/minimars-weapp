@@ -1,5 +1,5 @@
 <template lang="pug">
-  view.store-detail
+  view.store-detail.page
     store-switcher
     view.alert
       text
