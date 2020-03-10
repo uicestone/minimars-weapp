@@ -38,6 +38,11 @@
         "name": "我的", //模式名称
         "path": "pages/index/index", //启动页面，必选
         "query": "tab=user" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
+        "name": "门店详情", //模式名称
+        "path": "pages/index/index", //启动页面，必选
+        "query": "tab=home/StoreDetail" //启动参数，在页面的onLoad函数里面得到
       }
     ]
   }

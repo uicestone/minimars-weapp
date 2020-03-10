@@ -19,7 +19,7 @@ const state = {
       createBooking: "home/createBooking",
       storeDetail: "home/StoreDetail",
       event: "event",
-      userProfile: "user"
+      user: "user"
     }
   }
 };

@@ -5,7 +5,7 @@
     store-detail(v-if="currentTab==tabs.storeDetail")
     create-booking(v-if="currentTab==tabs.createBooking")
     event(v-if="currentTab==tabs.event")
-    user-profile(v-if="currentTab==tabs.userProfile")
+    user(v-if="currentTab==tabs.user")
 
 </template>
 

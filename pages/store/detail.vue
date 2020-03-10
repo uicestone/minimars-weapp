@@ -10,7 +10,7 @@ export default {};
 
 <style lang="stylus" scoped>
 .store-detail
-  padding 200upx 0 0
+  padding 200upx 40upx 0
   height 100vh
   display flex
   flex-direction column
