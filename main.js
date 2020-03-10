@@ -18,6 +18,7 @@ import EventItem from "./components/EventItem.vue";
 import UserProfileHead from "./components/UserProfileHead.vue";
 import CardTitle from "./components/CardTitle.vue";
 import CardListItem from "./components/CardListItem.vue";
+import uniNoticeBar from "./components/uni-notice-bar/uni-notice-bar.vue";
 
 Vue.config.productionTip = false;
 
@@ -31,6 +32,7 @@ Vue.component("event-item", EventItem);
 Vue.component("user-profile-head", UserProfileHead);
 Vue.component("card-title", CardTitle);
 Vue.component("card-list-item", CardListItem);
+Vue.component("uni-notice-bar", uniNoticeBar);
 
 Vue.component("home", home);
 Vue.component("store-detail", StoreDetail);
