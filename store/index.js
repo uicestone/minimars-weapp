@@ -12,12 +12,15 @@ pathify.options.mapping = "simple";
 
 const state = {
   loading: false,
-  currentTab: "首页",
+  currentTab: "home",
   configs: {
-    cardTypes: {},
-    depositLevels: [],
-    hourPrice: null,
-    hourPriceRatio: []
+    tabs: {
+      home: "home",
+      createBooking: "home/createBooking",
+      storeDetail: "home/StoreDetail",
+      event: "event",
+      userProfile: "user"
+    }
   }
 };
 

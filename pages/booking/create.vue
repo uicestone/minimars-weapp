@@ -1,6 +1,5 @@
 <template lang="pug">
   view.booking-create
-    tab-bar
     view.vip
       store-switcher
       view.vip-card

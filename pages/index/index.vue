@@ -1,10 +1,11 @@
 <template lang="pug">
   view
     tab-bar
-    home(v-if="currentTab=='首页'")
-    create-booking(v-if="currentTab=='首页/创建预约'")
-    event(v-if="currentTab=='活动'")
-    user-profile(v-if="currentTab=='我的'")
+    home(v-if="currentTab==tabs.home")
+    store-detail(v-if="currentTab==tabs.storeDetail")
+    create-booking(v-if="currentTab==tabs.createBooking")
+    event(v-if="currentTab==tabs.event")
+    user-profile(v-if="currentTab==tabs.userProfile")
 
 </template>
 
@@ -21,7 +22,8 @@ export default {
     return {};
   },
   computed: {
-    currentTab: sync("currentTab")
+    currentTab: sync("currentTab"),
+    tabs: sync("configs@tabs")
   },
   async onLoad({ tab }) {
     if (tab) {

@@ -3,9 +3,10 @@ import App from "./App";
 import store from "./store";
 
 import home from "./pages/home/index.vue";
+import StoreDetail from "./pages/store/detail.vue";
 import eventPage from "./pages/event/index.vue";
 import createBooking from "./pages/booking/create.vue";
-import userProfile from "./pages/user/profile.vue";
+import user from "./pages/user/index.vue";
 
 import TabBar from "./components/TabBar.vue";
 import Card from "./components/Card.vue";
@@ -32,9 +33,10 @@ Vue.component("card-title", CardTitle);
 Vue.component("card-list-item", CardListItem);
 
 Vue.component("home", home);
+Vue.component("store-detail", StoreDetail);
 Vue.component("event", eventPage);
 Vue.component("create-booking", createBooking);
-Vue.component("user-profile", userProfile);
+Vue.component("user", user);
 
 App.mpType = "app";
 global.store = store; // for debug
