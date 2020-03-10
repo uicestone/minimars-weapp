@@ -3,7 +3,7 @@
     top-event
     stripe.stripe(withTail)
       view.content
-        view.avatar(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
+        view(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
         view.center
           view.title Ballon Time
           view.subTitle 2022.2.22 16:00
@@ -13,7 +13,7 @@
     card.card(withShape)
       view.content
         view.cu-list.grid.col-2
-          view.cu-item(v-for="(item,index) in events" :key="index")
+          view.cu-item(v-for="(item,index) in events" :key="index" @click="goDetail(item)")
             event-item.flex.justify-center(:item="item")
 </template>
 
@@ -31,12 +31,18 @@ export default {
         { title: "P", date: "2020.2.2" }
       ]
     };
+  },
+  methods: {
+    goDetail() {
+      uni.navigateTo({
+        url: "/pages/event/detail"
+      });
+    }
   }
 };
 </script>
 
 <style lang="stylus" scoped>
-
 .event
   .stripe
     .content

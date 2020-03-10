@@ -1,7 +1,30 @@
 <script>
+import Vue from "vue";
+
 export default {
   onLaunch: function() {
     console.log("App Launch");
+    uni.getSystemInfo({
+      success: function(e) {
+        Vue.prototype.StatusBar = e.statusBarHeight;
+        // #ifndef MP
+        if (e.platform == "android") {
+          Vue.prototype.CustomBar = e.statusBarHeight + 50;
+        } else {
+          Vue.prototype.CustomBar = e.statusBarHeight + 45;
+        }
+        // #endif
+
+        // #ifdef MP-WEIXIN
+        let custom = wx.getMenuButtonBoundingClientRect();
+        Vue.prototype.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
+        // #endif
+
+        // #ifdef MP-ALIPAY
+        Vue.prototype.CustomBar = e.statusBarHeight + e.titleBarHeight;
+        // #endif
+      }
+    });
   },
   onShow: function() {
     console.log("App Show");
@@ -80,4 +103,9 @@ $color-primary = #57ff9a
 .action-button
   background $color-primary
   height 70upx
+  .normal
+    color var(--text-primary)
+    font-size 26upx
+    font-family PingFangSC-Semibold, PingFang SC
+    font-weight 600
 </style>

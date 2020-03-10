@@ -18,7 +18,9 @@ import EventItem from "./components/EventItem.vue";
 import UserProfileHead from "./components/UserProfileHead.vue";
 import CardTitle from "./components/CardTitle.vue";
 import CardListItem from "./components/CardListItem.vue";
+import HeaderBar from "./components/HeaderBar.vue";
 import uniNoticeBar from "./components/uni-notice-bar/uni-notice-bar.vue";
+import cuCustom from "./common/colorui/components/cu-custom.vue";
 
 Vue.config.productionTip = false;
 
@@ -33,6 +35,8 @@ Vue.component("user-profile-head", UserProfileHead);
 Vue.component("card-title", CardTitle);
 Vue.component("card-list-item", CardListItem);
 Vue.component("uni-notice-bar", uniNoticeBar);
+Vue.component("header-bar", HeaderBar);
+Vue.component("cu-custom", cuCustom);
 
 Vue.component("home", home);
 Vue.component("store-detail", StoreDetail);
@@ -42,6 +46,11 @@ Vue.component("user", user);
 
 App.mpType = "app";
 global.store = store; // for debug
+
+Vue.prototype.goHome = () => {
+  store.state.currentTab = "home";
+  uni.navigateBack({ delta: 10 });
+};
 
 const app = new Vue({
   store,

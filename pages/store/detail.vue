@@ -11,6 +11,11 @@
       view 电话: 61555725
       view 营业时间: 09:30-20:00
       view 交通沿线: 地铁1/12/13号线汉中路站10号口步行1.1km
+    img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" mode='aspectFill' @click="switchTab(tabs.storeDetail)")
+
+    view.bottom-bar
+      text 本店已休息
+    
 
 </template>
 
@@ -22,9 +27,10 @@ export default {};
 <style lang="stylus" scoped>
 .store-detail
   padding 200upx 40upx 0
-  height 100vh
+  height calc(100vh - 100upx)
   display flex
   flex-direction column
+  position absolute
   .alert
     margin-top 65upx
     color #909399
@@ -42,4 +48,14 @@ export default {};
     .name
       margin-bottom 20upx
       font-size 28upx
+  .cover
+    width 100%
+    margin-top 85upx
+    border-radius 70upx
+  .bottom-bar
+    position absolute
+    bottom 20upx
+    width 100%
+    text-align center
+    color white
 </style>

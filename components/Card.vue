@@ -2,7 +2,7 @@
   view.card
     slot
     view.shape-bar(v-if="withShape")
-      view.circle
+      view.shape
 </template>
 
 <script>
@@ -27,17 +27,17 @@ export default {
     left 0
     height 30upx
     z-index 1
-    .circle
+    .shape
       width 4upx
       height 4upx
       position relative
       &:after
-        position: absolute;
-        height: 14upx;
-        width: 14upx;
-        left: -30upx;
-        top: 5upx;
-        content: '';
-        border-radius: 50%;
-        border: 20upx solid white;
+        position absolute
+        height 14upx
+        width 14upx
+        left -30upx
+        top 5upx
+        content ''
+        border-radius 50%
+        border 20upx solid white
 </style>

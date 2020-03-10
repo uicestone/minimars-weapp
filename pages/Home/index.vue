@@ -21,9 +21,9 @@
           menu-link(title="预约/购票" subTitle="Book" @click="switchTab(tabs.createBooking)")
       view.store
         view.h3 门店介绍
-        img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" @click="switchTab(tabs.storeDetail)")
+        img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" mode='aspectFill' @click="switchTab(tabs.storeDetail)")
         view.h3 品牌介绍
-        img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg")
+        img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" mode='aspectFill' @click="navigateTo('/pages/about')")
 
           
 
@@ -132,6 +132,7 @@ export default {
       font-weight bold
     .cover
       margin 20upx 0
-      border-radius 100upx
-      height 400upx
+      border-radius 70upx
+      height 360upx
+      width 100%
 </style>
