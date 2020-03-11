@@ -42,22 +42,27 @@
       {
         "name": "创建预约", //模式名称
         "path": "pages/index/index", //启动页面，必选
-        "query": "tab=home/createBooking" //启动参数，在页面的onLoad函数里面得到
+        "query": "tab=/pages/booking/create" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "活动", //模式名称
         "path": "pages/index/index", //启动页面，必选
-        "query": "tab=event" //启动参数，在页面的onLoad函数里面得到
+        "query": "tab=/pages/event/index" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "我的", //模式名称
         "path": "pages/index/index", //启动页面，必选
-        "query": "tab=user" //启动参数，在页面的onLoad函数里面得到
+        "query": "tab=/pages/user/index" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
+        "name": "积分兑换", //模式名称
+        "path": "pages/index/index", //启动页面，必选
+        "query": "tab=/pages/user/giftlist" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "门店详情", //模式名称
         "path": "pages/index/index", //启动页面，必选
-        "query": "tab=home/StoreDetail" //启动参数，在页面的onLoad函数里面得到
+        "query": "tab=/pages/store/detail" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "品牌介绍", //模式名称
@@ -73,6 +78,11 @@
         "name": "订单列表", //模式名称
         "path": "pages/index/index", //启动页面，必选
         "query": "tab=/pages/user/booking" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
+        "name": "消费列表", //模式名称
+        "path": "pages/index/index", //启动页面，必选
+        "query": "tab=/pages/user/costRecord" //启动参数，在页面的onLoad函数里面得到
       }
     ]
   }

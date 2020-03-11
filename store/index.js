@@ -24,6 +24,12 @@ const state = {
       "/pages/user/index": {
         active: "/pages/user/index"
       },
+      "/pages/user/giftlist": {
+        active: "/pages/user/index"
+      },
+      "/pages/user/costRecord": {
+        active: "/pages/user/index"
+      },
       "/pages/store/detail": {
         active: "/pages/home/index"
       },

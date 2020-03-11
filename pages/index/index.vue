@@ -7,6 +7,8 @@
     event(v-if="currentTab=='/pages/event/index'")
     user(v-if="currentTab=='/pages/user/index'")
     user-booking(v-if="currentTab=='/pages/user/booking'")
+    user-gift-list(v-if="currentTab=='/pages/user/giftlist'")
+    user-cost-record(v-if="currentTab=='/pages/user/costRecord'")
 
 
 </template>

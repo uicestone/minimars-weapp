@@ -3,11 +3,12 @@
     slot
     view.shape-bar(v-if="withShape")
       view.shape
+    view.close(v-if="withClose" class="cuIcon-roundclose" @click="$emit('close')")
 </template>
 
 <script>
 export default {
-  props: ["withShape"]
+  props: ["withShape", "withClose"]
 };
 </script>
 
@@ -40,4 +41,9 @@ export default {
         content ''
         border-radius 50%
         border 20upx solid white
+  .close
+    position absolute
+    right 40upx
+    top 80upx
+    font-size 20px
 </style>

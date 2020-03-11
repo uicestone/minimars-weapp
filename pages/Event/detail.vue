@@ -6,7 +6,9 @@
     card.card(withShape1)
       view.content
         view.name {{item.name}} (剩余13)
-        view.price 1300 / ￥40
+        view.price 
+          img.icon(src="/static/icon/pointmain.svg")
+          text 1300 / ￥40
         view.date 日期: 6月6日上午11点
         view.address 门店： 天山长宁店
         view.prompt （兑换后请凭兑换码至前台核销并领取入场券）
@@ -21,7 +23,7 @@
             view.value 
               view.text {{item.value}}
     view.bottom-fixed
-      button.cu-btn.round.action-button.bg-primary(@click="goHome")
+      button.cu-btn.round.action-button.bg-primary(@click="back")
         view.normal 返回首页
       button.cu-btn.round.action-button.bg-primary
         view.normal 立即兑换
@@ -54,6 +56,9 @@ export default {
     height 550upx
   .card
     .content
+      display flex
+      flex-direction column
+      align-items center
       font-size 30upx
       font-family PingFangSC-Medium, PingFang SC
       font-weight 500
@@ -67,17 +72,23 @@ export default {
         font-size 34upx
       .price
         font-size 38upx
+        display flex
+        align-items center
+        .icon
+          width 40upx
+          height 40upx
+          margin-right 8upx
       .prompt
         font-size 26upx
         color #606266
   .cu-card
     margin-top 20upx
+    font-family PingFangSC-Semibold, PingFang SC
     .content
       padding 80upx 0 46upx
       .title
         text-align center
         font-size 30upx
-        font-family PingFangSC-Semibold, PingFang SC
         font-weight 600
         color var(--text-primary)
         line-height 40upx
@@ -86,7 +97,6 @@ export default {
         .name
           margin-bottom 34upx
           font-size 30upx
-          font-family PingFangSC-Semibold, PingFang SC
           font-weight 600
           color #606266
           line-height 40upx
@@ -100,14 +110,12 @@ export default {
               width 120upx
               height 50upx
               color white
-              font-family PingFangSC-Medium, PingFang SC
               font-weight 500
               font-size 26upx
               background #C5C3C0
           .value
             width 50%
             font-size 28upx
-            font-family PingFangSC-Semibold, PingFang SC
             font-weight 600
             line-height 40upx
             text-align left

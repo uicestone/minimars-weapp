@@ -16,7 +16,7 @@
           text.arrow(class='cuIcon-right')
       view.menus
         view.text-center
-          menu-link(title="线下活动" subTitle="Events")
+          menu-link(title="线下活动" subTitle="Events" @click="navigateTo('/pages/event/index')")
         view.text-center
           menu-link(title="预约/购票" subTitle="Book" @click="navigateTo('/pages/booking/create')")
       view.store

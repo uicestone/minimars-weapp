@@ -11,7 +11,9 @@
               view.circle(v-if="item.value== curTab")
           view.card-list
             view.card-list-item(v-for="(item,index) in booking" :key="index")
-              card-list-item(:item="item")
+              card-list-item(:item="item" withAction)
+                view.price(slot="action") 
+                  text {{item.price}}
 
 </template>
 
@@ -19,17 +21,16 @@
 export default {
   data() {
     return {
-      curTab: "已预约",
+      curTab: "充值",
       tabs: [
         { label: "全部", value: "全部" },
-        { label: "已预约", value: "已预约" },
-        { label: "已完成", value: "已完成" },
-        { label: "已取消", value: "已取消" }
+        { label: "充值", value: "充值" },
+        { label: "支付", value: "支付" }
       ],
       booking: [
-        { img: "", title: "游玩一次", subTitle: "今日" },
-        { img: "", title: "亲子下午茶", subTitle: "2022.12.31" },
-        { img: "", title: "Ballon Time", subTitle: "2020年6月6日 上午11时 小派对房" }
+        { img: "", title: "长宁店十次卡", subTitle: "2020年6月6日", price: "-1680.00" },
+        { img: "", title: "季卡", subTitle: "2020年1月22日", price: "-6688.00" },
+        { img: "", title: "1000元礼品卡", subTitle: "2020年8月8日", price: "-928.00" }
       ]
     };
   },
@@ -55,6 +56,7 @@ export default {
       padding 60upx 40upx
       .tabs
         display flex
+        width 400upx
         justify-content space-between
         font-size 30upx
         font-family PingFangSC-Semibold, PingFang SC
@@ -76,4 +78,10 @@ export default {
       margin-top 60upx
       .card-list-item
         margin-bottom 30upx
+      .price
+        text-align left
+        font-size 32upx
+        font-family PingFangSC-Medium, PingFang SC
+        font-weight 500
+        line-height 48upx
 </style>

@@ -52,6 +52,8 @@ $color-primary = #57ff9a
   height 100upx
   text-align center
   object-fit contain
+.no-bg
+  background transparent
 .bg
   position fixed
   top 0

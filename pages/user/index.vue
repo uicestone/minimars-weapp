@@ -4,14 +4,14 @@
     stripe.stripe(withTail)
       view.content
         view.cu-list.grid.col-3
-          view.item
+          view.item(@click="navigateTo('/pages/user/giftlist')")
             button.cu-btn
               img.icon(src="/static/icon/point2.svg")
             view.stat
               view.count 1608
               view.label 我的积分
             view.line
-          view.item
+          view.item(@click="navigateTo('/pages/user/costRecord')")
             button.cu-btn
               img.icon(src="/static/icon/cost.svg")
             view.stat

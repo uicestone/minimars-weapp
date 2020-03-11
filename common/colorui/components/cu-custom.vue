@@ -1,5 +1,5 @@
 <template>
-  <view class="cu-custom" :style="[{ height: CustomBar + 'px', background: 'transparent', position: "fixed" }]">
+  <view class="cu-custom" :style="[{ height: CustomBar + 'px', background: 'transparent', position: 'fixed', zIndex: 10 }]">
     <view class="cu-bar" :style="style">
       <view class="action" @tap="BackPage" v-if="isBack">
         <text class="cuIcon-back"></text>
@@ -47,9 +47,7 @@ export default {
   },
   methods: {
     BackPage() {
-      uni.navigateBack({
-        delta: 1
-      });
+      this.$emit("back");
     }
   }
 };
