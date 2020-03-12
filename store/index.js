@@ -38,6 +38,15 @@ const state = {
       },
       "/pages/event/index": {
         active: "/pages/event/index"
+      },
+      // "/pages/event/success": {
+      //   active: "/pages/event/index"
+      // },
+      "/pages/user/giftSuccess": {
+        active: "/pages/user/index"
+      },
+      "/pages/food/index": {
+        active: "/pages/food/index"
       }
     }
   }

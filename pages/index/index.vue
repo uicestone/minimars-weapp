@@ -5,6 +5,7 @@
     store-detail(v-if="currentTab=='/pages/store/detail'")
     create-booking(v-if="currentTab=='/pages/booking/create'")
     event(v-if="currentTab=='/pages/event/index'")
+    event-success(v-if="currentTab=='/pages/event/success'")
     user(v-if="currentTab=='/pages/user/index'")
     user-booking(v-if="currentTab=='/pages/user/booking'")
     user-gift-list(v-if="currentTab=='/pages/user/giftlist'")

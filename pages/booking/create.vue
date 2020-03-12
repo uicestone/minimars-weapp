@@ -24,20 +24,10 @@
               view.label 人数
               view.flex.justify-between
                 view
-                  view.box.flex.justify-between.align-center
-                    button(class="cu-btn icon ")
-                      text(class="cuIcon-move")
-                    text 2
-                    button(class="cu-btn icon bg-primary radius shadow shadow-lg")
-                      text(class="cuIcon-add text-white")
+                  mi-input-number(:value.sync="form.audit")
                   view.text-center(style="color: #c5c8c8;") 成人
                 view
-                  view.box.flex.justify-between.align-center
-                    button(class="cu-btn icon ")
-                      text(class="cuIcon-move")
-                    text 2
-                    button(class="cu-btn icon bg-primary radius shadow shadow-lg" disabled)
-                      text(class="cuIcon-add text-white")
+                  mi-input-number(:value.sync="form.child")
                   view.text-center(style="color: #c5c8c8;") 儿童
           view.submit(@click="handlePayment")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
@@ -67,7 +57,9 @@ export default {
     return {
       showModal: false,
       form: {
-        date: ""
+        date: "",
+        audit: 2,
+        child: 2
       }
     };
   },
@@ -132,14 +124,6 @@ export default {
           .label
             color #5b5b5b
             margin-bottom 20upx
-          .box
-            font-size 38upx
-            border 2px solid #ddd
-            width 260upx
-            border-radius 200upx
-            padding 10upx 20upx
-            .cu-btn[disabled]
-              background #c5c5c5
   .card-dialog
     .content
       text-align center

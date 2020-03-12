@@ -1,41 +1,40 @@
 <template lang="pug">
   scroll-view(scroll-y).event-detail
     cu-custom(isBack @back="uni.navigateBack()")
-      text(slot="backText") 活动详情
+      text(slot="backText") 商品详情
     mi-dialog.payment-dialog(:visible.sync="showPayment" withClose)
       view.cotent
         view.head
           img.img
           view.info
             view.text
-              view.name 甜甜圈大作战
-              view.prompt (*入场门票需另购)
+              view.name {{item.name}}
             view.price
               view.credit
                 img.icon(src="/static/icon/pointmain.svg")
                 text 1300
-              view ￥ 40
         view.form
-          view.label 报名人数
-          mi-input-number(:value.sync="form.people")
+          view.label 款式
+          view.slector
+            button.cu-btn.round.bg-primary(v-for="(i, index) in item.types" :key="index"  :class="[form.currentType == i.value ? 'active' : '']" @click="switchType(i)") {{i.label}}
+          view.label 尺寸
+          view.label 数量
+          mi-input-number(:value.sync="form.amount")
         view.action
-          button.cu-btn.bg-primary.round.action-button(@click="handlePayment") 积分兑换
-          button.cu-btn.bg-primary.round.action-button(@click="handlePayment") 微信支付
+          button.cu-btn.bg-primary.round.action-button(@click="handlePayment") 确认兑换
 
 
     view.cover(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
     card.card(withShape1)
       view.content
-        view.name {{item.name}} (剩余13)
+        view.name {{item.name}} (剩余 {{item.remaning}})
         view.price 
           img.icon(src="/static/icon/pointmain.svg")
-          text 1300 / ￥40
-        view.date 日期: 6月6日上午11点
-        view.address 门店： 天山长宁店
-        view.prompt （兑换后请凭兑换码至前台核销并领取入场券）
+          text 1600
+        view.prompt （请凭兑换码至门店前台核销并领取商品）
     view.cu-card.no-card
       view.cu-item.content
-        view.title 活动详情
+        view.title 商品详情
         view.event-detail
           view.name {{item.name}}
           view.feature(v-for="(item,index) in item.feature" :key="key")
@@ -57,17 +56,25 @@ export default {
     return {
       showPayment: false,
       form: {
-        people: 0
+        amount: 0,
+        currentType: "小蛙蛙"
       },
       item: {
-        name: "甜甜圈大作战",
+        name: "迷你毛毛小袜子",
+        remaning: 26,
+        types: [
+          { label: "小蛙蛙", value: "小蛙蛙" },
+          { label: "小狗子", value: "小狗子" },
+          { label: "小喵喵", value: "小喵喵" },
+          { label: "小猩猩", value: "小猩猩" }
+        ],
         feature: [
           {
-            key: "地点",
-            value: "小派厨房"
+            key: "材质",
+            value: "10cm*5cm"
           },
-          { key: "材料", value: "商家提供" },
-          { key: "特点", value: "锻炼宝贝的动手能力" }
+          { key: "尺寸", value: "100%纯棉" },
+          { key: "特点", value: "可爱可爱可爱" }
         ]
       }
     };
@@ -76,8 +83,11 @@ export default {
     handlePayment() {
       this.showPayment = false;
       uni.navigateTo({
-        url: "/pages/event/success"
+        url: "/pages/user/giftSuccess"
       });
+    },
+    switchType(item) {
+      this.form.currentType = item.value;
     }
   }
 };
@@ -132,11 +142,17 @@ export default {
         font-size 24upx
         line-height 34upx
         margin 30upx 0
+      .slector
+        .cu-btn
+          background var(--primary-light)
+          margin 0 12upx 30upx
+          &.active
+            background var(--primary)
     .action
       display flex
       justify-content space-between
       .action-button
-        width 220upx
+        width 100%
         height 80upx
         border-radius 50upx
         font-size 30upx

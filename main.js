@@ -10,6 +10,7 @@ import user from "./pages/user/index.vue";
 import userBooking from "./pages/user/booking.vue";
 import userGiftList from "./pages/user/giftlist.vue";
 import userCostRecord from "./pages/user/costRecord.vue";
+import eventSuccess from "./pages/event/success.vue";
 
 import cuCustom from "./common/colorui/components/cu-custom.vue";
 import TabBar from "./components/TabBar.vue";
@@ -25,6 +26,8 @@ import CardListItem from "./components/CardListItem.vue";
 import HeaderBar from "./components/HeaderBar.vue";
 import uniNoticeBar from "./components/uni-notice-bar/uni-notice-bar.vue";
 import GiftItem from "./components/GiftItem.vue";
+import MiDialog from "./components/MiDialog.vue";
+import MiInputNumber from "./components/MiInputNumber.vue";
 
 Vue.config.productionTip = false;
 
@@ -42,6 +45,8 @@ Vue.component("uni-notice-bar", uniNoticeBar);
 Vue.component("header-bar", HeaderBar);
 Vue.component("cu-custom", cuCustom);
 Vue.component("gift-item", GiftItem);
+Vue.component("mi-dialog", MiDialog);
+Vue.component("mi-input-number", MiInputNumber);
 
 Vue.component("home", home);
 Vue.component("store-detail", StoreDetail);
@@ -51,6 +56,7 @@ Vue.component("user", user);
 Vue.component("user-booking", userBooking);
 Vue.component("user-gift-list", userGiftList);
 Vue.component("user-cost-record", userCostRecord);
+Vue.component("event-success", eventSuccess);
 
 App.mpType = "app";
 global.store = store; // for debug
@@ -61,14 +67,18 @@ Vue.prototype.back = () => {
   });
 };
 
-Vue.prototype.navigateTo = url => {
+Vue.prototype.navigateTo = (url, opt = {}) => {
   const tab = store.state.configs.tabMap[url];
   if (tab) {
     store.state.currentTab = url;
+    if (opt.back) {
+      uni.navigateBack({ delta: opt.back });
+    }
   } else {
     uni.navigateTo({ url });
   }
 };
+Vue.prototype.uni = uni;
 
 const app = new Vue({
   store,

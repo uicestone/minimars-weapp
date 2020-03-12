@@ -42,8 +42,10 @@ export default {
 
 body
   --primary #57ff9a
+  --primary-light #d1fddf
   --text-primary #303133
 $color-primary = #57ff9a
+$color-primary-light = #d1fddf
 .page
   min-height 100vh
   min-width 100vw
