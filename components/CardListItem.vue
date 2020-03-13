@@ -1,5 +1,5 @@
 <template lang="pug">
-  view.shadow.bg-white.card-list-item
+  view.shadow.bg-white.card-list-item(@click="$emit('click')")
     img.img(:src="item.image")
     view.center
       view.title {{item.title}}

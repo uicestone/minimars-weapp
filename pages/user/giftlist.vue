@@ -1,6 +1,6 @@
 <template lang="pug">
   view.user-giftlist
-    cu-custom(isBack @back="navigateTo('/pages/user/index')")
+    cu-custom(isBack @back="uni.navigateBack")
     user-profile-head
     stripe.stripe(withTail)
       view.content
@@ -20,7 +20,7 @@
               gift-item.flex.justify-center(:item="item")
         view(v-else)
           view.cu-list.grid.col-2
-            view.cu-item(v-for="(item,index) in gifts" :key="index")
+            view.cu-item(v-for="(item,index) in gifts" :key="index" @click="goGiftDetail(item)")
               gift-item.flex.justify-center(:item="item")
 </template>
 
@@ -76,12 +76,21 @@ export default {
       return this.tabs[this.currentTabKey];
     }
   },
+  onLoad(data) {
+    console.log(data);
+    if (data.tab) {
+      this.currentTabKey = data.tab;
+    }
+  },
   methods: {
     switchTab(item) {
       this.currentTabKey = item.key;
     },
     goEventDetail(item) {
       this.navigateTo("/pages/event/detail");
+    },
+    goGiftDetail(item) {
+      this.navigateTo("/pages/user/giftDetail");
     }
   }
 };

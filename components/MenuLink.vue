@@ -14,7 +14,7 @@ export default {
 .action-button
   flex-direction column
   height 110upx
-  width 280upx
+  width 100%
   .title
     font-size 36upx
     margin-top 10upx

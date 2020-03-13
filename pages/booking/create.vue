@@ -4,7 +4,7 @@
       store-switcher
       view.vip-card
         view.title 选择VIP权益卡
-        img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg")
+        gift-card
     view.content
       //- view.header
       //-   view 2020年 6月10号 
@@ -23,12 +23,8 @@
             view.margin-top
               view.label 人数
               view.flex.justify-between
-                view
-                  mi-input-number(:value.sync="form.audit")
-                  view.text-center(style="color: #c5c8c8;") 成人
-                view
-                  mi-input-number(:value.sync="form.child")
-                  view.text-center(style="color: #c5c8c8;") 儿童
+                mi-input-number(:value.sync="form.audit" suffix="成人")
+                mi-input-number(:value.sync="form.child" suffix="儿童")
           view.submit(@click="handlePayment")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
               view.title 确认支付/预约
@@ -85,10 +81,6 @@ export default {
         margin-left 10upx
         color #535353
         font-size 32upx
-      .cover
-        margin 20upx 0 30upx
-        border-radius 80upx
-        height 400upx
   .content
     flex 1
     // .header

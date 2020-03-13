@@ -46,6 +46,18 @@
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "商品详情"
       }
+    },
+    {
+      "path": "pages/user/giftlist",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/user/cardSelling",
+      "style": {
+        "navigationBarTitleText": ""
+      }
     }
   ],
   "globalStyle": {
@@ -112,6 +124,11 @@
       {
         "name": "商品详情", //模式名称
         "path": "pages/user/giftDetail", //启动页面，必选
+        "query": "" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
+        "name": "购卡", //模式名称
+        "path": "pages/user/cardSelling", //启动页面，必选
         "query": "" //启动参数，在页面的onLoad函数里面得到
       }
     ]

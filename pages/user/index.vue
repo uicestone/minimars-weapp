@@ -4,7 +4,7 @@
     stripe.stripe(withTail)
       view.content
         view.cu-list.grid.col-3
-          view.item(@click="navigateTo('/pages/user/giftlist')")
+          view.item(@click="go('/pages/user/giftlist?tab=0')")
             button.cu-btn
               img.icon(src="/static/icon/point2.svg")
             view.stat
@@ -29,11 +29,11 @@
           swiper-item(v-for='(item,index) in swiperList' :key='index' @click="navigateTo('/pages/user/booking')")
             view.swiper-item
               img(:src='item.url' mode='aspectFill' )
-        view.with-padding
+        view.with-padding(@click="go('/pages/user/cardSelling')")
           card-title(title="我的卡券包" action="购买更多")
         view.card-list.with-padding
-          view.card-list-item(v-for="(item,index) in cards" :key="index")
-            card-list-item(:item="item" withAction)
+          view.card-list-item(v-for="(item,index) in cards" :key="index" )
+            card-list-item(:item="item" withAction @click="goCardSelling(item)")
         
 </template>
 
@@ -67,6 +67,18 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    go(url) {
+      uni.navigateTo({
+        url
+      });
+    },
+    goCardSelling(item) {
+      uni.navigateTo({
+        url: `/pages/user/cardSelling`
+      });
+    }
   }
 };
 </script>

@@ -15,9 +15,9 @@
         view.action
           text.arrow(class='cuIcon-right')
       view.menus
-        view.text-center
+        view.button
           menu-link(title="线下活动" subTitle="Events" @click="navigateTo('/pages/event/index')")
-        view.text-center
+        view.button
           menu-link(title="预约/购票" subTitle="Book" @click="navigateTo('/pages/booking/create')")
       view.store
         view.h3 门店介绍
@@ -111,6 +111,8 @@ export default {
   .menus
     display flex
     justify-content space-between
+    .button
+      width 280upx
   .action
     padding 0 20upx
     .arrow

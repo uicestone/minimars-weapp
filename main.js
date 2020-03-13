@@ -28,6 +28,7 @@ import uniNoticeBar from "./components/uni-notice-bar/uni-notice-bar.vue";
 import GiftItem from "./components/GiftItem.vue";
 import MiDialog from "./components/MiDialog.vue";
 import MiInputNumber from "./components/MiInputNumber.vue";
+import giftCard from "./components/giftCard.vue";
 
 Vue.config.productionTip = false;
 
@@ -47,6 +48,7 @@ Vue.component("cu-custom", cuCustom);
 Vue.component("gift-item", GiftItem);
 Vue.component("mi-dialog", MiDialog);
 Vue.component("mi-input-number", MiInputNumber);
+Vue.component("gift-card", giftCard);
 
 Vue.component("home", home);
 Vue.component("store-detail", StoreDetail);
