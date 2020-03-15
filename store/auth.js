@@ -1,5 +1,4 @@
 import { make } from "vuex-pathify";
-import config from "../config";
 
 const state = {
   showLogin: false,
@@ -15,9 +14,7 @@ const state = {
 
 const mutations = make.mutations(state);
 
-const getters = {
-  avatar: state => config.parseFile(state.user.avatarUrl)
-};
+const getters = {};
 
 export default {
   namespaced: true,

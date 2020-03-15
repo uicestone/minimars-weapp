@@ -41,7 +41,7 @@ export const wechatGetUserInfo = () =>
             encryptedData: userData.encryptedData,
             iv: userData.iv
           });
-          storeUser(res.data);
+          storeUser(res.data || {});
           resolve(res);
         } catch (err) {
           uni.showToast({
@@ -60,7 +60,7 @@ export const wechatGetUserInfo = () =>
     });
   });
 
-export const storeUser = ({ user, token, session_key } = {}) => {
+export const storeUser = ({ user, token, session_key }: { user: any; token: string; session_key: string }) => {
   try {
     store.state.auth.user = user;
     store.state.auth.token = token;
