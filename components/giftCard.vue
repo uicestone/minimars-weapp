@@ -10,7 +10,6 @@ export default {};
 
 <style lang="stylus" scoped>
 .gift-card
-  margin 20upx 0 30upx
   border-radius 80upx
   height 400upx
 </style>

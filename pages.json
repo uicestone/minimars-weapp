@@ -58,6 +58,18 @@
       "style": {
         "navigationBarTitleText": ""
       }
+    },
+    {
+      "path": "pages/user/cardSuccess",
+      "style": {
+        "navigationBarTitleText": "会员购卡"
+      }
+    },
+    {
+      "path": "pages/user/cardRule",
+      "style": {
+        "navigationBarTitleText": "规则权益"
+      }
     }
   ],
   "globalStyle": {
@@ -129,6 +141,16 @@
       {
         "name": "购卡", //模式名称
         "path": "pages/user/cardSelling", //启动页面，必选
+        "query": "" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
+        "name": "购卡成功", //模式名称
+        "path": "pages/user/cardSuccess", //启动页面，必选
+        "query": "" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
+        "name": "规则权益", //模式名称
+        "path": "pages/user/cardRule", //启动页面，必选
         "query": "" //启动参数，在页面的onLoad函数里面得到
       }
     ]
