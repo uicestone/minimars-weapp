@@ -19,21 +19,27 @@
               view.label 我的消费
             view.line
           view.item
-            button.cu-btn
+            button.cu-btn(@click="status='userQR'")
               img.icon(src="/static/icon/code.svg")
-    card.card(withShape)
+    card.card(withShape :withClose="status=='userQR'" @close="status='normal'")
       view.content
-        view.with-padding(@click="navigateTo('/pages/user/booking')")
-          card-title(title="我的预约" action="所有预约")
-        swiper.card-swiper(:circular='true' :autoplay='true' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
-          swiper-item(v-for='(item,index) in swiperList' :key='index' @click="navigateTo('/pages/user/booking')")
-            view.swiper-item
-              img(:src='item.url' mode='aspectFill' )
-        view.with-padding(@click="go('/pages/user/cardSelling')")
-          card-title(title="我的卡券包" action="购买更多")
-        view.card-list.with-padding
-          view.card-list-item(v-for="(item,index) in cards" :key="index" )
-            card-list-item(:item="item" withAction @click="goCardSelling(item)")
+        view.normal(v-if="status=='normal'")
+          view.with-padding(@click="navigateTo('/pages/user/booking')")
+            card-title(title="我的预约" action="所有预约")
+          swiper.card-swiper(:circular='true' :autoplay='true' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
+            swiper-item(v-for='(item,index) in swiperList' :key='index' @click="navigateTo('/pages/user/booking')")
+              view.swiper-item
+                img(:src='item.url' mode='aspectFill' )
+          view.with-padding(@click="go('/pages/user/cardSelling')")
+            card-title(title="我的卡券包" action="购买更多")
+          view.card-list.with-padding
+            view.card-list-item(v-for="(item,index) in cards" :key="index" )
+              card-list-item(:item="item" withAction @click="goCardSelling(item)")
+        view.user-qr(v-if="status == 'userQR'")
+          view.title 毛毛回家吧 ！
+          img.img 
+          view.text 会员二维码
+        
         
 </template>
 
@@ -41,6 +47,7 @@
 export default {
   data() {
     return {
+      status: "normal",
       cards: [
         { img: "", title: "BOBO", subTitle: "剩余3次" },
         { img: "", title: "BOBO", subTitle: "有效期至2022.12.31" },
@@ -126,14 +133,38 @@ export default {
           background white
   .card
     .content
-      padding 24upx 0 100upx 0
-      .with-padding
-        padding 0 60upx
-      .card-swiper
-        height 200upx !important
-        padding 10upx 0 30upx
-      .card-list
-        margin-top 20upx
-        .card-list-item
-          margin-bottom 30upx
+      min-height 1000upx
+      .normal
+        padding 24upx 0 100upx 0
+        .with-padding
+          padding 0 60upx
+        .card-swiper
+          height 200upx !important
+          padding 10upx 0 30upx
+        .card-list
+          margin-top 20upx
+          .card-list-item
+            margin-bottom 30upx
+      .user-qr
+        text-align center
+        padding 100upx 0
+        .title
+          margin 0 0 30upx
+          font-size 62upx
+          font-family PingFangSC-Semibold, PingFang SC
+          font-weight 600
+          color #080040
+          line-height 80upx
+        .img
+          width 300upx
+          height 300upx
+          background #D8D8D8
+          border-radius 20upx
+        .text
+          margin-top 20upx
+          font-size 26upx
+          font-family PingFangSC-Medium, PingFang SC
+          font-weight 500
+          color #909399
+          line-height 36upx
 </style>
