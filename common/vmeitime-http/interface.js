@@ -60,6 +60,7 @@ export default {
     options.url = options.baseUrl + options.url;
     options.data = options.data || {};
     options.method = options.method || this.config.method;
+
     //TODO 加密数据
 
     //TODO 数据签名
@@ -109,7 +110,7 @@ export default {
       }
 
       // 统一的请求日志记录
-      // _reqlog(_config);
+      _reqlog(_config);
 
       // if (process.env.NODE_ENV === "development") {
       //   console.log("【" + _config.requestId + "】 地址：" + _config.url);
@@ -171,9 +172,7 @@ function _reqlog(req) {
   if (process.env.NODE_ENV === "development") {
     console.log("【" + req.requestId + "】 地址：" + req.url);
     if (req.data) {
-      console.log(
-        "【" + req.requestId + "】 请求参数：" + JSON.stringify(req.data)
-      );
+      console.log("【" + req.requestId + "】 请求参数：" + JSON.stringify(req.data));
     }
   }
   //TODO 调接口异步写入日志数据库
@@ -187,16 +186,9 @@ function _reslog(res) {
   if (process.env.NODE_ENV === "development") {
     console.log("【" + res.config.requestId + "】 地址：" + res.config.url);
     if (res.config.data) {
-      console.log(
-        "【" +
-          res.config.requestId +
-          "】 请求参数：" +
-          JSON.stringify(res.config.data)
-      );
+      console.log("【" + res.config.requestId + "】 请求参数：" + JSON.stringify(res.config.data));
     }
-    console.log(
-      "【" + res.config.requestId + "】 响应结果：" + JSON.stringify(res)
-    );
+    console.log("【" + res.config.requestId + "】 响应结果：" + JSON.stringify(res));
   }
   //TODO 除了接口服务错误外，其他日志调接口异步写入日志数据库
   switch (_statusCode) {

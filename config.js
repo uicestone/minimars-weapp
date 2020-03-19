@@ -1,5 +1,5 @@
 export const config = {
-  API_ENDPOINT: "https://api.kangazone.com",
+  API_ENDPOINT: "https://api.mini-mars.com",
   avaliableHours: [
     "10:00",
     "10:30",

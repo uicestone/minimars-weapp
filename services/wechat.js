@@ -60,7 +60,7 @@ export const wechatGetUserInfo = () =>
     });
   });
 
-export const storeUser = ({ user, token, session_key }: { user: any; token: string; session_key: string }) => {
+export const storeUser = ({ user, token, session_key }) => {
   try {
     store.state.auth.user = user;
     store.state.auth.token = token;

@@ -28,7 +28,8 @@ export default {
   },
   computed: {
     currentTab: sync("currentTab"),
-    tabs: sync("configs@tabs")
+    tabs: sync("configs@tabs"),
+    configs: sync("configs")
   },
   async onLoad({ tab }) {
     if (tab) {
@@ -36,11 +37,13 @@ export default {
         this.currentTab = tab;
       }, 1000);
     }
+    this.loadInitData();
+    await this.checkLogin();
   },
   methods: {
     async loadInitData() {
       const res = await getConfigs();
-      this.configs = res.data;
+      this.configs = { ...this.configs, ...res.data };
     },
     async checkLogin() {
       try {

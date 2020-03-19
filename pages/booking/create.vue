@@ -4,22 +4,15 @@
       store-switcher
       view.vip-card
         view.title 选择VIP权益卡
-        gift-card
+        gift-card.gift-card
     view.content
-      //- view.header
-      //-   view 2020年 6月10号 
-      //-   view.date-picker
-      //-     picker(mode='date' :value='date' @change='DateChange')
-      //-       text.text （展开选择到店日期）
-      //-     text.down(class='cuIcon-triangledownfill')
-      //-   text.add(class='cuIcon-add color-primary')
       card.card(withShape)
         view.form
           view.form-input
             view
               view.label 日期
               picker(mode='date' :value='date' @change='DateChange')
-                view.box.flex.justify-center 6月10日
+                view.date.flex.justify-center 6月10日
             view.margin-top
               view.label 人数
               view.flex.justify-between
@@ -81,29 +74,10 @@ export default {
         margin-left 10upx
         color #535353
         font-size 32upx
+    .gift-card
+      margin 0 20upx
   .content
     flex 1
-    // .header
-    // display flex
-    // border 1px solid #e5dfd4
-    // padding 26upx 50upx
-    // align-items center
-    // border-top-left-radius 50px
-    // border-top-right-radius 50px
-    // .date-picker
-    // display flex
-    // align-items flex-end
-    // flex 1
-    // .text
-    // font-size 20upx
-    // margin-left 10upx
-    // line-height 35upx
-    // padding-right 20upx
-    // .down
-    // font-size 40upx
-    // line-height 35upx
-    // .add
-    // font-size 40upx
     .card
       height 100%
       .form
@@ -116,6 +90,12 @@ export default {
           .label
             color #5b5b5b
             margin-bottom 20upx
+        .date
+          font-size 46upx
+          width 260upx
+          border-radius 200upx
+          padding 10upx 20upx
+          border 2px solid #ddd
   .card-dialog
     .content
       text-align center

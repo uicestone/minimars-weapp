@@ -1,6 +1,7 @@
 import http from "./interface";
 import _ from "lodash";
 import store from "../../store";
+import { config } from "../../config";
 
 /**
  * 将业务所有接口统一起来便于维护
@@ -48,16 +49,6 @@ http.interceptor.response = response => {
     });
   }
   return response;
-};
-
-// 轮播图
-export const banner = data => {
-  return http.request({
-    url: "/banner/36kr",
-    method: "GET",
-    data
-    // handle:true
-  });
 };
 
 export const wechatLogin = ({ code }) => {
