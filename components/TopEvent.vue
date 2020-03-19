@@ -1,6 +1,6 @@
 <template lang="pug">
   view.top-event
-    view.bg(:style="[{ background: bg ? 'url(' + bg + ')': '#666' }]")
+    img.bg.w-full.absolute(src="/static/img/event-head-bg.png" mode='widthFix')
     view.content
       button.action.cu-btn.round 
         view.icon(class="cuIcon-likefill")
@@ -10,13 +10,7 @@
 </template>
 
 <script>
-export default {
-  props: {
-    bg: {
-      type: String
-    }
-  }
-};
+export default {};
 </script>
 
 <style lang="stylus" scoped>
@@ -32,7 +26,7 @@ export default {
     padding 200upx 40upx 20upx
     .action
       position relative
-      background rgba(87,255,154,0.3)
+      background rgba(87, 255, 154, 0.3)
       height 48upx
       width 150upx
       color white
@@ -43,7 +37,6 @@ export default {
         left 15upx
         font-size 20upx
         color white
-
     .text
       color #000
       font-size 76upx

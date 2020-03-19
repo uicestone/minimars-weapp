@@ -25,6 +25,7 @@
       view.cu-dialog.no-bg(@tap.stop="")
         card.card-dialog(withClose @close="showModal = false")
           view.content
+            img.img1(src="/static/img/create-success.png" mode='aspectFill')
             view.title 您已成功预约
             view.code 预约码
             img.img
@@ -104,7 +105,7 @@ export default {
       flex-direction column
       align-items center
       font-family PingFangSC-Semibold, PingFang SC
-      padding 40upx 0 90upx
+      padding 0upx 0 90upx
       .img
         width 240upx
         height 240upx
@@ -129,4 +130,7 @@ export default {
         font-weight 500
         color #78757a
         line-height 40upx
+      .img1
+        width 300upx
+        height 200upx
 </style>

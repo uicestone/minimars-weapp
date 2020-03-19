@@ -2,7 +2,6 @@
   view
     cu-custom(isBack @back="navigateTo('/pages/user/index')")
     scroll-view(scroll-y).user-booking.page
-      img.img
       card.card
         view.content
           view.tabs
@@ -50,6 +49,7 @@ export default {
   flex-direction column
   .img
     height 110upx
+    width 100%
   .card
     .content
       min-height calc(100vh - 230upx)

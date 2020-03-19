@@ -1,5 +1,6 @@
 <template lang="pug">
   view.event-success
+    img.bg.w-full.absolute(src="/static/img/success-bg.PNG" mode='widthFix')
     view.content
       view.title 您已成功报名活动！
       view.code 兑换码
@@ -20,7 +21,7 @@ export default {};
 <style lang="stylus" scoped>
 .event-success
   .content
-    margin-top 400upx
+    margin-top 350upx
     text-align center
     display flex
     width 100vw

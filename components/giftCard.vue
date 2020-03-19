@@ -1,6 +1,6 @@
 <template lang="pug">
   view
-    img.gift-card(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg")
+    img.gift-card(src="/static/img/gifcard1.png")
 </template>
 
 <script>

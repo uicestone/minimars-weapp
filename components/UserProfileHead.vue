@@ -1,6 +1,7 @@
 <template lang="pug">
   view.user-profile-head
     view
+      img.bg.w-full.absolute(src="/static/img/profile-bg.PNG" mode='widthFix')
       view.cu-avatar.round.lg(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
       view.name-bar
         view.name HELLO MMZ
@@ -34,7 +35,7 @@ export default {
     position relative
     margin-top 8upx
     .name
-      font-family:Avenir-Heavy,Avenir;
+      font-family Avenir-Heavy, Avenir
       font-size 32upx
       color #242833
       font-weight bold
