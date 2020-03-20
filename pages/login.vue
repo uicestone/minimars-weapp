@@ -20,7 +20,6 @@ export default {
     async wechatGetUserInfo() {
       try {
         const res = await wechatGetUserInfo();
-        console.log(res);
         this.auth.showLogin = false;
         this.$emit("success");
       } catch (err) {

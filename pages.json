@@ -14,6 +14,12 @@
       }
     },
     {
+      "path": "pages/store/detail",
+      "style": {
+        "navigationBarTitleText": "门店详情"
+      }
+    },
+    {
       "path": "pages/about",
       "style": {
         "navigationBarTitleText": "品牌介绍"
@@ -40,6 +46,12 @@
       }
     },
     {
+      "path": "pages/user/costRecord",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/user/giftDetail",
       "style": {
         "navigationStyle": "custom",
@@ -56,7 +68,7 @@
     {
       "path": "pages/user/cardSelling",
       "style": {
-        "navigationBarTitleText": ""
+        "navigationStyle": "custom"
       }
     },
     {
@@ -85,8 +97,8 @@
     "list": [
       {
         "name": "创建预约", //模式名称
-        "path": "pages/index/index", //启动页面，必选
-        "query": "tab=/pages/booking/create" //启动参数，在页面的onLoad函数里面得到
+        "path": "pages/booking/create", //启动页面，必选
+        "query": "" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "活动", //模式名称
@@ -105,8 +117,8 @@
       },
       {
         "name": "门店详情", //模式名称
-        "path": "pages/index/index", //启动页面，必选
-        "query": "tab=/pages/store/detail" //启动参数，在页面的onLoad函数里面得到
+        "path": "pages/store/detail", //启动页面，必选
+        "query": "" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "品牌介绍", //模式名称
@@ -125,8 +137,8 @@
       },
       {
         "name": "消费列表", //模式名称
-        "path": "pages/index/index", //启动页面，必选
-        "query": "tab=/pages/user/costRecord" //启动参数，在页面的onLoad函数里面得到
+        "path": "pages/user/costRecord", //启动页面，必选
+        "query": "" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "活动支付成功", //模式名称

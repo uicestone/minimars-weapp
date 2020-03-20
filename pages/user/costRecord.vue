@@ -1,7 +1,9 @@
 <template lang="pug">
   view
-    cu-custom(isBack @back="navigateTo('/pages/user/index')")
+    cu-custom(isBack @back="uni.navigateBack")
     scroll-view(scroll-y).user-booking.page
+      view.flex.justify-center
+        img.img1(src="/static/img/cost-record.png" mode='aspectFit')
       card.card
         view.content
           view.tabs
@@ -47,9 +49,10 @@ export default {
   padding 120upx 0 0
   display flex
   flex-direction column
-  .img
-    height 110upx
-    width 100%
+  .img1
+    height 150upx
+    width 350upx
+    text-align center
   .card
     .content
       min-height calc(100vh - 230upx)

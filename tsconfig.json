@@ -12,7 +12,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": ["webpack-env", "@dcloudio/types/uni-app"],
+    "types": ["webpack-env", "@dcloudio/types/uni-app", "typings/*.ts"],
     "paths": {
       "@/*": ["./src/*"]
     },

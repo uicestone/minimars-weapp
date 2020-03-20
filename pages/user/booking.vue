@@ -2,7 +2,8 @@
   view
     cu-custom(isBack @back="navigateTo('/pages/user/index')")
     scroll-view(scroll-y).user-booking.page
-      img.img
+      view.flex.justify-center
+        img.img1(src="/static/img/booking-record.png" mode='aspectFit')
       card.card
         view.content
           view.tabs
@@ -47,8 +48,10 @@ export default {
   padding 120upx 0 0
   display flex
   flex-direction column
-  .img
-    height 110upx
+  .img1
+    height 150upx
+    width 350upx
+    text-align center
   .card
     .content
       min-height calc(100vh - 230upx)

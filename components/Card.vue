@@ -3,12 +3,15 @@
     slot
     view.shape-bar(v-if="withShape")
       view.shape
+    view.green-shape-bar(v-if="withGreenShape")
+      img.green-shape(src="/static/img/green-shape.png")
     view.close(v-if="withClose" class="cuIcon-roundclose" @click="$emit('close')")
+
 </template>
 
 <script>
 export default {
-  props: ["withShape", "withClose"]
+  props: ["withShape", "withClose", "withGreenShape"]
 };
 </script>
 
@@ -41,6 +44,19 @@ export default {
         content ''
         border-radius 50%
         border 20upx solid white
+  .green-shape-bar
+    position absolute
+    background transparent
+    width 100%
+    display flex
+    justify-content center
+    top 0
+    left 0
+    height 30upx
+    z-index 1
+    .green-shape
+      width 56upx
+      height 24upx
   .close
     position absolute
     right 40upx

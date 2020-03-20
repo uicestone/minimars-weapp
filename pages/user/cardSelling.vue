@@ -1,20 +1,23 @@
 <template lang="pug">
-  view.card-selling
-    view.text
-      view.title Hello,
-      view.title 毛毛饿了!
-      view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
-      view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
-    view.card-selector
-      view(v-for="(item,index) in cards" :key="index" @click="selectCard(item)" :class="[curCard == item.value ? 'active': '', 'card']")
-        img.img
-        view.label {{item.label}}
-    view.prompt(@click="goCardRule") (点击查看会员权益及使用规则)
-    gift-card.gift-card
-    view
-      mi-input-number(:value.sync="form.amount" suffix="数量")
-    view.confirm
-      menu-link(title="确认购买" subTitle="Confirm" @click="handlePayment")
+  view
+    cu-custom(isBack @back="uni.navigateBack()")
+    view.card-selling
+      img.img1(src="/static/img/buy-card.png" mode='aspectFill')
+      view.text
+        view.title Hello,
+        view.title 毛毛饿了!
+        view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
+        view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
+      view.card-selector
+        view(v-for="(item,index) in cards" :key="index" @click="selectCard(item)" :class="[curCard == item.value ? 'active': '', 'card']")
+          img.img(:src="item.img")
+          view.label {{item.label}}
+      view.prompt(@click="goCardRule") (点击查看会员权益及使用规则)
+      gift-card.gift-card
+      view
+        mi-input-number(:value.sync="form.amount" suffix="数量")
+      view.confirm
+        menu-link(title="确认购买" subTitle="Confirm" @click="handlePayment")
 </template>
 
 <script>
@@ -26,9 +29,9 @@ export default {
       },
       curCard: "次卡",
       cards: [
-        { label: "次卡", value: "次卡" },
-        { label: "时效卡", value: "时效卡" },
-        { label: "礼品卡", value: "礼品卡" }
+        { label: "次卡", value: "次卡", img: "/static/img/card-times-round.PNG" },
+        { label: "时效卡", value: "时效卡", img: "/static/img/card-period.round.PNG" },
+        { label: "礼品卡", value: "礼品卡", img: "/static/img/card-credit-round.PNG" }
       ]
     };
   },
@@ -54,10 +57,18 @@ export default {
 
 <style lang="stylus" scoped>
 .card-selling
-  padding 120upx 36upx 0
+  padding 200upx 36upx 0
   display flex
   flex-direction column
   text-align center
+  background white
+  min-height 100vh
+  .img1
+    position absolute
+    top 160upx
+    right 0upx
+    width 350upx
+    height 200upx
   .title
     font-size 54upx
     font-family Futura-Medium, Futura
@@ -107,8 +118,6 @@ export default {
       .img
         width 120upx
         height 120upx
-        background #666
-        border-radius 28upx
   .gift-card
     margin-top 50upx
   .confirm

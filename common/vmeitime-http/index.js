@@ -1,7 +1,7 @@
 import http from "./interface";
-import _ from "lodash";
 import store from "../../store";
 import { config } from "../../config";
+import { _ } from "../../utils/lodash";
 
 /**
  * 将业务所有接口统一起来便于维护
@@ -110,22 +110,27 @@ export const updateUser = ({ userId, data }) => {
 export const getStores = () => {
   return http.request({
     url: `/store`,
-    method: "GET"
+    method: "GET",
+    data: {
+      limit: 10,
+      skip: 0,
+      order: "name"
+    }
   });
 };
 
-export const createBooking = ({ store, type, date, hours, checkInAt, membersCount, socksCount, code, useCredit }) => {
-  const data = _.omitBy({ store, type, date, hours, checkInAt, membersCount, socksCount, code }, _.isNil);
+export const createBooking = ({ store, date, adultsCount, kidsCount }) => {
+  const data = _.omitBy({ store, date, adultsCount, kidsCount }, _.isNil);
   return http.request({
-    url: `/booking?useCredit=${useCredit}`,
+    url: `/booking`,
     method: "POST",
     dataType: "json",
     data
   });
 };
 
-export const getBookingPrice = ({ store, type, date, hours, checkInAt, membersCount, socksCount, code, useCredit }) => {
-  const data = _.omitBy({ store, type, date, hours, checkInAt, membersCount, socksCount, code }, _.isNil);
+export const getBookingPrice = ({ store, type, date, code, useCredit }) => {
+  const data = _.omitBy({ store, type, date, code }, _.isNil);
   return http.request({
     url: `/booking-price`,
     method: "POST",
@@ -201,6 +206,14 @@ export const postUserMembership = ({ cardType }) => {
 export const getBookings = () => {
   return http.request({
     url: `/booking`,
+    method: "GET",
+    dataType: "json"
+  });
+};
+
+export const getCardType = () => {
+  return http.request({
+    url: `/card-type`,
     method: "GET",
     dataType: "json"
   });

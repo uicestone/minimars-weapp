@@ -11,6 +11,7 @@ import userBooking from "./pages/user/booking.vue";
 import userGiftList from "./pages/user/giftlist.vue";
 import userCostRecord from "./pages/user/costRecord.vue";
 import eventSuccess from "./pages/event/success.vue";
+import login from "./pages/login.vue";
 
 import cuCustom from "./common/colorui/components/cu-custom.vue";
 import TabBar from "./components/TabBar.vue";
@@ -29,6 +30,8 @@ import GiftItem from "./components/GiftItem.vue";
 import MiDialog from "./components/MiDialog.vue";
 import MiInputNumber from "./components/MiInputNumber.vue";
 import giftCard from "./components/giftCard.vue";
+import { moment } from "./utils/moment";
+// import moment from "moment"
 
 Vue.config.productionTip = false;
 
@@ -51,6 +54,7 @@ Vue.component("mi-input-number", MiInputNumber);
 Vue.component("gift-card", giftCard);
 
 Vue.component("home", home);
+Vue.component("login", login);
 Vue.component("store-detail", StoreDetail);
 Vue.component("event", eventPage);
 Vue.component("create-booking", createBooking);
@@ -71,6 +75,11 @@ Vue.prototype.back = () => {
 
 Vue.prototype.navigateTo = (url, opt = {}) => {
   const tab = store.state.configs.tabMap[url];
+  if (opt.checkAuth) {
+    if (!store.state.auth.user.name) {
+      return (store.state.auth.showLogin = true);
+    }
+  }
   if (tab) {
     store.state.currentTab = url;
     if (opt.back) {
@@ -80,6 +89,7 @@ Vue.prototype.navigateTo = (url, opt = {}) => {
     uni.navigateTo({ url });
   }
 };
+Vue.prototype.moment = moment;
 Vue.prototype.uni = uni;
 
 const app = new Vue({

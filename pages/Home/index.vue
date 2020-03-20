@@ -18,7 +18,7 @@
         view.button
           menu-link(title="线下活动" subTitle="Events" @click="navigateTo('/pages/event/index')")
         view.button
-          menu-link(title="预约/购票" subTitle="Book" @click="navigateTo('/pages/booking/create')")
+          menu-link(title="预约/购票" subTitle="Book" @click="goBooking")
       view.store
         view.h3 门店介绍
         img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
@@ -77,7 +77,11 @@ export default {
   computed: {
     currentTab: sync("currentTab")
   },
-  methods: {}
+  methods: {
+    async goBooking() {
+      this.navigateTo("/pages/booking/create", { checkAuth: true });
+    }
+  }
 };
 </script>
 

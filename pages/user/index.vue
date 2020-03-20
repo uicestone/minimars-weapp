@@ -26,10 +26,14 @@
         view.normal(v-if="status=='normal'")
           view.with-padding(@click="navigateTo('/pages/user/booking')")
             card-title(title="我的预约" action="所有预约")
-          swiper.card-swiper(:circular='true' :autoplay='true' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
-            swiper-item(v-for='(item,index) in swiperList' :key='index' @click="navigateTo('/pages/user/booking')")
+          swiper.card-swiper(:circular='true' @change="cardSwiper" :autoplay='true' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
+            swiper-item(v-for='(item,index) in swiperList'  :class="cardCur==index?'cur':''" :key='index' @click="navigateTo('/pages/user/booking')")
               view.swiper-item
-                img(:src='item.url' mode='aspectFill' )
+                img.img1(src="/static/img/booking.png" mode='aspectFit' )
+                view.info
+                  view.title {{item.title}}
+                  view.date {{item.date}}
+
           view.with-padding(@click="go('/pages/user/cardSelling')")
             card-title(title="我的卡券包" action="购买更多")
           view.card-list.with-padding
@@ -44,9 +48,11 @@
 </template>
 
 <script>
+import { loadCard } from "../../services";
 export default {
   data() {
     return {
+      cardCur: 0,
       status: "normal",
       cards: [
         { img: "", title: "BOBO", subTitle: "剩余3次" },
@@ -59,23 +65,29 @@ export default {
       swiperList: [
         {
           id: 0,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg"
+          title: "辛迪瑞拉的下午茶约会",
+          date: "2020/03/01"
         },
         {
           id: 1,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big37006.jpg"
+          title: "辛迪瑞拉的下午茶约会",
+          date: "2020/03/01"
         },
         {
           id: 2,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg"
+          title: "辛迪瑞拉的下午茶约会",
+          date: "2020/03/01"
         }
       ]
     };
   },
+  async created() {
+    await Promise.all([loadCard()]);
+  },
   methods: {
+    cardSwiper(e) {
+      this.cardCur = e.detail.current;
+    },
     go(url) {
       uni.navigateTo({
         url
@@ -140,7 +152,28 @@ export default {
           padding 0 60upx
         .card-swiper
           height 200upx !important
-          padding 10upx 0 30upx
+          margin 16upx 0 30upx
+          .swiper-item
+            display flex
+            align-items center
+            border-radius 30upx
+            border 3px solid #121212
+            .img1
+              width 180upx
+              height 140upx
+            .info
+              margin-left 20upx
+              .title
+                font-size 30upx
+                font-family PingFangSC-Semibold, PingFang SC
+                font-weight 600
+                color #1E2635
+                line-height 40upx
+              .date
+                font-size 26upx
+                font-family Helvetica
+                color #969698
+                line-height 32upx
         .card-list
           margin-top 20upx
           .card-list-item

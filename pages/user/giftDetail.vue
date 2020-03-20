@@ -25,7 +25,7 @@
 
 
     view.cover(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
-    card.card(withShape1)
+    card.card(withGreenShape)
       view.content
         view.name {{item.name}} (剩余 {{item.remaning}})
         view.price 

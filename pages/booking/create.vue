@@ -1,3 +1,4 @@
+
 <template lang="pug">
   view.booking-create
     view.vip
@@ -12,12 +13,12 @@
             view
               view.label 日期
               picker(mode='date' :value='date' @change='DateChange')
-                view.date.flex.justify-center 6月10日
+                view.date.flex.justify-center {{moment(form.date).format("MMM Do")}}
             view.margin-top
               view.label 人数
               view.flex.justify-between
-                mi-input-number(:value.sync="form.audit" suffix="成人")
-                mi-input-number(:value.sync="form.child" suffix="儿童")
+                mi-input-number(:value.sync="form.adultsCount" suffix="成人")
+                mi-input-number(:value.sync="form.kidsCount" suffix="儿童")
           view.submit(@click="handlePayment")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
               view.title 确认支付/预约
@@ -42,20 +43,34 @@
 </template>
 
 <script>
+import { moment } from "../../utils/moment";
+import { createBooking } from "../../common/vmeitime-http";
+import { sync } from "vuex-pathify";
+
 export default {
   data() {
     return {
       showModal: false,
       form: {
-        date: "",
-        audit: 2,
-        child: 2
+        date: moment().format("YYYY-MM-DD"),
+        adultsCount: 2,
+        kidsCount: 2
       }
     };
   },
+  computed: {
+    currentStore: sync("store/currentStore")
+  },
   methods: {
-    handlePayment() {
+    async handlePayment() {
+      const { id: store } = this.currentStore;
+      const { date, adultsCount, kidsCount } = this.form;
+      const res = createBooking({ store, date, adultsCount, kidsCount });
       this.showModal = true;
+    },
+    DateChange(data) {
+      this.form.date = data.detail.value;
+      console.log(data);
     }
   }
 };
@@ -63,7 +78,7 @@ export default {
 
 <style lang="stylus">
 .booking-create
-  padding 200upx 0 0
+  padding 40upx 0 0
   height 100vh
   display flex
   flex-direction column

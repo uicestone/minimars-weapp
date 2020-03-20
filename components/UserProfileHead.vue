@@ -2,20 +2,24 @@
   view.user-profile-head
     view
       img.bg.w-full.absolute(src="/static/img/profile-bg.PNG" mode='widthFix')
-      view.cu-avatar.round.lg(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
+      img(:src="user.avatarUrl").cu-avatar.round.lg
       view.name-bar
-        view.name HELLO MMZ
+        view.name {{user.name}}
         view.vip 尊享会员
       view.mobile 18616161818
 
 </template>
 
 <script>
+import { sync } from "vuex-pathify";
 export default {
   data() {
     return {
       avatar: ""
     };
+  },
+  computed: {
+    user: sync("auth/user")
   }
 };
 </script>
@@ -31,9 +35,9 @@ export default {
     width 120upx
     height 120upx
     border 3px solid #050404
+    background #666
   .name-bar
     position relative
-    margin-top 8upx
     .name
       font-family Avenir-Heavy, Avenir
       font-size 32upx
