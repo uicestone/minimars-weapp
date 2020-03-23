@@ -9,7 +9,7 @@
     view.content
       view.shadow.bg-white.new-booking
         img.img(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg")
-        view.center
+        view.center(@click="showModal=true")
           view.title 您有一个新预约
           view.sub-title 2020.2.2 COOK曲奇曲奇
         view.action
@@ -21,10 +21,10 @@
           menu-link(title="预约/购票" subTitle="Book" @click="goBooking")
       view.store
         view.h3 门店介绍
-        img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
+        img.cover(src="/static/img/store-detail.jpg" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
         view.h3 品牌介绍
-        img.cover(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg" mode='aspectFill' @click="navigateTo('/pages/about')")
-
+        img.cover(src="/static/img/about.png" mode='aspectFill' @click="navigateTo('/pages/about')")
+    mi-modal(:visible.sync="showModal")
           
 
     
@@ -35,6 +35,7 @@ import { sync } from "vuex-pathify";
 export default {
   data() {
     return {
+      showModal: false,
       swiperList: [
         {
           id: 0,
@@ -55,21 +56,6 @@ export default {
           id: 3,
           type: "image",
           url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg"
-        },
-        {
-          id: 4,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg"
-        },
-        {
-          id: 5,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg"
-        },
-        {
-          id: 6,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg"
         }
       ]
     };

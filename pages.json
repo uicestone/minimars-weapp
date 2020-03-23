@@ -16,7 +16,7 @@
     {
       "path": "pages/store/detail",
       "style": {
-        "navigationBarTitleText": "门店详情"
+        "navigationBarTitleText": ""
       }
     },
     {

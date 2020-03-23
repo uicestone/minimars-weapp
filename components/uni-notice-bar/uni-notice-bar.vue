@@ -313,8 +313,8 @@ export default {
   /* #endif */
   flex-direction: row;
   align-items: center;
-  padding: 6px 12px;
-  margin-bottom: 10px;
+  // padding: 6px 12px;
+  // margin-bottom: 10px;
 }
 
 .uni-noticebar-close {
@@ -370,8 +370,8 @@ export default {
 }
 
 .uni-noticebar__content-text {
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 12px;
+  line-height: 12px;
   /* #ifndef APP-NVUE */
   word-break: break-all;
   /* #endif */
@@ -418,7 +418,7 @@ export default {
 }
 
 .uni-noticebar__more-text {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 @keyframes notice {

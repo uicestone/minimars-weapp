@@ -19,6 +19,7 @@ export default {
 
 <style lang='stylus' scoped>
 .about
+  background white
   padding 20upx 0 100upx
   display flex
   flex-direction column

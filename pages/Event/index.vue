@@ -3,11 +3,11 @@
     top-event
     stripe.stripe(withTail)
       view.content
-        view(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
+        view.avatar(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
         view.center
           view.title Ballon Time
           view.subTitle 2022.2.22 16:00
-        button.cu-btn.round.action-button
+        button.cu-btn.round.action-button(@click="showModal = true")
           view.icon(class="cuIcon-attentionfill")
           view.text 您的预约
     card.card(withShape)
@@ -15,12 +15,14 @@
         view.cu-list.grid.col-2
           view.cu-item(v-for="(item,index) in events" :key="index" @click="goDetail(item)")
             event-item.flex.justify-center(:item="item")
+    mi-modal(:visible.sync="showModal")
 </template>
 
 <script>
 export default {
   data() {
     return {
+      showModal: false,
       avatar: "",
       events: [
         { title: "P", date: "2020.2.2" },

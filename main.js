@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App";
 import store from "./store";
+import { moment } from "./utils/moment";
 
 import home from "./pages/home/index.vue";
 import StoreDetail from "./pages/store/detail.vue";
@@ -30,8 +31,7 @@ import GiftItem from "./components/GiftItem.vue";
 import MiDialog from "./components/MiDialog.vue";
 import MiInputNumber from "./components/MiInputNumber.vue";
 import giftCard from "./components/giftCard.vue";
-import { moment } from "./utils/moment";
-// import moment from "moment"
+import MiModal from "./components/MiModal.vue";
 
 Vue.config.productionTip = false;
 
@@ -52,6 +52,7 @@ Vue.component("gift-item", GiftItem);
 Vue.component("mi-dialog", MiDialog);
 Vue.component("mi-input-number", MiInputNumber);
 Vue.component("gift-card", giftCard);
+Vue.component("mi-modal", MiModal);
 
 Vue.component("home", home);
 Vue.component("login", login);

@@ -10,44 +10,59 @@
           view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
           view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
       view.card-selector
-        view(v-for="(item,index) in cards" :key="index" @click="selectCard(item)" :class="[curCard == item.value ? 'active': '', 'card']")
+        view(v-for="(item,index) in cardTypes" :key="index" @click="selectCard(item)" :class="[curCardType == item.value ? 'active': '', 'card']")
           img.img(:src="item.img")
           view.label {{item.label}}
       view.prompt(@click="goCardRule") (点击查看会员权益及使用规则)
       swiper.card-swiper(:circular='true' @change="cardSwiper"   indicator-color='#8799a3' indicator-active-color='#0081ff')
-        swiper-item(v-for='(item,index) in [1,2,3,4]'  :class="cardCur==index?'cur':''" :key='index' )
+        swiper-item(v-for='(item,index) in curCards'  :class="curCard.id==item.id?'cur':''" :key='index' )
           view.swiper-item
-            gift-card.gift-card(:checked="cardCur==index" name="MM5次礼品卡")
+            gift-card.gift-card(:checked="curCard.id==item.id" :name="item.title")
       
       view
         mi-input-number(:value.sync="form.amount" suffix="数量")
       view.confirm
-        menu-link(title="确认购买" subTitle="Confirm" @click="handlePayment")
+        menu-link(title="确认购买" subTitle="Confirm" @click="handlePayment" :disabled="!buyable")
 </template>
 
 <script>
+import { sync } from "vuex-pathify";
 export default {
   data() {
     return {
-      cardCur: 0,
+      curCard: {},
       form: {
-        amount: 2
+        amount: 1
       },
-      curCard: "次卡",
-      cards: [
-        { label: "次卡", value: "次卡", img: "/static/img/card-times-round.PNG" },
-        { label: "时效卡", value: "时效卡", img: "/static/img/card-period.round.PNG" },
-        { label: "礼品卡", value: "礼品卡", img: "/static/img/card-credit-round.PNG" }
+      curCardType: "times",
+      cardTypes: [
+        { label: "次卡", value: "times", img: "/static/img/card-times-round.PNG" },
+        { label: "时效卡", value: "period", img: "/static/img/card-period.round.PNG" },
+        { label: "礼品卡", value: "credit", img: "/static/img/card-credit-round.PNG" }
       ]
     };
   },
+  computed: {
+    cards: sync("booking/cards"),
+    curCards() {
+      return this.cards.filter(i => i.type == this.curCardType);
+    },
+    buyable() {
+      return this.form.amount > 0 && this.curCard.id;
+    }
+  },
+  created() {
+    if (!this.curCard.id && this.curCards.length > 0) {
+      this.curCard = this.curCards[0] || {};
+    }
+  },
   methods: {
     cardSwiper(e) {
-      this.cardCur = e.detail.current;
+      this.curCard = this.curCards[e.detail.current];
     },
     selectCard(item) {
       console.log(item);
-      this.curCard = item.value;
+      this.curCardType = item.value;
     },
     goCardRule() {
       uni.navigateTo({
@@ -66,7 +81,7 @@ export default {
 
 <style lang="stylus" scoped>
 .card-selling
-  padding 200upx 0 0
+  padding 200upx 0 100upx
   display flex
   flex-direction column
   text-align center

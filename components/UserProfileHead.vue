@@ -6,12 +6,16 @@
       view.name-bar
         view.name {{user.name}}
         view.vip 尊享会员
-      view.mobile 18616161818
+      view.mobile 
+        view(v-if="user.mobile") {{user.mobile}}
+        button.cu-btn.bg-primary.get-mobile(v-else open-type='getPhoneNumber' @getphonenumber="getPhoneNumber") 获取手机号
 
 </template>
 
 <script>
 import { sync } from "vuex-pathify";
+import { updateMobile } from "../common/vmeitime-http";
+import { fetchUser } from "../services";
 export default {
   data() {
     return {
@@ -19,7 +23,23 @@ export default {
     };
   },
   computed: {
-    user: sync("auth/user")
+    user: sync("auth/user"),
+    auth: sync("auth")
+  },
+  methods: {
+    async getPhoneNumber(res) {
+      const { iv, encryptedData } = res.detail;
+      const {
+        session_key,
+        user: { openid }
+      } = this.auth;
+      uni.showLoading();
+
+      const response = await updateMobile({ iv, encryptedData, session_key, openid });
+      this.user = response.data;
+      await fetchUser();
+      uni.hideLoading();
+    }
   }
 };
 </script>
@@ -47,7 +67,7 @@ export default {
       position absolute
       font-size 16upx
       font-weight bold
-      right -70upx
+      right -50upx
       bottom 8upx
       line-height 22upx
   .mobile
@@ -55,4 +75,8 @@ export default {
     font-size 20upx
     margin-top -6upx
     font-weight bold
+  .get-mobile
+    height auto
+    padding 10upx 30upx
+    font-size 24upx
 </style>
