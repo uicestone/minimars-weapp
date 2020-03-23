@@ -2,18 +2,23 @@
   view
     cu-custom(isBack @back="uni.navigateBack()")
     view.card-selling
-      img.img1(src="/static/img/buy-card.png" mode='aspectFill')
-      view.text
-        view.title Hello,
-        view.title 毛毛饿了!
-        view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
-        view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
+      view.with-padding
+        img.img1(src="/static/img/buy-card.png" mode='aspectFill')
+        view.text
+          view.title Hello,
+          view.title 毛毛饿了!
+          view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
+          view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
       view.card-selector
         view(v-for="(item,index) in cards" :key="index" @click="selectCard(item)" :class="[curCard == item.value ? 'active': '', 'card']")
           img.img(:src="item.img")
           view.label {{item.label}}
       view.prompt(@click="goCardRule") (点击查看会员权益及使用规则)
-      gift-card.gift-card
+      swiper.card-swiper(:circular='true' @change="cardSwiper"   indicator-color='#8799a3' indicator-active-color='#0081ff')
+        swiper-item(v-for='(item,index) in [1,2,3,4]'  :class="cardCur==index?'cur':''" :key='index' )
+          view.swiper-item
+            gift-card.gift-card(:checked="cardCur==index" name="MM5次礼品卡")
+      
       view
         mi-input-number(:value.sync="form.amount" suffix="数量")
       view.confirm
@@ -24,6 +29,7 @@
 export default {
   data() {
     return {
+      cardCur: 0,
       form: {
         amount: 2
       },
@@ -36,6 +42,9 @@ export default {
     };
   },
   methods: {
+    cardSwiper(e) {
+      this.cardCur = e.detail.current;
+    },
     selectCard(item) {
       console.log(item);
       this.curCard = item.value;
@@ -57,12 +66,16 @@ export default {
 
 <style lang="stylus" scoped>
 .card-selling
-  padding 200upx 36upx 0
+  padding 200upx 0 0
   display flex
   flex-direction column
   text-align center
   background white
   min-height 100vh
+  .card-swiper
+    margin 50upx 0 30upx
+  .with-padding
+    padding 0 36upx
   .img1
     position absolute
     top 160upx
@@ -118,8 +131,6 @@ export default {
       .img
         width 120upx
         height 120upx
-  .gift-card
-    margin-top 50upx
   .confirm
     text-align center
     width 440upx
