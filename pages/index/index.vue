@@ -41,7 +41,7 @@ export default {
       }, 1000);
     }
     await this.checkLogin();
-    await Promise.all([this.loadConfig(), service.loadStore()]);
+    await Promise.all([this.loadConfig(), service.loadStore(), service.loadBookings()]);
   },
   methods: {
     async loadConfig() {

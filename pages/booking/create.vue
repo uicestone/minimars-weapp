@@ -2,10 +2,12 @@
 <template lang="pug">
   view.booking-create
     view.vip
-      store-switcher
+      .switcher.with-padding
+        store-switcher
       view.vip-card
-        view.title 选择VIP权益卡
-        gift-card.gift-card
+        view.title.with-padding 选择VIP权益卡
+        mi-card-selecter(:items="user.cards" :curItem.sync="curCard")
+        //- gift-card.gift-card
     view.content
       card.card(withShape)
         view.form
@@ -19,7 +21,7 @@
               view.flex.justify-between
                 mi-input-number(:value.sync="form.adultsCount" suffix="成人")
                 mi-input-number(:value.sync="form.kidsCount" suffix="儿童")
-          view.submit(@click="handlePayment")
+          view.submit(@click="handleBooking")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
               view.title 确认支付/预约
     mi-modal(:visible.sync="showModal")
@@ -33,10 +35,12 @@
 import { moment } from "../../utils/moment";
 import { createBooking } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
+import { handlePayment } from "../../services";
 
 export default {
   data() {
     return {
+      curCard: {},
       showModal: false,
       form: {
         date: moment().format("YYYY-MM-DD"),
@@ -45,14 +49,25 @@ export default {
       }
     };
   },
+  created() {
+    if (!this.curCard.id && this.user.cards.length > 0) {
+      this.curCard = this.user.cards[0] || {};
+    }
+  },
   computed: {
+    user: sync("auth/user"),
     currentStore: sync("store/currentStore")
   },
   methods: {
-    async handlePayment() {
+    async handleBooking() {
       const { id: store } = this.currentStore;
       const { date, adultsCount, kidsCount } = this.form;
-      const res = createBooking({ store, date, adultsCount, kidsCount });
+      const { curCard: card } = this;
+      const res = await createBooking({ store, date, adultsCount, kidsCount });
+      if (res.data && res.data.payArgs) {
+        await handlePayment(res.data.payArgs);
+      }
+
       this.showModal = true;
     },
     DateChange(data) {
@@ -69,18 +84,18 @@ export default {
   height 100vh
   display flex
   flex-direction column
+  .with-padding
+    padding 0 40upx
   >.vip
-    margin 0 40upx
     .vip-card
       margin-top 30upx
       .title
         margin-left 10upx
         color #535353
         font-size 32upx
-    .gift-card
-      margin 0 20upx
   .content
     flex 1
+    margin-top 20upx
     .card
       height 100%
       .form

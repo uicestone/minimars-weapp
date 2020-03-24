@@ -14,10 +14,8 @@
           img.img(:src="item.img")
           view.label {{item.label}}
       view.prompt(@click="goCardRule") (点击查看会员权益及使用规则)
-      swiper.card-swiper(:circular='true' @change="cardSwiper"   indicator-color='#8799a3' indicator-active-color='#0081ff')
-        swiper-item(v-for='(item,index) in curCards'  :class="curCard.id==item.id?'cur':''" :key='index' )
-          view.swiper-item
-            gift-card.gift-card(:checked="curCard.id==item.id" :name="item.title")
+      .selector
+        mi-card-selecter(:items="curCards" :curItem.sync="curCard")
       
       view
         mi-input-number(:value.sync="form.amount" suffix="数量")
@@ -57,9 +55,6 @@ export default {
     }
   },
   methods: {
-    cardSwiper(e) {
-      this.curCard = this.curCards[e.detail.current];
-    },
     selectCard(item) {
       console.log(item);
       this.curCardType = item.value;
@@ -87,7 +82,7 @@ export default {
   text-align center
   background white
   min-height 100vh
-  .card-swiper
+  .selectorflex
     margin 50upx 0 30upx
   .with-padding
     padding 0 36upx

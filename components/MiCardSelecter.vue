@@ -1,0 +1,21 @@
+
+<template lang="pug">
+  swiper.card-swiper(:circular='true' @change="onChange" indicator-color='#8799a3' indicator-active-color='#0081ff')
+    swiper-item(v-for='(item,index) in items'  :class="curItem.id==item.id?'cur':''" :key='index' @click="onChange({detail:{current: index}})")
+      view.swiper-item
+        gift-card.gift-card(:checked="curItem.id==item.id" :name="item.title")
+</template>
+
+<script>
+export default {
+  props: ["items", "curItem"],
+  methods: {
+    onChange(e) {
+      this.$emit("update:curItem", this.items[e.detail.current]);
+    }
+  }
+};
+</script>
+
+
+<style lang="stylus" scoped></style>

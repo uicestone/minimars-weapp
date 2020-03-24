@@ -32,6 +32,7 @@ import MiDialog from "./components/MiDialog.vue";
 import MiInputNumber from "./components/MiInputNumber.vue";
 import giftCard from "./components/giftCard.vue";
 import MiModal from "./components/MiModal.vue";
+import MiCardSelecter from "./components/MiCardSelecter.vue";
 
 Vue.config.productionTip = false;
 
@@ -53,6 +54,7 @@ Vue.component("mi-dialog", MiDialog);
 Vue.component("mi-input-number", MiInputNumber);
 Vue.component("gift-card", giftCard);
 Vue.component("mi-modal", MiModal);
+Vue.component("mi-card-selecter", MiCardSelecter);
 
 Vue.component("home", home);
 Vue.component("login", login);

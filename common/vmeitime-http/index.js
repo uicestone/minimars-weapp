@@ -119,10 +119,10 @@ export const getStores = () => {
   });
 };
 
-export const createBooking = ({ store, date, adultsCount, kidsCount }) => {
-  const data = _.omitBy({ store, date, adultsCount, kidsCount }, _.isNil);
+export const createBooking = ({ store, date, adultsCount, kidsCount, card, type = "play", paymentGateway = "wechatpay" }) => {
+  const data = _.omitBy({ store, date, adultsCount, kidsCount, paymentGateway, card, type }, _.isNil);
   return http.request({
-    url: `/booking`,
+    url: `/booking?paymentGateway=wechat`,
     method: "POST",
     dataType: "json",
     data

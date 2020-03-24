@@ -8,14 +8,14 @@
             button.cu-btn
               img.icon(src="/static/icon/point2.svg")
             view.stat
-              view.count 1608
+              view.count {{user.balanceReward}}
               view.label 我的积分
             view.line
           view.item(@click="navigateTo('/pages/user/costRecord')")
             button.cu-btn
               img.icon(src="/static/icon/cost.svg")
             view.stat
-              view.count 268
+              view.count {{user.balanceDeposit}}
               view.label 我的消费
             view.line
           view.item
@@ -27,7 +27,7 @@
           view.with-padding(@click="navigateTo('/pages/user/booking')")
             card-title(title="我的预约" action="所有预约")
           swiper.card-swiper(:circular='true' @change="cardSwiper" :autoplay='true' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
-            swiper-item(v-for='(item,index) in swiperList'  :class="cardCur==index?'cur':''" :key='index' @click="navigateTo('/pages/user/booking')")
+            swiper-item(v-for='(item,index) in bookings'  :class="cardCur==index?'cur':''" :key='index' @click="navigateTo('/pages/user/booking')")
               view.swiper-item
                 img.img1(src="/static/img/booking.png" mode='aspectFit' )
                 view.info
@@ -49,6 +49,7 @@
 
 <script>
 import { loadCard } from "../../services";
+import { sync } from "vuex-pathify";
 export default {
   data() {
     return {
@@ -80,6 +81,10 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    user: sync("auth/user"),
+    bookings: sync("booking/bookings")
   },
   async created() {
     await Promise.all([loadCard()]);
