@@ -1,15 +1,15 @@
 <template lang="pug">
   view
-    cu-custom(isBack @back="navigateTo('/pages/user/index')")
-    scroll-view(scroll-y).user-booking.page
+    cu-custom(isBack @back="uni.navigateBack()")
+    scroll-view(scroll-y).user-booking
       view.flex.justify-center
         img.img1(src="/static/img/booking-record.png" mode='aspectFit')
       card.card
         view.content
           view.tabs
-            view.tab(:class="[item.value== curTab? 'active': '']" v-for="(item,index) in tabs" :key="index" @click="switchTab(item)")
+            view.tab(:class="[item.value== curStatus? 'active': '']" v-for="(item,index) in tabs" :key="index" @click="switchTab(item)")
               view {{item.label}}
-              view.circle(v-if="item.value== curTab")
+              view.circle(v-if="item.value== curStatus")
           view.card-list
             view.card-list-item(v-for="(item,index) in booking" :key="index")
               card-list-item(:item="item")
@@ -17,26 +17,47 @@
 </template>
 
 <script>
+import { getBookings } from "../../common/vmeitime-http";
 export default {
   data() {
     return {
-      curTab: "已预约",
+      curStatus: "booked",
+      loadStatus: "more",
       tabs: [
-        { label: "全部", value: "全部" },
-        { label: "已预约", value: "已预约" },
-        { label: "已完成", value: "已完成" },
-        { label: "已取消", value: "已取消" }
+        { label: "全部", value: "all" },
+        { label: "已预约", value: "booked" },
+        { label: "已完成", value: "finished" },
+        { label: "已取消", value: "canceled" }
       ],
-      booking: [
-        { img: "", title: "游玩一次", subTitle: "今日" },
-        { img: "", title: "亲子下午茶", subTitle: "2022.12.31" },
-        { img: "", title: "Ballon Time", subTitle: "2020年6月6日 上午11时 小派对房" }
-      ]
+      bookings: {
+        all: [],
+        booked: [],
+        finished: [],
+        canceled: []
+      }
     };
+  },
+  computed: {
+    booking() {
+      return this.bookings[this.curStatus];
+    }
+  },
+  mounted() {
+    this.switchTab({ value: "booked" });
+  },
+  onReachBottom() {
+    console.log(12312321);
   },
   methods: {
     switchTab(item) {
-      this.curTab = item.value;
+      this.curStatus = item.value;
+      this.loadBooking();
+    },
+    async loadBooking() {
+      const res = await getBookings({ status: this.curStatus == "all" ? null : this.curStatus, skip: this.booking.length, limit: 10 });
+      if (res.data) {
+        this.bookings[this.curStatus] = [...this.booking, ...res.data];
+      }
     }
   }
 };

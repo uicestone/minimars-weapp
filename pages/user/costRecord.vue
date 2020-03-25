@@ -1,7 +1,7 @@
 <template lang="pug">
   view
     cu-custom(isBack @back="uni.navigateBack")
-    scroll-view(scroll-y).user-booking.page
+    scroll-view(scroll-y).cost-record.page
       view.flex.justify-center
         img.img1(src="/static/img/cost-record.png" mode='aspectFit')
       card.card
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { getPayment, getPayments } from "../../common/vmeitime-http";
 export default {
   data() {
     return {
@@ -35,7 +36,16 @@ export default {
       ]
     };
   },
+  onReachBottom() {
+    console.log(12312321);
+  },
+  created() {
+    this.loadPayment();
+  },
   methods: {
+    async loadPayment() {
+      const res = await getPayments();
+    },
     switchTab(item) {
       this.curTab = item.value;
     }
@@ -45,7 +55,7 @@ export default {
 
 
 <style lang="stylus" scoped>
-.user-booking
+.cost-record
   padding 120upx 0 0
   display flex
   flex-direction column

@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { getEvents, getGifts } from "../../common/vmeitime-http";
 export default {
   data() {
     return {
@@ -33,42 +34,8 @@ export default {
         { key: 0, label: "积分兑换活动", img: "/static/icon/point.svg", line: true },
         { key: 1, label: "积分报名活动", img: "/static/icon/gift.svg" }
       ],
-      events: [
-        {
-          name: "公主下午茶",
-          price: 900
-        },
-        {
-          name: "甜甜圈大作战",
-          price: 1300
-        },
-        {
-          name: "公主下午茶",
-          price: 900
-        },
-        {
-          name: "甜甜圈大作战",
-          price: 1300
-        }
-      ],
-      gifts: [
-        {
-          name: "迷你毛毛小袜子",
-          price: 1600
-        },
-        {
-          name: "森林宝贝毛绒玩具",
-          price: 5600
-        },
-        {
-          name: "迷你毛毛小袜子",
-          price: 1600
-        },
-        {
-          name: "森林宝贝毛绒玩具",
-          price: 5600
-        }
-      ]
+      events: [],
+      gifts: []
     };
   },
   computed: {
@@ -76,21 +43,42 @@ export default {
       return this.tabs[this.currentTabKey];
     }
   },
+  onReachBottom() {
+    console.log(123);
+  },
   onLoad(data) {
     console.log(data);
     if (data.tab) {
       this.currentTabKey = data.tab;
     }
   },
+  created() {
+    this.switchTab({ key: 0 });
+  },
   methods: {
     switchTab(item) {
       this.currentTabKey = item.key;
+      this.loadData();
     },
+    async loadData() {
+      if (this.currentTabKey == 0) {
+        const res = await getEvents();
+        if (res.data) {
+          this.events = res.data;
+        }
+      } else {
+        const res = await getGifts();
+        if (res.data) {
+          this.gifts = res.data;
+        }
+      }
+    },
+
     goEventDetail(item) {
-      this.navigateTo("/pages/event/detail");
+      this.navigateTo(`/pages/event/detail?id=${item.id}`);
     },
     goGiftDetail(item) {
-      this.navigateTo("/pages/user/giftDetail");
+      this.navigateTo(`/pages/user/giftDetail?id=${item.id}`);
     }
   }
 };
@@ -136,7 +124,7 @@ export default {
   .card
     .content
       padding 32upx 0 100upx 0
-      min-height 1000upx
+      min-height calc(100vh - 500upx)
       .with-padding
         padding 0 40upx
       .title

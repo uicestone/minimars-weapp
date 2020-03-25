@@ -1,12 +1,12 @@
 <template lang="pug">
   view.gift-item
-    view.img
+    img(:src="item.posterUrl").img
     view.content
-      view {{item.name}}
+      view {{item.title}}
       button.cu-btn.bg-primary.action-button
         view.flex
           img.icon(src="/static/icon/pointmain.svg")
-          view.price {{item.price}}
+          view.price {{item.priceInPoints}}
         view.line
         view 兑换
 

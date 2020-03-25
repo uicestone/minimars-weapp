@@ -119,10 +119,10 @@ export const getStores = () => {
   });
 };
 
-export const createBooking = ({ store, date, adultsCount, kidsCount, card, type = "play", paymentGateway = "wechatpay" }) => {
-  const data = _.omitBy({ store, date, adultsCount, kidsCount, paymentGateway, card, type }, _.isNil);
+export const createBooking = ({ store, date, adultsCount, kidsCount, card, type = "play" }) => {
+  const data = _.omitBy({ store, date, adultsCount, kidsCount, card, type }, _.isNil);
   return http.request({
-    url: `/booking?paymentGateway=wechat`,
+    url: `/booking?paymentGateway=wechatpay`,
     method: "POST",
     dataType: "json",
     data
@@ -168,6 +168,14 @@ export const getAvailabilityBooking = ({ type, month, date, hours }) => {
   });
 };
 
+export const getPayments = () => {
+  return http.request({
+    url: `/payment`,
+    method: "GET",
+    dataType: "json"
+  });
+};
+
 export const getPayment = ({ id }) => {
   return http.request({
     url: `/payment/${id}`,
@@ -203,11 +211,13 @@ export const postUserMembership = ({ cardType }) => {
   });
 };
 
-export const getBookings = () => {
+export const getBookings = ({ status = null, limit = 10, skip = 0 } = {}) => {
+  const data = _.omitBy({ status, limit, skip }, _.isNil);
   return http.request({
     url: `/booking`,
     method: "GET",
-    dataType: "json"
+    dataType: "json",
+    data
   });
 };
 
@@ -216,5 +226,42 @@ export const getCardType = () => {
     url: `/card-type`,
     method: "GET",
     dataType: "json"
+  });
+};
+
+export const getEvents = ({ limit = 10, skip = 0 } = {}) => {
+  const data = _.omitBy({ limit, skip }, _.isNil);
+  return http.request({
+    url: `/event`,
+    method: "GET",
+    dataType: "json",
+    data
+  });
+};
+
+export const getItem = ({ id, type }) => {
+  return http.request({
+    url: `/${type}/${id}`,
+    method: "GET",
+    dataType: "json"
+  });
+};
+
+export const getGifts = ({ limit = 10, skip = 0 } = {}) => {
+  const data = _.omitBy({ limit, skip }, _.isNil);
+  return http.request({
+    url: `/gift`,
+    method: "GET",
+    dataType: "json",
+    data
+  });
+};
+
+export const postCard = ({ card }) => {
+  return http.request({
+    url: `/card`,
+    method: "POST",
+    dataType: "json",
+    data: card
   });
 };

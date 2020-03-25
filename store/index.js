@@ -18,15 +18,15 @@ const state = {
       "/pages/home/index": {
         active: "/pages/home/index"
       },
-      "/pages/user/booking": {
-        active: "/pages/user/index"
-      },
+      // "/pages/user/booking": {
+      //   active: "/pages/user/index"
+      // },
       "/pages/user/index": {
         active: "/pages/user/index"
       },
-      "/pages/user/giftlist": {
-        active: "/pages/user/index"
-      },
+      // "/pages/user/giftlist": {
+      //   active: "/pages/user/index"
+      // },
       // "/pages/user/costRecord": {
       //   active: "/pages/user/index"
       // },

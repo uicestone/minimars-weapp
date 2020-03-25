@@ -1,9 +1,11 @@
 <template lang="pug">
   view.shadow.bg-white.card-list-item(@click="$emit('click')")
-    img.img(:src="item.image")
+    img.img(v-if="item.type=='times'" src="/static/img/card-times-round.PNG")
+    img.img(v-else-if="item.type=='period'" src="/static/img/card-period.round.PNG")
+    img.img(v-else-if="item.type=='credit'" src="/static/img/card-credit-round.PNG")
     view.center
       view.title {{item.title}}
-      view.sub-title {{item.subTitle}}
+      view.sub-title {{_.get(item, 'payments[0].title')}}
     slot.action(v-if="withAction" name="action")
       text.arrow(class='cuIcon-right')
 

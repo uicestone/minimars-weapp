@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App";
 import store from "./store";
 import { moment } from "./utils/moment";
+import { _ } from "./utils/lodash";
 
 import home from "./pages/home/index.vue";
 import StoreDetail from "./pages/store/detail.vue";
@@ -33,7 +34,6 @@ import MiInputNumber from "./components/MiInputNumber.vue";
 import giftCard from "./components/giftCard.vue";
 import MiModal from "./components/MiModal.vue";
 import MiCardSelecter from "./components/MiCardSelecter.vue";
-
 Vue.config.productionTip = false;
 
 Vue.component("tab-bar", TabBar);
@@ -94,6 +94,7 @@ Vue.prototype.navigateTo = (url, opt = {}) => {
 };
 Vue.prototype.moment = moment;
 Vue.prototype.uni = uni;
+Vue.prototype._ = _;
 
 const app = new Vue({
   store,

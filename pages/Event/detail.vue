@@ -8,12 +8,12 @@
           img.img
           view.info
             view.text
-              view.name 甜甜圈大作战
+              view.name {{item.title}}
               view.prompt (*入场门票需另购)
             view.price
               view.credit
                 img.icon(src="/static/icon/pointmain.svg")
-                text 1300
+                text {{item.priceInPoints}}
               view ￥ 40
         view.form
           view.label 报名人数
@@ -22,27 +22,28 @@
           button.cu-btn.bg-primary.round.action-button(@click="handlePayment") 积分兑换
           button.cu-btn.bg-primary.round.action-button(@click="handlePayment") 微信支付
 
-
-    view.cover(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
+    img.bg.w-full.absolute(:src="item.posterUrl" mode='widthFix')
+    view.placeholder
     card.card(withGreenShape)
       view.content
-        view.name {{item.name}} (剩余13)
+        view.name {{item.title}} (剩余13)
         view.price 
           img.icon(src="/static/icon/pointmain.svg")
-          text 1300 / ￥40
-        view.date 日期: 6月6日上午11点
-        view.address 门店： 天山长宁店
+          text {{item.priceInPoints}} / ￥40
+        view.date 日期: {{moment(item.date).format("MMM Do")}} 
+        view.address 门店： {{item.store.name}}
         view.prompt （兑换后请凭兑换码至前台核销并领取入场券）
     view.cu-card.no-card
       view.cu-item.content
         view.title 活动详情
         view.event-detail
           view.name {{item.name}}
-          view.feature(v-for="(item,index) in item.feature" :key="key")
-            view.key 
-              button.cu-btn.round {{item.key}}
-            view.value 
-              view.text {{item.value}}
+          view.feature
+          //- view.feature(v-for="(item,index) in item.feature" :key="key")
+          //-   view.key 
+          //-     button.cu-btn.round {{item.key}}
+          //-   view.value 
+          //-     view.text {{item.value}}
     view.bottom-fixed
       button.cu-btn.round.action-button.bg-primary(@click="back")
         view.normal 返回首页
@@ -52,6 +53,7 @@
 </template>
 
 <script>
+import { getItem } from "../../common/vmeitime-http";
 export default {
   data() {
     return {
@@ -72,7 +74,19 @@ export default {
       }
     };
   },
+  onLoad(data) {
+    if (data.id) {
+      console.log(data.id);
+      this.loadEvent(data.id);
+    }
+  },
   methods: {
+    async loadEvent(id) {
+      const res = await getItem({ id, type: "event" });
+      if (res.data) {
+        this.item = res.data;
+      }
+    },
     handlePayment() {
       this.showPayment = false;
       uni.navigateTo({
@@ -86,8 +100,8 @@ export default {
 
 <style lang="stylus" scoped>
 .event-detail
-  .cover
-    height 550upx
+  .placeholder
+    padding-top 450upx
   .payment-dialog
     font-family PingFangSC-Regular, PingFang SC
     color var(--text-primary)
@@ -172,6 +186,8 @@ export default {
   .cu-card
     margin-top 20upx
     font-family PingFangSC-Semibold, PingFang SC
+    min-height 800upx
+    background white
     .content
       padding 80upx 0 46upx
       .title

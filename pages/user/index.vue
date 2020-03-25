@@ -4,7 +4,7 @@
     stripe.stripe(withTail)
       view.content
         view.cu-list.grid.col-3
-          view.item(@click="go('/pages/user/giftlist?tab=0')")
+          view.item(@click="navigateTo('/pages/user/giftlist?tab=0')")
             button.cu-btn
               img.icon(src="/static/icon/point2.svg")
             view.stat
@@ -37,11 +37,12 @@
           view.with-padding(@click="go('/pages/user/cardSelling')")
             card-title(title="我的卡券包" action="购买更多")
           view.card-list.with-padding
-            view.card-list-item(v-for="(item,index) in cards" :key="index" )
+            view.card-list-item(v-for="(item,index) in user.cards" :key="index" )
               card-list-item(:item="item" withAction @click="goCardSelling(item)")
         view.user-qr(v-if="status == 'userQR'")
           view.title 毛毛回家吧 ！
-          img.img 
+          view.flex.justify-center
+            canvas.img(canvas-id="qrcode")
           view.text 会员二维码
         
         
@@ -50,6 +51,7 @@
 <script>
 import { loadCard } from "../../services";
 import { sync } from "vuex-pathify";
+import uQRCode from "../../common/uqrcode";
 export default {
   data() {
     return {
@@ -82,25 +84,41 @@ export default {
       ]
     };
   },
+
   computed: {
     user: sync("auth/user"),
-    bookings: sync("booking/bookings")
+    bookings: sync("booking/bookings"),
+    bookedBookings() {
+      return this.bookings.filter(i => i.status == "booked");
+    }
   },
   async created() {
     await Promise.all([loadCard()]);
+    this.makeQRCode();
   },
   methods: {
+    makeQRCode() {
+      uQRCode.make({
+        canvasId: "qrcode",
+        componentInstance: this,
+        text: "uQRCode",
+        size: 150,
+        margin: 10,
+        backgroundColor: "#ffffff",
+        foregroundColor: "#000000",
+        fileType: "jpg",
+        correctLevel: uQRCode.defaults.correctLevel,
+        success: res => {
+          console.log(res);
+        }
+      });
+    },
     cardSwiper(e) {
       this.cardCur = e.detail.current;
     },
-    go(url) {
-      uni.navigateTo({
-        url
-      });
-    },
     goCardSelling(item) {
       uni.navigateTo({
-        url: `/pages/user/cardSelling`
+        url: `/pages/user/cardSelling?type=${item.type}`
       });
     }
   }
@@ -194,9 +212,8 @@ export default {
           color #080040
           line-height 80upx
         .img
-          width 300upx
-          height 300upx
-          background #D8D8D8
+          width 150px
+          height 150px
           border-radius 20upx
         .text
           margin-top 20upx

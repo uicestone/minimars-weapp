@@ -19,25 +19,28 @@
 </template>
 
 <script>
+import { getEvents } from "../../common/vmeitime-http";
 export default {
   data() {
     return {
       showModal: false,
       avatar: "",
-      events: [
-        { title: "P", date: "2020.2.2" },
-        { title: "Flower Time", date: "2020.2.2" },
-        { title: "P", date: "2020.2.2" },
-        { title: "P", date: "2020.2.2" },
-        { title: "P", date: "2020.2.2" },
-        { title: "P", date: "2020.2.2" }
-      ]
+      events: []
     };
   },
+  created() {
+    this.loadEvent();
+  },
   methods: {
+    async loadEvent() {
+      const res = await getEvents();
+      if (res.data) {
+        this.events = res.data;
+      }
+    },
     goDetail() {
       uni.navigateTo({
-        url: "/pages/event/detail"
+        url: `/pages/event/detail?id=${item.id}`
       });
     }
   }

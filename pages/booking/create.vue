@@ -5,7 +5,7 @@
       .switcher.with-padding
         store-switcher
       view.vip-card
-        view.title.with-padding 选择VIP权益卡
+        view.title.with-padding 选择VIP权益卡 
         mi-card-selecter(:items="user.cards" :curItem.sync="curCard")
         //- gift-card.gift-card
     view.content
@@ -36,6 +36,7 @@ import { moment } from "../../utils/moment";
 import { createBooking } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
 import { handlePayment } from "../../services";
+import { _ } from "../../utils/lodash";
 
 export default {
   data() {
@@ -64,8 +65,9 @@ export default {
       const { date, adultsCount, kidsCount } = this.form;
       const { curCard: card } = this;
       const res = await createBooking({ store, date, adultsCount, kidsCount });
-      if (res.data && res.data.payArgs) {
-        await handlePayment(res.data.payArgs);
+      const payment = _.get(res, "data.payments.0");
+      if (payment) {
+        await handlePayment(payment.payArgs);
       }
 
       this.showModal = true;

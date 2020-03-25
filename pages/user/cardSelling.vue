@@ -20,11 +20,14 @@
       view
         mi-input-number(:value.sync="form.amount" suffix="数量")
       view.confirm
-        menu-link(title="确认购买" subTitle="Confirm" @click="handlePayment" :disabled="!buyable")
+        menu-link(title="确认购买" subTitle="Confirm" @click="handleBuyCard" :disabled="!buyable")
 </template>
 
 <script>
 import { sync } from "vuex-pathify";
+import { postCard } from "../../common/vmeitime-http";
+import { _ } from "../../utils/lodash";
+import { handlePayment } from "../../services";
 export default {
   data() {
     return {
@@ -39,6 +42,11 @@ export default {
         { label: "礼品卡", value: "credit", img: "/static/img/card-credit-round.PNG" }
       ]
     };
+  },
+  onLoad(data) {
+    if (data.type) {
+      this.curCardType = data.type;
+    }
   },
   computed: {
     cards: sync("booking/cards"),
@@ -64,7 +72,12 @@ export default {
         url: "/pages/user/cardRule"
       });
     },
-    handlePayment() {
+    async handleBuyCard() {
+      const res = await postCard({ card: this.curCard });
+      const payment = _.get(res, "data.payments.0");
+      if (payment) {
+        await handlePayment(payment.payArgs);
+      }
       uni.navigateTo({
         url: "/pages/user/cardSuccess"
       });
@@ -82,7 +95,7 @@ export default {
   text-align center
   background white
   min-height 100vh
-  .selectorflex
+  .selector
     margin 50upx 0 30upx
   .with-padding
     padding 0 36upx
