@@ -168,6 +168,16 @@ export const getAvailabilityBooking = ({ type, month, date, hours }) => {
   });
 };
 
+export const getListData = ({ type, data } = {}) => {
+  data = _.omitBy(data, _.isNil);
+  return http.request({
+    url: `/${type}`,
+    method: "GET",
+    dataType: "json",
+    data
+  });
+};
+
 export const getPayments = () => {
   return http.request({
     url: `/payment`,

@@ -11,7 +11,7 @@
               view {{item.label}}
               view.circle(v-if="item.value== curTab")
           view.card-list
-            view.card-list-item(v-for="(item,index) in booking" :key="index")
+            view.card-list-item(v-for="(item,index) in payment" :key="index")
               card-list-item(:item="item" withAction)
                 view.price(slot="action") 
                   text {{item.price}}
@@ -19,35 +19,44 @@
 </template>
 
 <script>
-import { getPayment, getPayments } from "../../common/vmeitime-http";
+import { getPayment, getPayments, getListData } from "../../common/vmeitime-http";
 export default {
   data() {
     return {
-      curTab: "充值",
+      curTab: "card",
       tabs: [
-        { label: "全部", value: "全部" },
-        { label: "充值", value: "充值" },
-        { label: "支付", value: "支付" }
+        { label: "全部", value: "all" },
+        { label: "充值", value: "card" },
+        { label: "支付", value: "booking" }
       ],
-      booking: [
-        { img: "", title: "长宁店十次卡", subTitle: "2020年6月6日", price: "-1680.00" },
-        { img: "", title: "季卡", subTitle: "2020年1月22日", price: "-6688.00" },
-        { img: "", title: "1000元礼品卡", subTitle: "2020年8月8日", price: "-928.00" }
-      ]
+      payments: {
+        all: [],
+        card: [],
+        booking: []
+      }
     };
   },
   onReachBottom() {
-    this.loadPayment();
+    this.loadPayment(this.curTab);
+  },
+  computed: {
+    payment() {
+      return this.payments[this.curTab];
+    }
   },
   created() {
-    this.loadPayment();
+    this.switchTab({ value: "card" });
   },
   methods: {
-    async loadPayment() {
-      const res = await getPayments();
+    async loadPayment(curTab) {
+      const res = await getListData({ type: "payment", data: { attach: curTab == "all" ? null : curTab, limit: 10, skip: this.payment.length } });
+      if (res.data) {
+        this.payments[curTab] = [...this.payment, ...res.data];
+      }
     },
     switchTab(item) {
       this.curTab = item.value;
+      this.loadPayment(this.curTab);
     }
   }
 };
