@@ -34,6 +34,8 @@ import MiInputNumber from "./components/MiInputNumber.vue";
 import giftCard from "./components/giftCard.vue";
 import MiModal from "./components/MiModal.vue";
 import MiCardSelecter from "./components/MiCardSelecter.vue";
+import htmlParser from "./components/jyf-parser/jyf-parser.vue";
+
 Vue.config.productionTip = false;
 
 Vue.component("tab-bar", TabBar);
@@ -66,6 +68,8 @@ Vue.component("user-booking", userBooking);
 Vue.component("user-gift-list", userGiftList);
 Vue.component("user-cost-record", userCostRecord);
 Vue.component("event-success", eventSuccess);
+
+Vue.component("html-parser", htmlParser);
 
 App.mpType = "app";
 global.store = store; // for debug

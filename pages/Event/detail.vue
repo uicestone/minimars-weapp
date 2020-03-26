@@ -38,7 +38,7 @@
       view.cu-item.content
         view.title 活动详情
         view.event-detail
-          view.name {{item.name}}
+          html-parser(:html="item.content")
           view.feature(v-for="(val,key) in item.props" :key="key")
             view.key 
               button.cu-btn.round {{val}}
@@ -106,7 +106,7 @@ export default {
 <style lang="stylus" scoped>
 .event-detail
   .placeholder
-    padding-top 450upx
+    padding-top 420upx
   .payment-dialog
     font-family PingFangSC-Regular, PingFang SC
     color var(--text-primary)
@@ -194,7 +194,7 @@ export default {
     min-height 800upx
     background white
     .content
-      padding 80upx 0 46upx
+      padding 80upx 0 200upx
       .title
         text-align center
         font-size 30upx
@@ -202,7 +202,7 @@ export default {
         color var(--text-primary)
         line-height 40upx
       .event-detail
-        margin 40upx 50upx 0 100upx
+        margin 40upx 50upx 0 50upx
         .name
           margin-bottom 34upx
           font-size 30upx
@@ -212,7 +212,7 @@ export default {
         .feature
           display flex
           align-items center
-          margin-bottom 20upx
+          margin 20upx 0
           .key
             width 50%
             .cu-btn
