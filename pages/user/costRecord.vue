@@ -37,7 +37,7 @@ export default {
     };
   },
   onReachBottom() {
-    console.log(12312321);
+    this.loadPayment();
   },
   created() {
     this.loadPayment();

@@ -44,7 +44,7 @@ export default {
     }
   },
   onReachBottom() {
-    console.log(123);
+    this.loadData();
   },
   onLoad(data) {
     console.log(data);

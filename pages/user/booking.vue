@@ -46,7 +46,7 @@ export default {
     this.switchTab({ value: "booked" });
   },
   onReachBottom() {
-    console.log(12312321);
+    this.loadBooking();
   },
   methods: {
     switchTab(item) {

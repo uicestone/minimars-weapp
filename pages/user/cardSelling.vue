@@ -68,8 +68,9 @@ export default {
       this.curCardType = item.value;
     },
     goCardRule() {
+      if (!this.curCard.id) return;
       uni.navigateTo({
-        url: "/pages/user/cardRule"
+        url: `/pages/user/cardRule?id=${this.curCard.id}`
       });
     },
     async handleBuyCard() {

@@ -1,9 +1,9 @@
 <template lang="pug">
   view.card-rule
     view.head
-      view.cu-avatar.round.lg(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
+      img.cu-avatar.round.lg(:src="curTypeData.img")
       view.desc
-        text 礼品卡 售价1000元\n （可叠加购买）
+        text {{curTypeData.text}} 售价{{data.price}}元\n （可叠加购买）
       view.icon-list
         view.icon(v-for="(item,index) in imgs" :key="index" )
           img(:src="item")
@@ -21,12 +21,48 @@
 </template>
 
 <script>
+import { getItem } from "../../common/vmeitime-http/index";
 export default {
   data() {
     return {
       avatar: "",
+      data: null,
+      typeMapping: {
+        times: {
+          text: "次卡",
+          img: "/static/img/card-times-circle.PNG"
+        },
+        period: {
+          text: "时效卡",
+          img: "/static/img/card-period-circle.PNG"
+        },
+        credit: {
+          text: "充值卡",
+          img: "/static/img/card-credit-circle.PNG"
+        }
+      },
       imgs: ["/static/icon/cost.svg", "/static/icon/pointmain.svg", "/static/icon/bday.svg", "/static/icon/gift.svg"]
     };
+  },
+  computed: {
+    curTypeData() {
+      if (!this.data) return this.typeMapping.times;
+      return this.typeMapping[this.data.type];
+    }
+  },
+  onLoad(data) {
+    console.log(data);
+    if (data.id) {
+      this.loadCard(data.id);
+    }
+  },
+  methods: {
+    async loadCard(id) {
+      const res = await getItem({ id, type: "card-type" });
+      if (res.data) {
+        this.data = res.data;
+      }
+    }
   }
 };
 </script>
@@ -40,7 +76,6 @@ export default {
     .cu-avatar
       width 120upx
       height 120upx
-      border 3px solid #050404
     .desc
       font-size 34upx
       font-family PingFangSC-Medium, PingFang SC

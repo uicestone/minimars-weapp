@@ -5,9 +5,10 @@
       .switcher.with-padding
         store-switcher
       view.vip-card
-        view.title.with-padding 选择VIP权益卡 
-        mi-card-selecter(:items="user.cards" :curItem.sync="curCard")
-        //- gift-card.gift-card
+        view.cu-form-group
+            view.title 选择VIP权益卡
+            switch(@change='onUseCard' :class="useCard?'checked':''" :checked='useCard?true:false')
+        mi-card-selecter(v-if="useCard" :items="user.cards" :curItem.sync="curCard")
     view.content
       card.card(withShape)
         view.form
@@ -24,7 +25,7 @@
           view.submit(@click="handleBooking")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
               view.title 确认支付/预约
-    mi-modal(:visible.sync="showModal")
+    mi-modal(:visible.sync="showModal" :data="bookingRes")
 
 
       
@@ -41,18 +42,20 @@ import { _ } from "../../utils/lodash";
 export default {
   data() {
     return {
+      useCard: true,
       curCard: {},
       showModal: false,
       form: {
         date: moment().format("YYYY-MM-DD"),
         adultsCount: 2,
         kidsCount: 2
-      }
+      },
+      bookingRes: null
     };
   },
   created() {
-    if (!this.curCard.id && this.user.cards.length > 0) {
-      this.curCard = this.user.cards[0] || {};
+    if (this.user.cards.length > 0) {
+      this.onUseCard({ detail: { value: true } });
     }
   },
   computed: {
@@ -63,18 +66,24 @@ export default {
     async handleBooking() {
       const { id: store } = this.currentStore;
       const { date, adultsCount, kidsCount } = this.form;
-      const { curCard: card } = this;
-      const res = await createBooking({ store, date, adultsCount, kidsCount });
-      const payment = _.get(res, "data.payments.0");
-      if (payment) {
-        await handlePayment(payment.payArgs);
+      const { curCard: card, useCard } = this;
+      const res = await createBooking({ store, date, adultsCount, kidsCount, card: useCard ? card : null });
+      const payArgs = _.get(res, "data.payments.0.payArgs");
+      if (payArgs) {
+        await handlePayment(payArgs);
       }
-
+      this.bookingRes = res.data;
       this.showModal = true;
     },
     DateChange(data) {
       this.form.date = data.detail.value;
       console.log(data);
+    },
+    onUseCard(e) {
+      this.useCard = e.detail.value;
+      if (this.user.cards.length > 0) {
+        this.curCard = this.user.cards[0] || {};
+      }
     }
   }
 };
@@ -89,10 +98,13 @@ export default {
   .with-padding
     padding 0 40upx
   >.vip
+    .cu-form-group
+      background transparent
+      padding 0 40upx
     .vip-card
-      margin-top 30upx
+      margin-top 40upx
       .title
-        margin-left 10upx
+        // margin-left 10upx
         color #535353
         font-size 32upx
   .content

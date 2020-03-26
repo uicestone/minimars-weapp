@@ -1,8 +1,8 @@
 <template lang="pug">
-  view.event-item
+  view.event-item(@click="$emit('click')")
     img(:src="item.posterUrl").img
     view {{item.title}}
-    view {{item.date}}
+    view {{moment(item.date).format("YYYY.MM.DD")}}
 </template>
 
 <script>
@@ -15,7 +15,6 @@ export default {
 .event-item
   height 420upx
   width 316upx
-  background #666
   border-radius 80upx
   text-align center
   text-align left
@@ -27,6 +26,7 @@ export default {
   position relative
   .img
     flex 1
+    z-index -1
     position absolute
     top 0
     left 0

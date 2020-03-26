@@ -5,7 +5,7 @@
     mi-dialog.payment-dialog(:visible.sync="showPayment" withClose)
       view.cotent
         view.head
-          img.img
+          img.img(:src="item.posterUrl")
           view.info
             view.text
               view.name {{item.title}}
@@ -14,22 +14,23 @@
               view.credit
                 img.icon(src="/static/icon/pointmain.svg")
                 text {{item.priceInPoints}}
-              view ￥ 40
+              view(v-if="item.price") ￥ 40
         view.form
           view.label 报名人数
           mi-input-number(:value.sync="form.people")
         view.action
-          button.cu-btn.bg-primary.round.action-button(@click="handlePayment") 积分兑换
-          button.cu-btn.bg-primary.round.action-button(@click="handlePayment") 微信支付
+          button.cu-btn.bg-primary.round.action-button(@click="handlePayment" :disabled="!payAble") 积分兑换
+          button.cu-btn.bg-primary.round.action-button(@click="handlePayment" :disabled="!payAble") 微信支付
 
     img.bg.w-full.absolute(:src="item.posterUrl" mode='widthFix')
     view.placeholder
     card.card(withGreenShape)
       view.content
-        view.name {{item.title}} (剩余13)
+        view.name {{item.title}} (剩余{{item.kidsCountLeft || 0}})
         view.price 
           img.icon(src="/static/icon/pointmain.svg")
-          text {{item.priceInPoints}} / ￥40
+          text {{item.priceInPoints}}
+          text(v-if="item.price")  / ￥40
         view.date 日期: {{moment(item.date).format("MMM Do")}} 
         view.address 门店： {{item.store.name}}
         view.prompt （兑换后请凭兑换码至前台核销并领取入场券）
@@ -38,12 +39,11 @@
         view.title 活动详情
         view.event-detail
           view.name {{item.name}}
-          view.feature
-          //- view.feature(v-for="(item,index) in item.feature" :key="key")
-          //-   view.key 
-          //-     button.cu-btn.round {{item.key}}
-          //-   view.value 
-          //-     view.text {{item.value}}
+          view.feature(v-for="(val,key) in item.props" :key="key")
+            view.key 
+              button.cu-btn.round {{val}}
+            view.value 
+              view.text {{key}}
     view.bottom-fixed
       button.cu-btn.round.action-button.bg-primary(@click="back")
         view.normal 返回首页
@@ -78,6 +78,11 @@ export default {
     if (data.id) {
       console.log(data.id);
       this.loadEvent(data.id);
+    }
+  },
+  computed: {
+    payAble() {
+      return this.form.people !== 0;
     }
   },
   methods: {
@@ -211,7 +216,6 @@ export default {
           .key
             width 50%
             .cu-btn
-              width 120upx
               height 50upx
               color white
               font-weight 500

@@ -13,8 +13,8 @@
     card.card(withShape)
       view.content
         view.cu-list.grid.col-2
-          view.cu-item(v-for="(item,index) in events" :key="index" @click="goDetail(item)")
-            event-item.flex.justify-center(:item="item")
+          view.cu-item(v-for="(item,index) in events" :key="index")
+            event-item.flex.justify-center(:item="item" @click="goDetail(item)")
     mi-modal(:visible.sync="showModal")
 </template>
 
@@ -31,6 +31,9 @@ export default {
   created() {
     this.loadEvent();
   },
+  onReachBottom() {
+    this.loadEvent();
+  },
   methods: {
     async loadEvent() {
       const res = await getEvents();
@@ -38,7 +41,7 @@ export default {
         this.events = res.data;
       }
     },
-    goDetail() {
+    goDetail(item) {
       uni.navigateTo({
         url: `/pages/event/detail?id=${item.id}`
       });
@@ -82,5 +85,8 @@ export default {
           color white
   .card
     .content
-      padding 40upx 20upx 100upx
+      min-height calc(100vh - 450upx)
+      padding 20upx 20upx 100upx
+      .cu-list
+        background transparent
 </style>

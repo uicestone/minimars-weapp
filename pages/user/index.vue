@@ -34,7 +34,7 @@
                   view.title {{item.title}}
                   view.date {{item.date}}
 
-          view.with-padding(@click="go('/pages/user/cardSelling')")
+          view.with-padding(@click="navigateTo('/pages/user/cardSelling')")
             card-title(title="我的卡券包" action="购买更多")
           view.card-list.with-padding
             view.card-list-item(v-for="(item,index) in user.cards" :key="index" )
