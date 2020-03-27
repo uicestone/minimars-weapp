@@ -32,7 +32,7 @@ export default {
       currentTabKey: 0,
       tabs: [
         { key: 0, label: "积分兑换活动", img: "/static/icon/point.svg", line: true },
-        { key: 1, label: "积分报名活动", img: "/static/icon/gift.svg" }
+        { key: 1, label: "积分兑换礼品", img: "/static/icon/gift.svg" }
       ],
       events: [],
       gifts: []
@@ -78,7 +78,7 @@ export default {
       this.navigateTo(`/pages/event/detail?id=${item.id}`);
     },
     goGiftDetail(item) {
-      this.navigateTo(`/pages/user/giftDetail?id=${item.id}`);
+      this.navigateTo(`/pages/gift/detail?id=${item.id}`);
     }
   }
 };

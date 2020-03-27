@@ -25,7 +25,7 @@
           view.submit(@click="handleBooking")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
               view.title 确认支付/预约
-    mi-modal(:visible.sync="showModal" :data="bookingRes")
+    mi-modal(:visible.sync="showModal" :item="bookingRes")
 
 
       
@@ -67,7 +67,7 @@ export default {
       const { id: store } = this.currentStore;
       const { date, adultsCount, kidsCount } = this.form;
       const { curCard: card, useCard } = this;
-      const res = await createBooking({ store, date, adultsCount, kidsCount, card: useCard ? card : null });
+      const res = await createBooking({ store, date, adultsCount, kidsCount, card: useCard ? card : null, paymentGateway: "wechatpay" });
       const payArgs = _.get(res, "data.payments.0.payArgs");
       if (payArgs) {
         await handlePayment(payArgs);

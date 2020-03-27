@@ -5,14 +5,14 @@ import { moment } from "./utils/moment";
 import { _ } from "./utils/lodash";
 
 import home from "./pages/home/index.vue";
-import StoreDetail from "./pages/store/detail.vue";
+// import StoreDetail from "./pages/store/detail.vue";
 import eventPage from "./pages/event/index.vue";
-import createBooking from "./pages/booking/create.vue";
+// import createBooking from "./pages/booking/create.vue";
 import user from "./pages/user/index.vue";
-import userBooking from "./pages/user/booking.vue";
-import userGiftList from "./pages/user/giftlist.vue";
-import userCostRecord from "./pages/user/costRecord.vue";
-import eventSuccess from "./pages/event/success.vue";
+// import userBooking from "./pages/user/booking.vue";
+// import userGiftList from "./pages/user/giftlist.vue";
+// import userCostRecord from "./pages/user/costRecord.vue";
+// import eventSuccess from "./pages/event/success.vue";
 import login from "./pages/login.vue";
 
 import cuCustom from "./common/colorui/components/cu-custom.vue";
@@ -60,14 +60,14 @@ Vue.component("mi-card-selecter", MiCardSelecter);
 
 Vue.component("home", home);
 Vue.component("login", login);
-Vue.component("store-detail", StoreDetail);
+// Vue.component("store-detail", StoreDetail);
 Vue.component("event", eventPage);
-Vue.component("create-booking", createBooking);
+// Vue.component("create-booking", createBooking);
 Vue.component("user", user);
-Vue.component("user-booking", userBooking);
-Vue.component("user-gift-list", userGiftList);
-Vue.component("user-cost-record", userCostRecord);
-Vue.component("event-success", eventSuccess);
+// Vue.component("user-booking", userBooking);
+// Vue.component("user-gift-list", userGiftList);
+// Vue.component("user-cost-record", userCostRecord);
+// Vue.component("event-success", eventSuccess);
 
 Vue.component("html-parser", htmlParser);
 

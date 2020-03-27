@@ -4,19 +4,19 @@
     stripe.stripe(withTail)
       view.content
         view.cu-list.grid.col-3
-          view.item(@click="navigateTo('/pages/user/giftlist?tab=0')")
+          view.item(@click="navigateTo('/pages/gift/list?tab=0')")
             button.cu-btn
               img.icon(src="/static/icon/point2.svg")
             view.stat
-              view.count {{user.balanceReward}}
+              view.count {{user.points}}
               view.label 我的积分
             view.line
           view.item(@click="navigateTo('/pages/user/costRecord')")
             button.cu-btn
               img.icon(src="/static/icon/cost.svg")
             view.stat
-              view.count {{user.balanceDeposit}}
-              view.label 我的消费
+              view.count {{user.balance}}
+              view.label 我的余额
             view.line
           view.item
             button.cu-btn(@click="status='userQR'")
@@ -34,7 +34,7 @@
                   view.title {{item.title}}
                   view.date {{item.date}}
 
-          view.with-padding(@click="navigateTo('/pages/user/cardSelling')")
+          view.with-padding(@click="navigateTo('/pages/card/sell')")
             card-title(title="我的卡券包" action="购买更多")
           view.card-list.with-padding
             view.card-list-item(v-for="(item,index) in user.cards" :key="index" )
@@ -118,7 +118,7 @@ export default {
     },
     goCardSelling(item) {
       uni.navigateTo({
-        url: `/pages/user/cardSelling?type=${item.type}`
+        url: `/pages/card/sell?type=${item.type}`
       });
     }
   }

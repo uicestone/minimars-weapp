@@ -2,17 +2,17 @@
   view.cu-modal.bottom-modal(:class="visible?'show':''" @tap="tooggleModal")
     view.cu-dialog.no-bg(@tap.stop="")
       card.card-dialog(withClose @close="tooggleModal")
-        view.content(v-if="data")
+        view.content(v-if="item")
           img.img1(src="/static/img/create-success.png" mode='aspectFill')
           view.title 您已成功预约
           view.code 预约码
           canvas.qrcode(canvas-id="qrcode")
           view.hint (请在到店时出示)
           view.info
-            view 时间: {{_.get(data, "payments.0.title")}}
-            view 人数：{{data.adultsCount}}位成人, {{data.kidsCount}}名儿童
-            view 支付方式: {{_.get(data, "payments.0.gateway")}}
-            view 共计金额: {{data.price}}元
+            view 时间: {{_.get(item, "payments.0.title")}}
+            view 人数：{{item.adultsCount}}位成人, {{item.kidsCount}}名儿童
+            view 支付方式: {{_.get(item, "payments.0.gateway")}}
+            view 共计金额: {{item.price}}元
 </template>
 
 <script>
@@ -20,7 +20,7 @@ import uQRCode from "../common/uqrcode";
 import { _ } from "../utils/lodash";
 
 export default {
-  props: ["visible", "data"],
+  props: ["visible", "item"],
   methods: {
     tooggleModal() {
       this.$emit("update:visible", false);
@@ -29,7 +29,7 @@ export default {
       uQRCode.make({
         canvasId: "qrcode",
         componentInstance: this,
-        text: _.get(this, "data.customer.id", "test"),
+        text: _.get(this, "item.customer.id", "test"),
         size: 128,
         margin: 10,
         backgroundColor: "#ffffff",

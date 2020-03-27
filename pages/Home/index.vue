@@ -3,8 +3,8 @@
     //- swiper
     view(style="height: 1000upx")
       swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='5000' duration='500')
-        swiper-item(v-for='(item,index) in swiperList' :key='index')
-          img(:src='item.url' mode='aspectFill')
+        swiper-item(v-for='(item,index) in posts' :key='index')
+          img(:src='item.posterUrl' mode='aspectFill')
     //- content
     view.content
       view.shadow.bg-white.new-booking
@@ -32,10 +32,12 @@
 
 <script>
 import { sync } from "vuex-pathify";
+import { getPost } from "../../common/vmeitime-http";
 export default {
   data() {
     return {
       showModal: false,
+      posts: [],
       swiperList: [
         {
           id: 0,
@@ -63,9 +65,16 @@ export default {
   computed: {
     currentTab: sync("currentTab")
   },
+  created() {
+    this.loadPost();
+  },
   methods: {
     async goBooking() {
       this.navigateTo("/pages/booking/create", { checkAuth: true });
+    },
+    async loadPost() {
+      const res = await getPost({ tag: "home-banner" });
+      this.posts = res.data;
     }
   }
 };

@@ -70,7 +70,7 @@ export default {
     goCardRule() {
       if (!this.curCard.id) return;
       uni.navigateTo({
-        url: `/pages/user/cardRule?id=${this.curCard.id}`
+        url: `/pages/card/rule?id=${this.curCard.id}`
       });
     },
     async handleBuyCard() {
@@ -80,7 +80,7 @@ export default {
         await handlePayment(payment.payArgs);
       }
       uni.navigateTo({
-        url: "/pages/user/cardSuccess"
+        url: "/pages/card/success"
       });
     }
   }

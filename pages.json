@@ -34,15 +34,9 @@
       }
     },
     {
-      "path": "pages/event/success",
+      "path": "pages/booking/success",
       "style": {
-        "navigationBarTitleText": "活动报名"
-      }
-    },
-    {
-      "path": "pages/user/giftSuccess",
-      "style": {
-        "navigationBarTitleText": "确认兑换"
+        "navigationBarTitleText": "支付成功"
       }
     },
     {
@@ -52,7 +46,7 @@
       }
     },
     {
-      "path": "pages/user/giftDetail",
+      "path": "pages/gift/detail",
       "style": {
         "navigationStyle": "custom",
         "navigationBarTextStyle": "black",
@@ -60,7 +54,7 @@
       }
     },
     {
-      "path": "pages/user/giftlist",
+      "path": "pages/gift/list",
       "style": {
         "navigationStyle": "custom"
       }
@@ -72,19 +66,19 @@
       }
     },
     {
-      "path": "pages/user/cardSelling",
+      "path": "pages/card/sell",
       "style": {
         "navigationStyle": "custom"
       }
     },
     {
-      "path": "pages/user/cardSuccess",
+      "path": "pages/card/success",
       "style": {
         "navigationBarTitleText": "会员购卡"
       }
     },
     {
-      "path": "pages/user/cardRule",
+      "path": "pages/card/rule",
       "style": {
         "navigationBarTitleText": "规则权益"
       }
@@ -118,7 +112,7 @@
       },
       {
         "name": "积分兑换", //模式名称
-        "path": "pages/user/giftlist", //启动页面，必选
+        "path": "pages/gift/list", //启动页面，必选
         "query": "" //启动参数，在页面的onLoad函数里面得到
       },
       {
@@ -148,27 +142,32 @@
       },
       {
         "name": "活动支付成功", //模式名称
-        "path": "pages/event/success", //启动页面，必选
-        "query": "" //启动参数，在页面的onLoad函数里面得到
+        "path": "pages/booking/success", //启动页面，必选
+        "query": "id=5e7dd218370c5626354eed4c" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "商品详情", //模式名称
-        "path": "pages/user/giftDetail", //启动页面，必选
-        "query": "" //启动参数，在页面的onLoad函数里面得到
+        "path": "pages/gift/detail", //启动页面，必选
+        "query": "id=5e7afa9c727de87bae468ebd" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
+        "name": "礼物兑换成功", //模式名称
+        "path": "pages/booking/success", //启动页面，必选
+        "query": "id=5e7dcb3b370c5626354eec94" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "购卡", //模式名称
-        "path": "pages/user/cardSelling", //启动页面，必选
+        "path": "pages/card/sell", //启动页面，必选
         "query": "" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "购卡成功", //模式名称
-        "path": "pages/user/cardSuccess", //启动页面，必选
+        "path": "pages/card/success", //启动页面，必选
         "query": "" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "规则权益", //模式名称
-        "path": "pages/user/cardRule", //启动页面，必选
+        "path": "pages/card/rule", //启动页面，必选
         "query": "id=5e72362917eb1d3753e04183" //启动参数，在页面的onLoad函数里面得到
       }
     ]

@@ -5,39 +5,41 @@
     mi-dialog.payment-dialog(:visible.sync="showPayment" withClose)
       view.cotent
         view.head
-          img.img
+          img.img(:src="item.posterUrl")
           view.info
             view.text
-              view.name {{item.name}}
+              view.name {{item.title}}
             view.price
               view.credit
                 img.icon(src="/static/icon/pointmain.svg")
                 text 1300
         view.form
-          view.label 款式
-          view.slector
-            button.cu-btn.round.bg-primary(v-for="(i, index) in item.types" :key="index"  :class="[form.currentType == i.value ? 'active' : '']" @click="switchType(i)") {{i.label}}
-          view.label 尺寸
+          //- view.label 款式
+          //- view.slector
+            //- button.cu-btn.round.bg-primary(v-for="(i, index) in item.types" :key="index"  :class="[form.currentType == i.value ? 'active' : '']" @click="switchType(i)") {{i.label}}
+          //- view.label 尺寸
           view.label 数量
-          mi-input-number(:value.sync="form.amount")
+          mi-input-number(:value.sync="form.quantity")
         view.action
-          button.cu-btn.bg-primary.round.action-button(@click="handlePayment") 确认兑换
+          button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 确认兑换
 
 
-    view.cover(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
+    img.bg.w-full.absolute(:src="item.posterUrl" mode='widthFix')
+    view.placeholder
     card.card(withGreenShape)
       view.content
-        view.name {{item.name}} (剩余 {{item.remaning}})
+        view.name {{item.title}} (剩余 {{item.quantity}})
         view.price 
           img.icon(src="/static/icon/pointmain.svg")
-          text 1600
+          text {{item.priceInPoints}}
         view.prompt （请凭兑换码至门店前台核销并领取商品）
     view.cu-card.no-card
       view.cu-item.content
-        view.title 商品详情
         view.event-detail
-          view.name {{item.name}}
-          view.feature(v-for="(item,index) in item.feature" :key="key")
+          view.title 商品详情
+          html-parser(:html="item.content")
+          view.name {{item.title}}
+          view.feature(v-for="(item,index) in item.props" :key="key")
             view.key 
               button.cu-btn.round {{item.key}}
             view.value 
@@ -51,43 +53,55 @@
 </template>
 
 <script>
+import { getItem, createBooking } from "../../common/vmeitime-http";
+import { sync } from "vuex-pathify";
+import { handlePayment } from "../../services";
+import { _ } from "../../utils/lodash";
 export default {
   data() {
     return {
       showPayment: false,
       form: {
-        amount: 0,
-        currentType: "小蛙蛙"
+        quantity: 1
       },
-      item: {
-        name: "迷你毛毛小袜子",
-        remaning: 26,
-        types: [
-          { label: "小蛙蛙", value: "小蛙蛙" },
-          { label: "小狗子", value: "小狗子" },
-          { label: "小喵喵", value: "小喵喵" },
-          { label: "小猩猩", value: "小猩猩" }
-        ],
-        feature: [
-          {
-            key: "材质",
-            value: "10cm*5cm"
-          },
-          { key: "尺寸", value: "100%纯棉" },
-          { key: "特点", value: "可爱可爱可爱" }
-        ]
-      }
+      item: {}
     };
   },
+  computed: {
+    payAble() {
+      return this.form.quantity !== 0;
+    },
+    currentStore: sync("store/currentStore")
+  },
+  onLoad(data) {
+    if (data.id) {
+      console.log(data.id);
+      this.loadGift(data.id);
+    }
+  },
   methods: {
-    handlePayment() {
-      this.showPayment = false;
-      uni.navigateTo({
-        url: "/pages/user/giftSuccess"
-      });
+    async loadGift(id) {
+      const res = await getItem({ id, type: "gift" });
+      if (res.data) {
+        this.item = res.data;
+      }
     },
     switchType(item) {
       this.form.currentType = item.value;
+    },
+    async handleBooking({ paymentGateway }) {
+      const { id: store } = this.currentStore;
+      const { quantity } = this.form;
+      const { id: gift } = this.item;
+      const res = await createBooking({ store, adultsCount: 0, quantity, paymentGateway, type: "gift", gift });
+      const payArgs = _.get(res, "data.payments.0.payArgs");
+      if (payArgs) {
+        await handlePayment(payArgs);
+      }
+      this.showPayment = false;
+      uni.navigateTo({
+        url: `/pages/booking/success?id=${res.data.id}`
+      });
     }
   }
 };
@@ -96,8 +110,8 @@ export default {
 
 <style lang="stylus" scoped>
 .event-detail
-  .cover
-    height 550upx
+  .placeholder
+    padding-top 420upx
   .payment-dialog
     font-family PingFangSC-Regular, PingFang SC
     color var(--text-primary)
@@ -189,7 +203,7 @@ export default {
     margin-top 20upx
     font-family PingFangSC-Semibold, PingFang SC
     .content
-      padding 80upx 0 46upx
+      padding 80upx 0 200upx
       .title
         text-align center
         font-size 30upx
@@ -197,7 +211,7 @@ export default {
         color var(--text-primary)
         line-height 40upx
       .event-detail
-        margin 40upx 50upx 0 100upx
+        margin 40upx 50upx 0 50upx
         .name
           margin-bottom 34upx
           font-size 30upx

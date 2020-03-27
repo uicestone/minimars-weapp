@@ -16,11 +16,11 @@
                 text {{item.priceInPoints}}
               view(v-if="item.price") ￥ 40
         view.form
-          view.label 报名人数
-          mi-input-number(:value.sync="form.people")
+          view.label 报名人数（儿童）
+          mi-input-number(:value.sync="form.kidsCount")
         view.action
-          button.cu-btn.bg-primary.round.action-button(@click="handlePayment" :disabled="!payAble") 积分兑换
-          button.cu-btn.bg-primary.round.action-button(@click="handlePayment" :disabled="!payAble") 微信支付
+          button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 积分兑换
+          button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") 微信支付
 
     img.bg.w-full.absolute(:src="item.posterUrl" mode='widthFix')
     view.placeholder
@@ -53,13 +53,16 @@
 </template>
 
 <script>
-import { getItem } from "../../common/vmeitime-http";
+import { getItem, createBooking } from "../../common/vmeitime-http";
+import { sync } from "vuex-pathify";
+import { _ } from "../../utils/lodash";
+import { handlePayment } from "../../services";
 export default {
   data() {
     return {
       showPayment: false,
       form: {
-        people: 0
+        kidsCount: 1
       },
       item: {
         name: "甜甜圈大作战",
@@ -82,8 +85,9 @@ export default {
   },
   computed: {
     payAble() {
-      return this.form.people !== 0;
-    }
+      return this.form.kidsCount !== 0;
+    },
+    currentStore: sync("store/currentStore")
   },
   methods: {
     async loadEvent(id) {
@@ -92,10 +96,18 @@ export default {
         this.item = res.data;
       }
     },
-    handlePayment() {
+    async handleBooking({ paymentGateway }) {
+      const { id: store } = this.currentStore;
+      const { kidsCount } = this.form;
+      const { id: event } = this.item;
+      const res = await createBooking({ store, adultsCount: 0, kidsCount, paymentGateway, type: "event", event });
+      const payArgs = _.get(res, "data.payments.0.payArgs");
+      if (payArgs) {
+        await handlePayment(payArgs);
+      }
       this.showPayment = false;
       uni.navigateTo({
-        url: "/pages/event/success"
+        url: `/pages/booking/success?id=${res.data.id}`
       });
     }
   }
