@@ -3,7 +3,7 @@
     //- swiper
     view(style="height: 1000upx")
       swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='5000' duration='500')
-        swiper-item(v-for='(item,index) in posts' :key='index')
+        swiper-item(v-for='(item,index) in posts' :key='index' @click="handlePost(item)")
           img(:src='item.posterUrl' mode='aspectFill')
     //- content
     view.content
@@ -37,29 +37,7 @@ export default {
   data() {
     return {
       showModal: false,
-      posts: [],
-      swiperList: [
-        {
-          id: 0,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg"
-        },
-        {
-          id: 1,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big37006.jpg"
-        },
-        {
-          id: 2,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg"
-        },
-        {
-          id: 3,
-          type: "image",
-          url: "https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg"
-        }
-      ]
+      posts: []
     };
   },
   computed: {
@@ -75,6 +53,16 @@ export default {
     async loadPost() {
       const res = await getPost({ tag: "home-banner" });
       this.posts = res.data;
+    },
+    async handlePost(item) {
+      if (item.target) {
+        uni.navigateTo({
+          url: `/pages/${item.target}`
+        });
+      }
+      uni.navigateTo({
+        url: `/pages/post/detail?id=${item.id}`
+      });
     }
   }
 };

@@ -60,6 +60,12 @@
       }
     },
     {
+      "path": "pages/post/detail",
+      "style": {
+        "navigationBarTitleText": "文章详情"
+      }
+    },
+    {
       "path": "pages/user/booking",
       "style": {
         "navigationStyle": "custom"
@@ -169,6 +175,11 @@
         "name": "规则权益", //模式名称
         "path": "pages/card/rule", //启动页面，必选
         "query": "id=5e72362917eb1d3753e04183" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
+        "name": "文章详情", //模式名称
+        "path": "pages/post/detail", //启动页面，必选
+        "query": "id=5e744fcc69e3b1441b99916e" //启动参数，在页面的onLoad函数里面得到
       }
     ]
   }
