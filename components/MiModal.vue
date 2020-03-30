@@ -9,10 +9,15 @@
           canvas.qrcode(canvas-id="qrcode")
           view.hint (请在到店时出示)
           view.info
-            view 时间: {{_.get(item, "payments.0.title")}}
-            view 人数：{{item.adultsCount}}位成人, {{item.kidsCount}}名儿童
-            view 支付方式: {{_.get(item, "payments.0.gateway")}}
-            view 共计金额: {{item.price}}元
+            view 时间: {{_.get(item,  "payments.0.title", "")}}
+            view(v-if="_.get(item, 'store.nam')") 门店：{{_.get(item, "store.name","")}}
+            view(v-if="item.kidsCount") 人数: {{item.kidsCount||""}}
+            view(v-if="_.get(item, 'payments.0.amount')") 支付金额: {{_.get(item, "payments.0.amount","")||""}}
+            
+            view(v-if="_.get(item, 'gift.title')") 商品：{{_.get(item, "gift.title","")}}
+            view(v-if="item.quantity") 数量: {{item.quantity||""}}
+            view(v-if="item.priceInPoints") 抵扣积分: {{item.priceInPoints||""}}
+            view(v-if="user.points") 剩余积分: {{user.points||""}}
 </template>
 
 <script>

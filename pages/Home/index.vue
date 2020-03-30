@@ -24,7 +24,7 @@
         img.cover(src="/static/img/store-detail.jpg" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
         view.h3 品牌介绍
         img.cover(src="/static/img/about.png" mode='aspectFill' @click="navigateTo('/pages/about')")
-    mi-modal(:visible.sync="showModal")
+    mi-modal(:visible.sync="showModal" :item="bookings[0]")
           
 
     
@@ -41,7 +41,8 @@ export default {
     };
   },
   computed: {
-    currentTab: sync("currentTab")
+    currentTab: sync("currentTab"),
+    bookings: sync("booking/bookings")
   },
   created() {
     this.loadPost();
