@@ -1,5 +1,6 @@
 <template lang="pug">
   view.post-detail
+    text.text-lg.text-bold {{data.title}}
     html-parser(:html="data.content")
 </template>
 
@@ -28,5 +29,6 @@ export default {
 
 <style lang="stylus" scoped>
 .post-detail
+  text-align center
   padding 40upx
 </style>

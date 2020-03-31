@@ -2,11 +2,11 @@
   scroll-view(scroll-y).event
     top-event
     stripe.stripe(withTail)
-      view.content
-        view.avatar(:style="[{ background: avatar ? 'url(' + avatar + ')': '#666' }]")
+      view.content(v-if="newBooking")
+        img.img(:src="_.get(newBooking, 'event.posterUrl')")
         view.center
-          view.title Ballon Time
-          view.subTitle 2022.2.22 16:00
+          view.title {{_.get(newBooking, "event.title")}}
+          view.subTitle  {{_.get(newBooking, 'payments.0.title')}}
         button.cu-btn.round.action-button(@click="showModal = true")
           view.icon(class="cuIcon-attentionfill")
           view.text 您的预约
@@ -15,11 +15,12 @@
         view.cu-list.grid.col-2
           view.cu-item(v-for="(item,index) in events" :key="index")
             event-item.flex.justify-center(:item="item" @click="goDetail(item)")
-    mi-modal(:visible.sync="showModal")
+    mi-modal(:visible.sync="showModal" :item="newBooking")
 </template>
 
 <script>
 import { getEvents } from "../../common/vmeitime-http";
+import { sync } from "vuex-pathify";
 export default {
   data() {
     return {
@@ -27,6 +28,12 @@ export default {
       avatar: "",
       events: []
     };
+  },
+  computed: {
+    bookings: sync("booking/bookings"),
+    newBooking() {
+      return this.bookings.find(i => i.type == "event");
+    }
   },
   created() {
     this.loadEvent();
@@ -57,9 +64,9 @@ export default {
       display flex
       align-items center
       padding 40upx
-      .avatar
-        height 100upx
-        width 100upx
+      .img
+        height 120rpx
+        width 120upx
         border-radius 20upx
       .center
         margin-left 20upx

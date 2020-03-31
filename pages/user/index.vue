@@ -24,10 +24,10 @@
     card.card(withShape :withClose="status=='userQR'" @close="status='normal'")
       view.content
         view.normal(v-if="status=='normal'")
-          view.with-padding(@click="navigateTo('/pages/user/booking')")
+          view.with-padding(@click="navigateTo('/pages/booking/list')")
             card-title(title="我的预约" action="所有预约")
           swiper.card-swiper(:circular='true' @change="cardSwiper" :autoplay='true' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
-            swiper-item(v-for='(item,index) in bookings'  :class="cardCur==index?'cur':''" :key='index' @click="navigateTo('/pages/user/booking')")
+            swiper-item(v-for='(item,index) in bookings'  :class="cardCur==index?'cur':''" :key='index' @click="navigateTo('/pages/booking/list')")
               view.swiper-item
                 img.img1(src="/static/img/booking.png" mode='aspectFit' )
                 view.info

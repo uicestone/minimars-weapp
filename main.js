@@ -35,6 +35,7 @@ import giftCard from "./components/giftCard.vue";
 import MiModal from "./components/MiModal.vue";
 import MiCardSelecter from "./components/MiCardSelecter.vue";
 import htmlParser from "./components/jyf-parser/jyf-parser.vue";
+import BookingItem from "./components/BookingItem.vue";
 
 Vue.config.productionTip = false;
 
@@ -57,6 +58,7 @@ Vue.component("mi-input-number", MiInputNumber);
 Vue.component("gift-card", giftCard);
 Vue.component("mi-modal", MiModal);
 Vue.component("mi-card-selecter", MiCardSelecter);
+Vue.component("booking-item", BookingItem);
 
 Vue.component("home", home);
 Vue.component("login", login);

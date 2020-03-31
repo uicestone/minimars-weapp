@@ -66,7 +66,7 @@
       }
     },
     {
-      "path": "pages/user/booking",
+      "path": "pages/booking/list",
       "style": {
         "navigationStyle": "custom"
       }
@@ -138,7 +138,7 @@
       },
       {
         "name": "订单列表", //模式名称
-        "path": "pages/user/booking", //启动页面，必选
+        "path": "pages/booking/list", //启动页面，必选
         "query": "" //启动参数，在页面的onLoad函数里面得到
       },
       {

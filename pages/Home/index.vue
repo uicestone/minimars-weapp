@@ -7,11 +7,11 @@
           img(:src='item.posterUrl' mode='aspectFill')
     //- content
     view.content
-      view.shadow.bg-white.new-booking
-        img.img(src="https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg")
+      view.shadow.bg-white.new-booking(v-if="newBooking")
+        img.img(:src="newBooking.posterUrl")
         view.center(@click="showModal=true")
           view.title 您有一个新预约
-          view.sub-title 2020.2.2 COOK曲奇曲奇
+          view.sub-title {{_.get(newBooking, 'payments.0.title')}}
         view.action
           text.arrow(class='cuIcon-right')
       view.menus
@@ -24,7 +24,7 @@
         img.cover(src="/static/img/store-detail.jpg" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
         view.h3 品牌介绍
         img.cover(src="/static/img/about.png" mode='aspectFill' @click="navigateTo('/pages/about')")
-    mi-modal(:visible.sync="showModal" :item="bookings[0]")
+    mi-modal(:visible.sync="showModal" :item="newBooking")
           
 
     
@@ -42,7 +42,10 @@ export default {
   },
   computed: {
     currentTab: sync("currentTab"),
-    bookings: sync("booking/bookings")
+    bookings: sync("booking/bookings"),
+    newBooking() {
+      return this.bookings.find(i => i.type == "play");
+    }
   },
   created() {
     this.loadPost();
@@ -76,13 +79,13 @@ export default {
     display flex
     background #f0eeef
     border-radius 20upx
-    height 120upx
+    min-height 120upx
     align-items center
     margin 0 10upx
     margin-bottom 50upx
     --ShadowSize 0 0rpx 20rpx
     .img
-      height 100%
+      height 120rpx
       width 120upx
       border-radius 20upx
     .center
@@ -94,7 +97,7 @@ export default {
         font-weight bold
       .sub-title
         font-size 28upx
-        line-height 22upx
+        line-height 40upx
         color var(--gray)
   .menus
     display flex
