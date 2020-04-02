@@ -3,6 +3,7 @@ import App from "./App";
 import store from "./store";
 import { moment } from "./utils/moment";
 import { _ } from "./utils/lodash";
+import { utils } from "./utils/index";
 
 import home from "./pages/home/index.vue";
 // import StoreDetail from "./pages/store/detail.vue";
@@ -100,6 +101,7 @@ Vue.prototype.navigateTo = (url, opt = {}) => {
 };
 Vue.prototype.moment = moment;
 Vue.prototype.uni = uni;
+Vue.prototype.utils = utils;
 Vue.prototype._ = _;
 
 const app = new Vue({

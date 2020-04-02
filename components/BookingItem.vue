@@ -11,24 +11,15 @@
 
 <script>
 import { _ } from "../utils/lodash";
+import { utils } from "../utils/index";
 export default {
   props: ["item", "withAction"],
   computed: {
     img() {
-      if (this.item.type == "event") {
-        return _.get(this.item, "event.posterUrl");
-      } else if (this.item.type == "gift") {
-        return _.get(this.item, "gift.posterUrl");
-      }
-      return "/static/img/booking.png";
+      return utils.booking.getImage(this.item);
     },
     title() {
-      if (this.item.type == "event") {
-        return _.get(this.item, "event.title");
-      } else if (this.item.type == "gift") {
-        return _.get(this.item, "gift.title");
-      }
-      return "预约";
+      return utils.booking.getTitle(this.item);
     }
   }
 };

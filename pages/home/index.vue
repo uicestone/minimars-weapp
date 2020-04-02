@@ -8,7 +8,7 @@
     //- content
     view.content
       view.shadow.bg-white.new-booking(v-if="newBooking")
-        img.img(:src="newBooking.posterUrl")
+        img.img(src="/static/img/booking.png" mode='aspectFit')
         view.center(@click="showModal=true")
           view.title 您有一个新预约
           view.sub-title {{_.get(newBooking, 'payments.0.title')}}

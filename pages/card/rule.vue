@@ -16,6 +16,9 @@
       view.title.margin-top 会员卡使用规则
       view
         text 1. 此卡为Mini Mars Kids Club 5次卡，单次最多可入场2大1小， 当日最多使用2次，持卡人须同时到店使用；\n 2. 此卡为实名制，仅限开卡人使用； \n3. 开卡人自行选择门店进行实名登记，此卡仅限开卡人开 卡门店使用； \n4. 会员卡使用规则以办理当日门店所签办卡协议为准； \n5. 此卡自开卡即被激活，激活后一年内有效，请于有效期内使用； \n6. 一经售出，不退不换，不挂失、不找零、不可兑现； \n7. 请妥善保管并合理使用此卡，因任何非合理使用或保 管不善导致的损坏、遗失或不可使用的责任均有持卡人自行承担。
+    view.flex.justify-center.bottom
+      img.img1(src="/static/img/card-rule-bottom.png" mode="widthFix" style="width: 400upx")
+      
       
           
 </template>
