@@ -26,13 +26,13 @@
     view.placeholder
     card.card(withGreenShape)
       view.content
-        view.name {{item.title}} (剩余{{item.kidsCountLeft || 0}})
-        view.price 
-          img.icon(src="/static/icon/pointmain.svg")
-          text {{item.priceInPoints}}
-          text(v-if="item.price")  / ￥40
-        view.date 日期: {{moment(item.date).format("MMM Do")}} 
-        view.address 门店： {{item.store.name}}
+        view.name {{item.title}} （剩余{{item.kidsCountLeft || 0}}）
+        view.props
+          view.price
+            img.icon(src="/static/icon/pointmain.svg")
+            text {{item.priceInPoints}} / ￥ {{item.price || '-'}}
+          view.date 日期：{{moment(item.date).format("MMM Do")}} 
+          view.address 门店：{{item.store.name}}
         view.prompt （兑换后请凭兑换码至前台核销并领取入场券）
     view.cu-card.no-card
       view.cu-item.content
@@ -189,6 +189,9 @@ export default {
         margin 5upx 0
       .name
         font-size 34upx
+      .props
+        width 300upx
+        text-align left
       .price
         font-size 38upx
         display flex
