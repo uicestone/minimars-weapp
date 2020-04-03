@@ -9,12 +9,12 @@
           view.info
             view.text
               view.name {{item.title}}
-              view.prompt (*入场门票需另购)
+              view.prompt （*入场门票需另购）
             view.price
               view.credit
                 img.icon(src="/static/icon/pointmain.svg")
                 text {{item.priceInPoints}}
-              view(v-if="item.price") ￥ 40
+              view(v-if="item.price") ￥ {{item.price}}
         view.form
           view.label 报名人数（儿童）
           mi-input-number(:value.sync="form.kidsCount")
