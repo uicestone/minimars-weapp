@@ -33,15 +33,15 @@ export default {
       typeMapping: {
         times: {
           text: "次卡",
-          img: "/static/img/card-times-circle.PNG"
+          img: "/static/img/card-times-circle.png"
         },
         period: {
           text: "时效卡",
-          img: "/static/img/card-period-circle.PNG"
+          img: "/static/img/card-period-circle.png"
         },
         credit: {
           text: "充值卡",
-          img: "/static/img/card-credit-circle.PNG"
+          img: "/static/img/card-credit-circle.png"
         }
       },
       imgs: ["/static/icon/cost.svg", "/static/icon/pointmain.svg", "/static/icon/bday.svg", "/static/icon/gift.svg"]
@@ -69,7 +69,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="stylus" scoped>
 .card-rule

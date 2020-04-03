@@ -37,9 +37,9 @@ export default {
       },
       curCardType: "times",
       cardTypes: [
-        { label: "次卡", value: "times", img: "/static/img/card-times-round.PNG" },
-        { label: "时效卡", value: "period", img: "/static/img/card-period.round.PNG" },
-        { label: "礼品卡", value: "credit", img: "/static/img/card-credit-round.PNG" }
+        { label: "次卡", value: "times", img: "/static/img/card-times-round.png" },
+        { label: "时效卡", value: "period", img: "/static/img/card-period.round.png" },
+        { label: "礼品卡", value: "credit", img: "/static/img/card-credit-round.png" }
       ]
     };
   },
@@ -86,7 +86,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="stylus" scoped>
 .card-selling

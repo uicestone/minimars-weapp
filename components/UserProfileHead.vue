@@ -1,7 +1,7 @@
 <template lang="pug">
   view.user-profile-head
     view
-      img.bg.w-full.absolute(src="/static/img/profile-bg.PNG" mode='widthFix')
+      img.bg.w-full.absolute(src="/static/img/profile-bg.png" mode='widthFix')
       img(:src="user.avatarUrl").cu-avatar.round.lg
       view.name-bar
         view.name {{user.name}}

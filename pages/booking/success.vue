@@ -1,6 +1,6 @@
 <template lang="pug">
   view.event-success
-    img.bg.w-full.absolute(src="/static/img/success-bg.PNG" mode='widthFix')
+    img.bg.w-full.absolute(src="/static/img/success-bg.png" mode='widthFix')
     view.content
       view.title 您已成功报名互动！
       view.code 兑换码
@@ -71,7 +71,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="stylus" scoped>
 .event-success
