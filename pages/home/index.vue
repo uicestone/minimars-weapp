@@ -7,13 +7,14 @@
           img(:src='item.posterUrl' mode='aspectFill')
     //- content
     view.content
-      view.shadow.bg-white.new-booking(v-if="newBooking")
-        img.img(src="/static/img/booking.png" mode='aspectFit')
-        view.center(@click="showModal=true")
-          view.title 您有一个新预约
-          view.sub-title {{_.get(newBooking, 'payments.0.title')}}
-        view.action
-          text.arrow(class='cuIcon-right')
+      booking-item(v-if="newBooking" :item="newBooking" withAction withShadow)
+      //- view.shadow.bg-white.new-booking(v-if="newBooking")
+      //-   img.img(src="/static/img/booking.png" mode='aspectFit')
+      //-   view.center(@click="showModal=true")
+      //-     view.title 您有一个新预约
+      //-     view.sub-title {{newBooking.date}}
+      //-   view.action
+      //-     text.arrow(class='cuIcon-right')
       view.menus
         view.button
           menu-link(title="线下活动" subTitle="Events" @click="navigateTo('/pages/event/index')")
@@ -24,7 +25,6 @@
         img.cover(src="/static/img/store-detail.jpg" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
         view.h3 品牌介绍
         img.cover(src="/static/img/about.png" mode='aspectFill' @click="navigateTo('/pages/about')")
-    mi-modal(:visible.sync="showModal" :item="newBooking")
           
 
     
@@ -100,6 +100,7 @@ export default {
         line-height 40upx
         color var(--gray)
   .menus
+    margin-top 50upx
     display flex
     justify-content space-between
     .button

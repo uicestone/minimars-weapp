@@ -12,7 +12,7 @@
               view.circle(v-if="item.value== curStatus")
           view.card-list
             view.card-list-item(v-for="(item,index) in booking" :key="index")
-              booking-item(:item="item")
+              booking-item(:item="item" withShadow)
 
 </template>
 

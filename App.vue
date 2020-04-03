@@ -112,4 +112,8 @@ $color-primary-light = #d1fddf
     font-size 26upx
     font-family PingFangSC-Semibold, PingFang SC
     font-weight 600
+.event
+  .booking-item
+    .sub-title
+      color white !important
 </style>

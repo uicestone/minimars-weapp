@@ -3,19 +3,23 @@
     top-event
     stripe.stripe(withTail)
       view.content(v-if="newBooking")
-        img.img(:src="_.get(newBooking, 'event.posterUrl')")
-        view.center
-          view.title {{_.get(newBooking, "event.title")}}
-          view.subTitle  {{_.get(newBooking, 'payments.0.title')}}
-        button.cu-btn.round.action-button(@click="showModal = true")
-          view.icon(class="cuIcon-attentionfill")
-          view.text 您的预约
+        booking-item.booking-item(:item="newBooking" withAction)
+          button.cu-btn.round.action-button(slot="action")
+            view.icon(class="cuIcon-attentionfill")
+            view.text 您的预约
+        //- img.img(:src="_.get(newBooking, 'event.posterUrl')")
+        //- view.center
+        //-   view.title {{_.get(newBooking, "event.title")}}
+        //-   view.subTitle  {{newBooking.date}}
+        //- button.cu-btn.round.action-button(@click="showModal = true")
+        //-   view.icon(class="cuIcon-attentionfill")
+        //-   view.text 您的预约
     card.card(withShape)
       view.content
         view.cu-list.grid.col-2
           view.cu-item(v-for="(item,index) in events" :key="index")
             event-item.flex.justify-center(:item="item" @click="goDetail(item)")
-    mi-modal(:visible.sync="showModal" :item="newBooking")
+    //- mi-modal(:visible.sync="showModal" :item="newBooking")
 </template>
 
 <script>

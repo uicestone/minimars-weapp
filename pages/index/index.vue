@@ -11,6 +11,7 @@
     //- user-booking(v-if="currentTab=='/pages/user/booking'")
     //- user-gift-list(v-if="currentTab=='/pages/user/giftlist'")
     //- user-cost-record(v-if="currentTab=='/pages/user/costRecord'")
+    mi-modal(:visible.sync="bookingStore.showBooking" :item="bookingStore.curBooking")
 
 
 </template>
@@ -32,7 +33,8 @@ export default {
     currentTab: sync("currentTab"),
     tabs: sync("configs@tabs"),
     configs: sync("configs"),
-    stores: sync("store/stores")
+    stores: sync("store/stores"),
+    bookingStore: sync("booking")
   },
   async onLoad({ tab }) {
     if (tab) {

@@ -21,19 +21,20 @@
           view.item
             button.cu-btn(@click="showQrCode")
               img.icon(src="/static/icon/code.svg")
-    mi-modal(:visible.sync="isShowBooking" :item="curBooking")
+    //- mi-modal(:visible.sync="isShowBooking" :item="curBooking")
     card.card(withShape :withClose="status=='userQR'" @close="status='normal'")
       view.content
         view.normal(v-if="status=='normal'")
           view.with-padding(@click="navigateTo('/pages/booking/list')")
             card-title(title="我的预约" action="所有预约")
-          swiper.card-swiper(:circular='true' @change="cardSwiper" :autoplay='true' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
+          swiper.card-swiper(:circular='true' @change="cardSwiper" :autoplay='false' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
             swiper-item(v-for='(item,index) in bookings'  :class="cardCur==index?'cur':''" :key='index')
-              view.swiper-item(@click="toggleBooking(item)")
-                img.img1(:src="utils.booking.getImage(item)" mode='aspectFit' )
-                view.info
-                  view.title {{utils.booking.getTitle(item)}}
-                  view.date {{item.date}}
+              view.swiper-item
+                booking-item(:item="item")
+                //- img.img1(:src="utils.booking.getImage(item)" mode='aspectFit' )
+                //- view.info
+                //-   view.title {{utils.booking.getTitle(item)}}
+                //-   view.date {{item.date}}
 
           view.with-padding(@click="navigateTo('/pages/card/sell')")
             card-title(title="我的卡券包" action="购买更多")
