@@ -15,7 +15,7 @@
           view.form-input
             view
               view.label 日期
-              picker(mode='date' :value='date' @change='DateChange')
+              picker(mode='date' :value='date' @change='DateChange' :start='validDateStart' :end='validDateEnd')
                 view.date.flex.justify-center {{moment(form.date).format("MMM Do")}}
             view.margin-top
               view.label 人数
@@ -47,8 +47,8 @@ export default {
       showModal: false,
       form: {
         date: moment().format("YYYY-MM-DD"),
-        adultsCount: 2,
-        kidsCount: 2
+        adultsCount: 1,
+        kidsCount: 1
       },
       bookingRes: null
     };
@@ -60,7 +60,16 @@ export default {
   },
   computed: {
     user: sync("auth/user"),
-    currentStore: sync("store/currentStore")
+    currentStore: sync("store/currentStore"),
+    validDateStart() {
+      // book starts tommorrow if its 16:00 or later
+      return moment()
+        .add(moment().hours() > 16 ? 1 : 0, "day")
+        .format("YYYY-MM-DD");
+    },
+    validDateEnd() {
+      return moment().add(7, "days");
+    }
   },
   methods: {
     async handleBooking() {

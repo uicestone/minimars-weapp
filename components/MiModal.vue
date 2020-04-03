@@ -9,10 +9,11 @@
           canvas.qrcode(canvas-id="qrcode")
           view.hint (请在到店时出示)
           view.info
-            view 时间：{{_.get(item,  "payments.0.title", "")}}
-            view(v-if="_.get(item, 'store.nam')") 门店：{{_.get(item, "store.name","")}}
-            view(v-if="item.kidsCount") 人数：{{item.kidsCount||""}}
-            view(v-if="_.get(item, 'payments.0.amount')") 支付金额：{{_.get(item, "payments.0.amount","")||""}}
+            view 日期：{{_.get(item,  "date", "")}}
+            view 门店：{{_.get(item,  "store.name", "")}}
+            view(v-if="item.adultsCount") 成人数：{{item.adultsCount||""}}
+            view(v-if="item.kidsCount") 儿童数：{{item.kidsCount||""}}
+            view(v-if="_.get(item, 'payments.0.amount')") 已付款：{{_.get(item, "payments.0.amount","")||""}}
             
             view(v-if="_.get(item, 'gift.title')") 商品：{{_.get(item, "gift.title","")}}
             view(v-if="item.quantity") 数量：{{item.quantity||""}}

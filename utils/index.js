@@ -9,7 +9,7 @@ export const utils = {
       } else if (item.type == "gift") {
         return _.get(item, "gift.title");
       }
-      return "预约";
+      return `预约${_.get(item, "store.name")} ${item.adultsCount}大${item.kidsCount}小`;
     },
     getImage(item) {
       if (item.type == "event") {

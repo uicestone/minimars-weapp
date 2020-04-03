@@ -5,8 +5,8 @@
       button.action.cu-btn.round 
         view.icon(class="cuIcon-likefill")
         text 精选
-      view.text Shake
-      view.text & Shake
+      //- view.text Shake
+      //- view.text & Shake
 </template>
 
 <script>
