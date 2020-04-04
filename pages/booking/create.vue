@@ -25,10 +25,9 @@
           view.submit(@click="handleBooking")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
               view.title 确认支付/预约
-    mi-modal(:visible.sync="showModal" :item="bookingRes")
+    booking-modal
 
 
-      
       
 </template>
 

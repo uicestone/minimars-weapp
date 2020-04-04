@@ -98,15 +98,6 @@ export default {
         }
       });
     },
-    toggleBooking(item) {
-      if (this.isShowBooking) {
-        this.isShowBooking = false;
-        this.curBooking = null;
-      } else {
-        this.isShowBooking = true;
-        this.curBooking = item;
-      }
-    },
     cardSwiper(e) {
       this.cardCur = e.detail.current;
     },

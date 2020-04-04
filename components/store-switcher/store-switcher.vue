@@ -10,7 +10,7 @@
 
 <script>
 import { sync } from "vuex-pathify";
-import * as service from "../services";
+import * as service from "@/services";
 export default {
   computed: {
     currentStore: sync("store/currentStore"),

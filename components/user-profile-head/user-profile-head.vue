@@ -14,8 +14,8 @@
 
 <script>
 import { sync } from "vuex-pathify";
-import { updateMobile } from "../common/vmeitime-http";
-import { fetchUser } from "../services";
+import { updateMobile } from "@/common/vmeitime-http";
+import { fetchUser } from "@/services";
 export default {
   data() {
     return {

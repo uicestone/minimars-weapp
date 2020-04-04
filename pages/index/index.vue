@@ -11,7 +11,7 @@
     //- user-booking(v-if="currentTab=='/pages/user/booking'")
     //- user-gift-list(v-if="currentTab=='/pages/user/giftlist'")
     //- user-cost-record(v-if="currentTab=='/pages/user/costRecord'")
-    mi-modal(:visible.sync="bookingStore.showBooking" :item="bookingStore.curBooking")
+    booking-modal
 
 
 </template>

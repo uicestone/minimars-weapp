@@ -22,14 +22,23 @@
 </template>
 
 <script>
-import uQRCode from "../common/uqrcode";
-import { _ } from "../utils/lodash";
+import uQRCode from "../../common/uqrcode";
+import { _ } from "../../utils/lodash";
+import { sync } from "vuex-pathify";
 
 export default {
-  props: ["visible", "item"],
+  computed: {
+    booking: sync("booking"),
+    visible() {
+      return this.booking.showBooking;
+    },
+    item() {
+      return this.booking.curBooking;
+    }
+  },
   methods: {
     tooggleModal() {
-      this.$emit("update:visible", false);
+      this.booking.showBooking = !this.visible;
     },
     makeQRCode() {
       uQRCode.make({

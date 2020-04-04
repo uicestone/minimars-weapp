@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import { _ } from "../utils/lodash";
-import { utils } from "../utils/index";
+import { _ } from "@/utils/lodash";
+import { utils } from "@/utils/index";
 import { sync } from "vuex-pathify";
 export default {
   props: ["item", "withAction", "withShadow"],
