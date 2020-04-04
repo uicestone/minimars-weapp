@@ -43,7 +43,6 @@ export default {
     return {
       useCard: true,
       curCard: {},
-      showModal: false,
       form: {
         date: moment().format("YYYY-MM-DD"),
         adultsCount: 1,
@@ -81,7 +80,7 @@ export default {
         await handlePayment(payArgs);
       }
       this.bookingRes = res.data;
-      this.showModal = true;
+      this.service.toggleBooking(this.bookingRes);
     },
     DateChange(data) {
       this.form.date = data.detail.value;

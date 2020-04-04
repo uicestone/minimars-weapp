@@ -1,6 +1,6 @@
 <template lang="pug">
   view.event-item(@click="$emit('click')")
-    img(:src="item.posterUrl").img
+    img(:src="item.posterUrl" mode="aspectFill").img
     view {{item.title}}
     view {{moment(item.date).format("YYYY.MM.DD")}}
 </template>

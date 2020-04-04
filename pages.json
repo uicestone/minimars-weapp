@@ -134,7 +134,7 @@
       {
         "name": "活动详情", //模式名称
         "path": "pages/event/detail", //启动页面，必选
-        "query": "" //启动参数，在页面的onLoad函数里面得到
+        "query": "id=5e7af8318150297b352c7dfc" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "订单列表", //模式名称

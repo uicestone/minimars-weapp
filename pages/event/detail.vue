@@ -19,8 +19,11 @@
           view.label 报名人数（儿童）
           mi-input-number(:value.sync="form.kidsCount")
         view.action
-          button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 积分兑换
-          button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") 微信支付
+          view.w-full.flex.justify-between(v-if="item.price")
+            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 积分兑换
+            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") 微信支付
+          view.w-full(v-else)
+            button.cu-btn.bg-primary.round.action-button.full(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 确认兑换
 
     img.bg.w-full.absolute(:src="item.posterUrl" mode='widthFix')
     view.placeholder
@@ -37,7 +40,7 @@
     view.cu-card.no-card
       view.cu-item.content
         view.title 活动详情
-        view.event-detail
+        view.content-detail
           html-parser(:html="item.content")
           view.feature(v-for="(val,key) in item.props" :key="key")
             view.key 
@@ -173,6 +176,8 @@ export default {
         font-size 30upx
         font-family PingFangSC-Medium, PingFang SC
         font-weight 500
+        &.full
+          width 100%
   .card
     .content
       display flex
@@ -216,7 +221,7 @@ export default {
         font-weight 600
         color var(--text-primary)
         line-height 40upx
-      .event-detail
+      .content-detail
         margin 40upx 50upx 0 50upx
         .name
           margin-bottom 34upx

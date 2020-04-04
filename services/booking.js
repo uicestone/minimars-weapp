@@ -7,11 +7,11 @@ export const loadBookings = async () => {
 };
 
 export const toggleBooking = (item) => {
-  if (store.state.booking.isShowBooking) {
-    store.state.booking.isShowBooking = false;
+  if (store.state.booking.showBooking) {
+    store.state.booking.showBooking = false;
     store.state.booking.curBooking = null;
   } else {
-    store.state.booking.isShowBooking = true;
+    store.state.booking.showBooking = true;
     store.state.booking.curBooking = item;
   }
 };

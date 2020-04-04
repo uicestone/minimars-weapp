@@ -1,5 +1,5 @@
 <template lang="pug">
-  scroll-view(scroll-y).event-detail
+  scroll-view(scroll-y).gift-detail
     cu-custom(isBack @back="uni.navigateBack()")
       text(slot="backText") 商品详情
     mi-dialog.payment-dialog(:visible.sync="showPayment" withClose)
@@ -12,16 +12,17 @@
             view.price
               view.credit
                 img.icon(src="/static/icon/pointmain.svg")
-                text 1300
+                text {{item.priceInPoints}}
+              view(v-if="item.price") ￥ {{item.price}}
         view.form
-          //- view.label 款式
-          //- view.slector
-            //- button.cu-btn.round.bg-primary(v-for="(i, index) in item.types" :key="index"  :class="[form.currentType == i.value ? 'active' : '']" @click="switchType(i)") {{i.label}}
-          //- view.label 尺寸
           view.label 数量
           mi-input-number(:value.sync="form.quantity")
         view.action
-          button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 确认兑换
+          view.w-full.flex.justify-between(v-if="item.price")
+            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 积分兑换
+            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") 微信支付
+          view.w-full(v-else)
+            button.cu-btn.bg-primary.round.action-button.full(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 确认兑换
 
 
     img.bg.w-full.absolute(:src="item.posterUrl" mode='widthFix')
@@ -31,12 +32,12 @@
         view.name {{item.title}} (剩余 {{item.quantity}})
         view.price 
           img.icon(src="/static/icon/pointmain.svg")
-          text {{item.priceInPoints}}
+          text {{item.priceInPoints}} / ￥ {{item.price || '-'}}
         view.prompt （请凭兑换码至门店前台核销并领取商品）
     view.cu-card.no-card
       view.cu-item.content
-        view.event-detail
-          view.title 商品详情
+        view.title 商品详情
+        view.content-detail
           html-parser(:html="item.content")
           view.name {{item.title}}
           view.feature(v-for="(item,index) in item.props" :key="key")
@@ -109,7 +110,7 @@ export default {
 
 
 <style lang="stylus" scoped>
-.event-detail
+.gift-detail
   .placeholder
     padding-top 420upx
   .payment-dialog
@@ -166,12 +167,14 @@ export default {
       display flex
       justify-content space-between
       .action-button
-        width 100%
+        width 220upx
         height 80upx
         border-radius 50upx
         font-size 30upx
         font-family PingFangSC-Medium, PingFang SC
         font-weight 500
+        &.full
+          width 100%
   .card
     .content
       display flex
@@ -210,7 +213,7 @@ export default {
         font-weight 600
         color var(--text-primary)
         line-height 40upx
-      .event-detail
+      .content-detail
         margin 40upx 50upx 0 50upx
         .name
           margin-bottom 34upx

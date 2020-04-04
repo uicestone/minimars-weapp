@@ -4,7 +4,7 @@ import store from "./store";
 import { moment } from "./utils/moment";
 import { _ } from "./utils/lodash";
 import { utils } from "./utils/index";
-import service from "./services";
+import * as service from "./services";
 
 import home from "./pages/home/index.vue";
 import eventPage from "./pages/event/index.vue";
@@ -51,6 +51,8 @@ Vue.prototype.uni = uni;
 Vue.prototype.utils = utils;
 Vue.prototype.service = service;
 Vue.prototype._ = _;
+
+console.log(service);
 
 const app = new Vue({
   store,
