@@ -8,8 +8,8 @@ const state = {
     name: "",
     avatarUrl: "",
     openid: "",
-    customer: null
-  }
+    customer: null,
+  },
 };
 
 const mutations = make.mutations(state);
@@ -20,5 +20,5 @@ export default {
   namespaced: true,
   getters,
   state,
-  mutations
+  mutations,
 };
