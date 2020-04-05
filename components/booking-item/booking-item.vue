@@ -13,6 +13,8 @@
 import { _ } from "@/utils/lodash";
 import { utils } from "@/utils/index";
 import { sync } from "vuex-pathify";
+import { handlePayment } from "../../services";
+import { getItem } from "../../common/vmeitime-http";
 export default {
   props: ["item", "withAction", "withShadow"],
   computed: {
@@ -32,8 +34,17 @@ export default {
     bookingStore: sync("booking")
   },
   methods: {
-    handleClick() {
-      this.bookingStore.curBooking = this.item;
+    async handleClick() {
+      let item = this.item;
+      const payment = _.get(item, "payments.0", {});
+      if (!payment.paid) {
+        await handlePayment(payment.payArgs);
+        const res = await getItem({ type: "booking", id: item.id });
+        if (res.data) {
+          item = res.data;
+        }
+      }
+      this.bookingStore.curBooking = item;
       this.bookingStore.showBooking = true;
     }
   }

@@ -30,6 +30,7 @@ export default {
     return {};
   },
   computed: {
+    token: sync("auth/token"),
     currentTab: sync("currentTab"),
     tabs: sync("configs@tabs"),
     configs: sync("configs"),
@@ -44,6 +45,11 @@ export default {
     }
     await this.checkLogin();
     await Promise.all([this.loadConfig(), service.loadStore(), service.loadBookings()]);
+  },
+  onShow() {
+    if (this.token) {
+      service.loadBookings();
+    }
   },
   methods: {
     async loadConfig() {

@@ -24,7 +24,9 @@
                 mi-input-number(:value.sync="form.kidsCount" suffix="儿童")
           view.submit(@click="handleBooking")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
-              view.title 确认支付/预约
+              view.title 
+                text 确认支付/预约
+                text.margin-right.text-orange(v-if="!useCard" style="font-size:40upx;font-weight:bold") ￥{{price}}
     booking-modal
 
 
@@ -33,7 +35,7 @@
 
 <script>
 import { moment } from "../../utils/moment";
-import { createBooking } from "../../common/vmeitime-http";
+import { createBooking, getBookingPrice } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
 import { handlePayment } from "../../services";
 import { _ } from "../../utils/lodash";
@@ -42,6 +44,8 @@ export default {
   data() {
     return {
       useCard: true,
+      loadingPrice: false,
+      price: 0,
       curCard: {},
       form: {
         date: moment().format("YYYY-MM-DD"),
@@ -67,6 +71,23 @@ export default {
     },
     validDateEnd() {
       return moment().add(7, "days");
+    }
+  },
+  watch: {
+    form: {
+      async handler() {
+        if (this.loadingPrice) return;
+        this.loadingPrice = true;
+        const { id: store } = this.currentStore;
+        const { date, adultsCount, kidsCount } = this.form;
+        // const { curCard: card, useCard } = this;
+        const res = await getBookingPrice({ store, date, adultsCount, kidsCount, paymentGateway: "wechatpay" });
+        console.log(res);
+        this.price = res.data.price;
+        this.loadingPrice = false;
+      },
+      immediate: true,
+      deep: true
     }
   },
   methods: {

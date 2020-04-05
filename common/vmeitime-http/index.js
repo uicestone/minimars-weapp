@@ -10,7 +10,7 @@ import { _ } from "../../utils/lodash";
  */
 
 // 单独导出(测试接口) import {test} from '@/common/vmeitime-http/'
-export const test = data => {
+export const test = (data) => {
   /* http.config.baseUrl = "http://localhost:8080/api/"
 	//设置请求前拦截器
 	http.interceptor.request = (config) => {
@@ -24,28 +24,28 @@ export const test = data => {
     baseUrl: "https://ls-coupon.codeispoetry.tech/wp-json/v1",
     url: "ajax/echo/text?name=uni-app",
     dataType: "text",
-    data
+    data,
   });
 };
 
-http.interceptor.request = config => {
+http.interceptor.request = (config) => {
   const token = _.get(store, "state.auth.token");
   if (token) {
     config.header = {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
   }
 
   return config;
 };
 
-http.interceptor.response = response => {
+http.interceptor.response = (response) => {
   console.log("response:", response);
   //判断返回状态 执行相应操作
   if (!response.statusCode || response.statusCode !== 200) {
     uni.showToast({
       icon: "none",
-      title: _.get(response, "data.message") || response.errMsg
+      title: _.get(response, "data.message") || response.errMsg,
     });
   }
   return response;
@@ -57,8 +57,8 @@ export const wechatLogin = ({ code }) => {
     method: "POST",
     dataType: "json",
     data: {
-      code
-    }
+      code,
+    },
   });
 };
 
@@ -67,7 +67,7 @@ export const wechatSignup = ({ session_key, encryptedData, iv }) => {
     url: `/wechat/signup`,
     method: "POST",
     dataType: "json",
-    data: { session_key, encryptedData, iv }
+    data: { session_key, encryptedData, iv },
   });
 };
 
@@ -79,8 +79,8 @@ export const wechatDecrypt = ({ session_key, encryptedData, iv }) => {
     data: {
       session_key,
       encryptedData,
-      iv
-    }
+      iv,
+    },
   });
 };
 
@@ -93,8 +93,8 @@ export const updateMobile = ({ session_key, encryptedData, iv, openid }) => {
       session_key,
       encryptedData,
       iv,
-      openid
-    }
+      openid,
+    },
   });
 };
 
@@ -103,7 +103,7 @@ export const updateUser = ({ userId, data }) => {
     url: `/user/${userId}`,
     method: "PUT",
     dataType: "json",
-    data
+    data,
   });
 };
 
@@ -114,8 +114,8 @@ export const getStores = () => {
     data: {
       limit: 10,
       skip: 0,
-      order: "name"
-    }
+      order: "name",
+    },
   });
 };
 
@@ -125,17 +125,17 @@ export const createBooking = ({ store, date, adultsCount, kidsCount, card, type 
     url: `/booking?paymentGateway=${paymentGateway}`,
     method: "POST",
     dataType: "json",
-    data
+    data,
   });
 };
 
-export const getBookingPrice = ({ store, type, date, code, useCredit }) => {
-  const data = _.omitBy({ store, type, date, code }, _.isNil);
+export const getBookingPrice = ({ store, date, adultsCount, kidsCount, card, type = "play", paymentGateway, event, gift, quantity }) => {
+  const data = _.omitBy({ store, date, adultsCount, kidsCount, card, type, event, gift, quantity }, _.isNil);
   return http.request({
     url: `/booking-price`,
     method: "POST",
     dataType: "json",
-    data
+    data,
   });
 };
 
@@ -145,8 +145,8 @@ export const userDeposit = ({ depositLevel }) => {
     method: "POST",
     dataType: "json",
     data: {
-      depositLevel
-    }
+      depositLevel,
+    },
   });
 };
 
@@ -154,7 +154,7 @@ export const getConfigs = () => {
   return http.request({
     url: `/config`,
     method: "GET",
-    dataType: "json"
+    dataType: "json",
   });
 };
 
@@ -164,7 +164,7 @@ export const getAvailabilityBooking = ({ type, month, date, hours }) => {
     url: `/booking-availability/${type}`,
     method: "GET",
     dataType: "json",
-    data
+    data,
   });
 };
 
@@ -174,7 +174,7 @@ export const getListData = ({ type, data } = {}) => {
     url: `/${type}`,
     method: "GET",
     dataType: "json",
-    data
+    data,
   });
 };
 
@@ -182,7 +182,7 @@ export const getPayments = () => {
   return http.request({
     url: `/payment`,
     method: "GET",
-    dataType: "json"
+    dataType: "json",
   });
 };
 
@@ -190,7 +190,7 @@ export const getPayment = ({ id }) => {
   return http.request({
     url: `/payment/${id}`,
     method: "GET",
-    dataType: "json"
+    dataType: "json",
   });
 };
 
@@ -198,7 +198,7 @@ export const getBooking = ({ id }) => {
   return http.request({
     url: `/booking/${id}`,
     method: "GET",
-    dataType: "json"
+    dataType: "json",
   });
 };
 
@@ -206,7 +206,7 @@ export const getAuthUser = () => {
   return http.request({
     url: `/auth/user`,
     method: "GET",
-    dataType: "json"
+    dataType: "json",
   });
 };
 
@@ -216,8 +216,8 @@ export const postUserMembership = ({ cardType }) => {
     method: "POST",
     dataType: "json",
     data: {
-      cardType
-    }
+      cardType,
+    },
   });
 };
 
@@ -227,7 +227,7 @@ export const getBookings = ({ status = null, limit = 10, skip = 0 } = {}) => {
     url: `/booking`,
     method: "GET",
     dataType: "json",
-    data
+    data,
   });
 };
 
@@ -235,7 +235,7 @@ export const getCardType = () => {
   return http.request({
     url: `/card-type`,
     method: "GET",
-    dataType: "json"
+    dataType: "json",
   });
 };
 
@@ -245,7 +245,7 @@ export const getEvents = ({ limit = 10, skip = 0 } = {}) => {
     url: `/event`,
     method: "GET",
     dataType: "json",
-    data
+    data,
   });
 };
 
@@ -253,7 +253,7 @@ export const getItem = ({ id, type }) => {
   return http.request({
     url: `/${type}/${id}`,
     method: "GET",
-    dataType: "json"
+    dataType: "json",
   });
 };
 
@@ -263,7 +263,7 @@ export const getGifts = ({ limit = 10, skip = 0 } = {}) => {
     url: `/gift`,
     method: "GET",
     dataType: "json",
-    data
+    data,
   });
 };
 
@@ -272,15 +272,15 @@ export const postCard = ({ card }) => {
     url: `/card`,
     method: "POST",
     dataType: "json",
-    data: card
+    data: card,
   });
 };
 
-export const getPost = data => {
+export const getPost = (data) => {
   return http.request({
     url: `/post`,
     method: "GET",
     dataType: "json",
-    data
+    data,
   });
 };
