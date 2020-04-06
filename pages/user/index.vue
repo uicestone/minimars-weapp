@@ -11,7 +11,7 @@
               view.count {{user.points}}
               view.label 我的积分
             view.line
-          view.item(@click="navigateTo('/pages/user/costRecord')")
+          view.item(@click="navigateTo('/pages/payment/list')")
             button.cu-btn
               img.icon(src="/static/icon/cost.svg")
             view.stat
@@ -103,7 +103,7 @@ export default {
     },
     goCardSelling(item) {
       uni.navigateTo({
-        url: `/pages/card/sell?type=${item.type}`
+        url: `/pages/card/detail?id=${item.id}`
       });
     }
   }

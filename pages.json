@@ -40,7 +40,7 @@
       }
     },
     {
-      "path": "pages/user/costRecord",
+      "path": "pages/payment/list",
       "style": {
         "navigationStyle": "custom"
       }
@@ -87,6 +87,12 @@
       "path": "pages/card/rule",
       "style": {
         "navigationBarTitleText": "规则权益"
+      }
+    },
+    {
+      "path": "pages/card/detail",
+      "style": {
+        "navigationStyle": "custom"
       }
     }
   ],
@@ -143,7 +149,7 @@
       },
       {
         "name": "消费列表", //模式名称
-        "path": "pages/user/costRecord", //启动页面，必选
+        "path": "pages/payment/list", //启动页面，必选
         "query": "" //启动参数，在页面的onLoad函数里面得到
       },
       {
@@ -169,7 +175,7 @@
       {
         "name": "购卡成功", //模式名称
         "path": "pages/card/success", //启动页面，必选
-        "query": "" //启动参数，在页面的onLoad函数里面得到
+        "query": "id=5e8aacd95ab1a1617fdf2943" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "规则权益", //模式名称

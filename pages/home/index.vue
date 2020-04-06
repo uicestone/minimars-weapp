@@ -22,7 +22,7 @@
           menu-link(title="预约/购票" subTitle="Book" @click="goBooking")
       view.store
         view.h3 门店介绍
-        img.cover(src="/static/img/store-detail.jpg" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
+        img.cover(:src="currentStore ? currentStore.posterUrl : '/static/img/store-detail.jpg'" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
         view.h3 品牌介绍
         img.cover(src="/static/img/about.png" mode='aspectFill' @click="navigateTo('/pages/about')")
           
@@ -43,6 +43,7 @@ export default {
   computed: {
     currentTab: sync("currentTab"),
     bookings: sync("booking/bookings"),
+    currentStore: sync("store/currentStore"),
     newBooking() {
       return this.bookings.find(i => i.type == "play");
     }

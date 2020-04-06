@@ -1,7 +1,7 @@
 
 <template lang="pug">
-  swiper.card-swiper(:circular='true' @change="onChange" indicator-color='#8799a3' indicator-active-color='#0081ff')
-    swiper-item(v-for='(item,index) in items'  :class="curItem.id==item.id?'cur':''" :key='index' @click="onChange({detail:{current: index}})")
+  swiper.card-swiper(v-if="items && items.length > 0" :circular='true' @change="onChange" indicator-color='#8799a3' indicator-active-color='#0081ff' :current-item-id="curItem.id")
+    swiper-item(v-for='(item,index) in items' :item-id="item.id"  :class="curItem.id==item.id?'cur':''" :key='index' @click="onChange({detail:{current: index}})")
       view.swiper-item
         gift-card.gift-card(:checked="curItem.id==item.id" :name="item.title")
 </template>
@@ -13,7 +13,7 @@ export default {
     onChange(e) {
       this.$emit("update:curItem", this.items[e.detail.current]);
     }
-  }
+  },
 };
 </script>
 

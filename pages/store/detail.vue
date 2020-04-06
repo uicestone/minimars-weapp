@@ -6,12 +6,13 @@
       uni-notice-bar.w-full(:show-icon='true' :speed="100" :scrollable='true' :single='true' text='我们在疫情期间, 工作人员清洁消毒30分钟/次，设施 …')
     img.img.w-full(src="/static/img/logo1.png" mode='aspectFill')
     view.info
-      view.name 门店信息
-      view 地址：静安区江宁路428号
-      view 电话：61555725
-      view 营业时间：09:30-20:00
-      view 交通沿线：地铁1/12/13号线汉中路站10号口步行1.1km
-    img.cover(src="/static/img/store-detail.jpg" mode='aspectFill' @click="navigateTO('/pages/store/detail')")
+      html-parser(:html="currentStore.content")
+      //- view.name 门店信息
+      //- view 地址：静安区江宁路428号
+      //- view 电话：61555725
+      //- view 营业时间：09:30-20:00
+      //- view 交通沿线：地铁1/12/13号线汉中路站10号口步行1.1km
+    img.cover(:src="currentStore.posterUrl" mode='aspectFill')
     view.bottom-bar
       text 本店已休息
     
@@ -19,7 +20,12 @@
 </template>
 
 <script>
-export default {};
+import { sync } from "vuex-pathify";
+export default {
+  computed: {
+    currentStore: sync("store/currentStore")
+  }
+};
 </script>
 
 

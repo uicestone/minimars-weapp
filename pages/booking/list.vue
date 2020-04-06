@@ -13,6 +13,7 @@
           view.card-list
             view.card-list-item(v-for="(item,index) in booking" :key="index")
               booking-item(:item="item" withShadow)
+    booking-modal
 
 </template>
 

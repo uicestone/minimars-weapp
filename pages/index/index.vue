@@ -3,14 +3,8 @@
     login
     tab-bar
     home(v-if="currentTab=='/pages/home/index'")
-    //- store-detail(v-if="currentTab=='/pages/store/detail'")
-    //- create-booking(v-if="currentTab=='/pages/booking/create'")
     event(v-if="currentTab=='/pages/event/index'")
-    //- event-success(v-if="currentTab=='/pages/event/success'")
     user(v-if="currentTab=='/pages/user/index'")
-    //- user-booking(v-if="currentTab=='/pages/user/booking'")
-    //- user-gift-list(v-if="currentTab=='/pages/user/giftlist'")
-    //- user-cost-record(v-if="currentTab=='/pages/user/costRecord'")
     booking-modal
 
 
@@ -63,16 +57,6 @@ export default {
       } catch (error) {
         console.error(error);
       }
-    },
-    async checkLocation() {
-      console.log("checkLocation");
-      const stores = await getStores();
-      this.nearStores = stores.data;
-      this.currentStore = stores.data[0];
-    },
-    async getBookings() {
-      const res = await getBookings();
-      this.bookings = res.data;
     },
     selectStore() {
       return;

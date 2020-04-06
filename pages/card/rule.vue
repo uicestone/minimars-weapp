@@ -39,7 +39,7 @@ export default {
           text: "时效卡",
           img: "/static/img/card-period-circle.png"
         },
-        credit: {
+        balance: {
           text: "充值卡",
           img: "/static/img/card-credit-circle.png"
         }
