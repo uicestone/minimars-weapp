@@ -28,7 +28,7 @@ export default {
           icon: "/static/icon/food.svg",
           iconActive: "/static/icon/food-active.svg",
           name: "点餐",
-          key: "/pages/food/index"
+          key: "FOOD"
         },
         {
           icon: "/static/icon/profile.svg",
@@ -46,6 +46,16 @@ export default {
   },
   methods: {
     handleRouteChange(item) {
+      if (item.key === "FOOD") {
+        console.log("navigateToMiniProgram: food");
+        wx.navigateToMiniProgram({
+          appId: "wx0b9a05ad7c33f761",
+          fail: err => {
+            console.error(err);
+          }
+        });
+        return;
+      }
       this.currentTab = item.key;
       if (this.redirect) {
         uni.navigateBack({
