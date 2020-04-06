@@ -13,13 +13,13 @@
         view(v-for="(item,index) in cardTypes" :key="index" @click="selectCard(item)" :class="[curCardType == item.value ? 'active': '', 'card']")
           img.img(:src="item.img")
           view.label {{item.label}}
-      view.prompt(@click="goCardRule") （点击查看会员权益及使用规则）
+      //- view.prompt(@click="goCardRule") （点击查看会员权益及使用规则）
       .selector
         mi-card-selecter(:items="curCards" :curItem.sync="curCard")
-      view
-        mi-input-number(:value.sync="form.amount" suffix="数量")
+      //- view
+      //-   mi-input-number(:valu e.sync="form.amount" suffix="数量")
       view.confirm
-        menu-link(title="确认购买" subTitle="Confirm" @click="handleBuyCard" :disabled="!buyable")
+        menu-link(title="确认分享" subTitle="Confirm" @click="handleShare" :disabled="!buyable")
 </template>
 
 <script>
@@ -50,12 +50,10 @@ export default {
   },
   computed: {
     cards: sync("booking/cards"),
+    user: sync("auth/user"),
     curCards() {
-      return this.cards.filter(i => i.type == this.curCardType);
+      return this.user.cards.filter(i => i.type == this.curCardType);
     },
-    buyable() {
-      return this.form.amount > 0 && !!this.curCard.id;
-    }
   },
   methods: {
     setCard(){
@@ -74,15 +72,7 @@ export default {
         url: `/pages/card/rule?id=${this.curCard.id}`
       });
     },
-    async handleBuyCard() {
-      const res = await postCard({ card: this.curCard });
-      const payment = _.get(res, "data.payments.0");
-      if (payment) {
-        await handlePayment(payment.payArgs);
-      }
-      uni.navigateTo({
-        url: "/pages/card/success"
-      });
+    async handleShare() {
     }
   }
 };

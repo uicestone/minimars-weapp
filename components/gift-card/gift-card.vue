@@ -1,13 +1,13 @@
 <template lang="pug">
   view.gift-card
-    img.img(src="/static/img/gifcard1.png")
+    img.img(:src="item.posterUrl")
     view.check(v-if="checked" class='cuIcon-check')
-    view.name(v-if="name") {{name}}
+    view.name(v-if="item.title") {{item.title}}
 </template>
 
 <script>
 export default {
-  props: ["checked", "name"]
+  props: ["checked", "item"]
 };
 </script>
 
