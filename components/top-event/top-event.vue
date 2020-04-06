@@ -1,6 +1,6 @@
 <template lang="pug">
   view.top-event
-    img.bg.w-full.absolute(src="/static/img/event-head-bg.png" mode='widthFix')
+    img.bg.w-full.absolute(src="/static/img/profile-bg.png" mode='widthFix')
     view.content
       button.action.cu-btn.round 
         view.icon(class="cuIcon-likefill")
