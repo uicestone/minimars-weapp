@@ -4,8 +4,8 @@
       img.bg.w-full.absolute(src="/static/img/profile-bg.png" mode='widthFix')
       img(:src="user.avatarUrl").cu-avatar.round.lg
       view.name-bar
-        view.name {{user.name}}
-        view.vip 尊享会员
+        text.name {{user.name}}
+        text.vip(v-if="userCards.length") 尊享会员
       view.mobile 
         view(v-if="user.mobile") {{user.mobile}}
         button.cu-btn.bg-primary.get-mobile(v-else open-type='getPhoneNumber' @getphonenumber="getPhoneNumber") 获取手机号
@@ -24,7 +24,8 @@ export default {
   },
   computed: {
     user: sync("auth/user"),
-    auth: sync("auth")
+    auth: sync("auth"),
+    userCards: sync("auth/userCards")
   },
   methods: {
     async getPhoneNumber(res) {
@@ -64,12 +65,13 @@ export default {
       color #242833
       font-weight bold
     .vip
-      position absolute
+      // position absolute
       font-size 16upx
-      font-weight bold
-      right -50upx
-      bottom 8upx
-      line-height 22upx
+      // font-weight bold
+      // right -50upx
+      // bottom 8upx
+      // line-height 22upx
+      margin-left 10upx
   .mobile
     color #a7a7a7
     font-size 20upx

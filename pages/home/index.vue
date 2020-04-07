@@ -2,7 +2,7 @@
   scroll-view(scroll-y).bg-white.page
     //- swiper
     view(style="height: 1000upx")
-      swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='7000' duration='700')
+      swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='7000' duration='700' easing-function='easeInOutCubic')
         swiper-item(v-for='(item,index) in posts' :key='index' @click="handlePost(item)")
           img(:src='item.posterUrl' mode='aspectFill')
     //- content
