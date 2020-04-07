@@ -2,7 +2,7 @@
   view.event-success
     img.bg.w-full.absolute(src="/static/img/success-bg.png" mode='widthFix')
     view.content
-      view.title 您已成功报名互动！
+      view.title 您已成功报名活动！
       view.code 兑换码
       view.img
         canvas.qrcode(canvas-id="qrcode")

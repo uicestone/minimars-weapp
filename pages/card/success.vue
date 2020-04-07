@@ -2,7 +2,7 @@
   view.card-success
     view.text
       view.title Congrats,
-      view.title 毛毛该吃饭了!
+      view.title {{user.name}}
       view.subtitle1 您已购买成功
     gift-card.gift-card(:item="item")
     view.prompt （请至前台核销并兑换实体卡）
@@ -14,12 +14,16 @@
 </template>
 
 <script>
+import { sync } from "vuex-pathify";
 import { getItem } from "../../common/vmeitime-http";
 export default {
   data() {
     return {
       item: {}
     };
+  },
+  computed: {
+    user: sync("auth/user")
   },
   async onLoad(data) {
     if (data.id) {
@@ -32,7 +36,6 @@ export default {
   methods: {}
 };
 </script>
-
 
 <style lang="stylus" scoped>
 .card-success

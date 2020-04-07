@@ -42,7 +42,7 @@
             view.card-list-item(v-for="(item,index) in userCards" :key="index" )
               card-list-item(:item="item" withAction @click="goCardSelling(item)")
         view.user-qr(v-if="status == 'userQR'")
-          view.title 毛毛回家吧 ！
+          view.title {{user.name}}
           view.flex.justify-center
             canvas.img(canvas-id="qrcode") 
           view.text 会员二维码

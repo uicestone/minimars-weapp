@@ -6,7 +6,7 @@
         img.img1(src="/static/img/buy-card.png" mode='aspectFill')
         view.text
           view.title Hello,
-          view.title 毛毛饿了!
+          view.title {{user.name}}
           view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
           view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
       view.card-selector
@@ -86,7 +86,7 @@ export default {
     },
     async handleActiveCard() {
       const res = await postCardById({ method: "PUT", card: { ...this.curCard, status: "activated" }, id: this.curCard.id });
-      this.curCard = res.data
+      this.curCard = res.data;
       await Promise.all([fetchUser(), loadUserCard()]);
       this.$forceUpdate();
     },
