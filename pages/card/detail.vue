@@ -19,7 +19,7 @@
       //- view
       //-   mi-input-number(:valu e.sync="form.amount" suffix="数量")
       view.confirm
-        menu-link(title="确认分享" subTitle="Confirm" @click="handleShare" :disabled="!buyable")
+        menu-link(title="确认分享" subTitle="Confirm" @click="handleShare" :disabled="!shareAble")
 </template>
 
 <script>
@@ -54,6 +54,19 @@ export default {
     curCards() {
       return this.user.cards.filter(i => i.type == this.curCardType);
     },
+    shareAble(){
+      return this.curCard && this.curCard.isGift
+    }
+  },
+  onShareAppMessage(res) {
+    if (res.from === "button") {
+      console.log(res.target);
+    }
+    return {
+    title: "分享卡片",
+    // imageUrl: "/static/share.jpg",
+    path: "/pages/index?id=1&source=1"
+  };
   },
   methods: {
     setCard(){
