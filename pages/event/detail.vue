@@ -43,11 +43,12 @@
         view.title 活动详情
         view.content-detail
           html-parser(:html="item.content")
-          view.feature(v-for="(val,key) in item.props" :key="key")
-            view.key 
-              button.cu-btn.round {{val}}
-            view.value 
-              view.text {{key}}
+          view.margin-top-lg
+            view.feature(v-for="(val,key) in item.props" :key="key")
+              view.value.margin-right(style="flex:2")
+                view.text.text-right {{key}}
+              view.key(style="flex:3")
+                button.cu-btn.round {{val}}
     view.bottom-fixed
       button.cu-btn.round.action-button.bg-primary(@click="back")
         view.normal 返回首页
