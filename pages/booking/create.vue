@@ -8,7 +8,7 @@
         view.cu-form-group
             view.title 选择VIP权益卡
             switch(@change='onUseCard' :class="useCard?'checked':''" :checked='useCard?true:false')
-        mi-card-selecter(v-if="useCard" :items="user.cards" :curItem.sync="curCard")
+        mi-card-selecter(v-if="useCard" :items="cards" :curItem.sync="curCard")
     view.content
       card.card(withShape)
         view.form
@@ -56,13 +56,17 @@ export default {
     };
   },
   created() {
-    if (this.user.cards.length > 0) {
+    if (this.userCards.length > 0) {
       this.onUseCard({ detail: { value: true } });
     }
   },
   computed: {
     user: sync("auth/user"),
+    userCards: sync("auth/userCards"),
     currentStore: sync("store/currentStore"),
+    cards() {
+      return this.userCards.filter(i => i.type == "times");
+    },
     validDateStart() {
       // book starts tommorrow if its 16:00 or later
       return moment()
@@ -109,8 +113,8 @@ export default {
     },
     onUseCard(e) {
       this.useCard = e.detail.value;
-      if (this.user.cards.length > 0) {
-        this.curCard = this.user.cards[0] || {};
+      if (this.userCards.length > 0) {
+        this.curCard = this.userCards[0] || {};
       }
     }
   }

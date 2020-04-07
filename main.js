@@ -12,6 +12,7 @@ import user from "./pages/user/index.vue";
 import login from "./pages/login.vue";
 
 import cuCustom from "./common/colorui/components/cu-custom.vue";
+import { checkLogin } from "./services";
 
 Vue.config.productionTip = false;
 Vue.component("cu-custom", cuCustom);
@@ -30,12 +31,10 @@ Vue.prototype.back = () => {
   });
 };
 
-Vue.prototype.navigateTo = (url, opt = {}) => {
+Vue.prototype.navigateTo = async (url, opt = {}) => {
   const tab = store.state.configs.tabMap[url];
   if (opt.checkAuth) {
-    if (!store.state.auth.user.name) {
-      return (store.state.auth.showLogin = true);
-    }
+    await checkLogin();
   }
   if (tab) {
     store.state.currentTab = url;

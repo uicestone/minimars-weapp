@@ -39,7 +39,7 @@
           view.with-padding(@click="navigateTo('/pages/card/sell')")
             card-title(title="我的卡券包" action="购买更多")
           view.card-list.with-padding
-            view.card-list-item(v-for="(item,index) in user.cards" :key="index" )
+            view.card-list-item(v-for="(item,index) in userCards" :key="index" )
               card-list-item(:item="item" withAction @click="goCardSelling(item)")
         view.user-qr(v-if="status == 'userQR'")
           view.title 毛毛回家吧 ！
@@ -69,6 +69,7 @@ export default {
 
   computed: {
     user: sync("auth/user"),
+    userCards: sync("auth/userCards"),
     bookings: sync("booking/bookings"),
     bookedBookings() {
       return this.bookings.filter(i => i.status == "booked");

@@ -26,7 +26,7 @@
 import { sync } from "vuex-pathify";
 import { postCard, getItem } from "../../common/vmeitime-http";
 import { _ } from "../../utils/lodash";
-import { handlePayment } from "../../services";
+import { handlePayment, loadUserCard } from "../../services";
 export default {
   data() {
     return {
@@ -46,7 +46,7 @@ export default {
     if (data.type) {
       this.curCardType = data.type;
     }
-    this.setCard()
+    this.setCard();
   },
   computed: {
     cards: sync("booking/cards"),
@@ -58,15 +58,15 @@ export default {
     }
   },
   methods: {
-    setCard(){
-      if(!this.curCard.id && this.curCards.length > 0){
-        this.curCard = this.curCards[0]
+    setCard() {
+      if (!this.curCard.id && this.curCards.length > 0) {
+        this.curCard = this.curCards[0];
       }
     },
     selectCard(item) {
       this.curCardType = item.value;
-      this.curCard = {}
-      this.setCard()
+      this.curCard = {};
+      this.setCard();
     },
     goCardRule() {
       if (!this.curCard.id) return;
@@ -80,8 +80,9 @@ export default {
       if (payment) {
         await handlePayment(payment.payArgs);
       }
+      await loadUserCard();
       uni.navigateTo({
-        url: "/pages/card/success"
+        url: `/pages/card/success?id=${res.data.id}`
       });
     }
   }

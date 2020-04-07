@@ -7,6 +7,7 @@
 
 <script>
 import { sync, get } from "vuex-pathify";
+import { checkLogin } from "../../services";
 export default {
   props: ["redirect"],
   data() {
@@ -34,6 +35,7 @@ export default {
           icon: "/static/icon/profile.svg",
           iconActive: "/static/icon/profile-active.svg",
           name: "我的",
+          requireAuth: true,
           key: "/pages/user/index"
         }
       ]
@@ -45,7 +47,10 @@ export default {
     user: sync("auth/user")
   },
   methods: {
-    handleRouteChange(item) {
+    async handleRouteChange(item) {
+      if (item.requireAuth) {
+        await checkLogin();
+      }
       if (item.key === "FOOD") {
         console.log("navigateToMiniProgram: food");
         wx.navigateToMiniProgram({

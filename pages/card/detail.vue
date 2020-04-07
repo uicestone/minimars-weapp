@@ -20,13 +20,14 @@
       //-   mi-input-number(:valu e.sync="form.amount" suffix="数量")
       view.confirm
         menu-link(title="确认分享" openType="share" subTitle="Confirm" :disabled="!shareAble")
+        menu-link(title="确认激活" @click="handleActiveCard" subTitle="Confirm" :disabled="!activeAble")
 </template>
 
 <script>
 import { sync } from "vuex-pathify";
-import { postCard, getItem } from "../../common/vmeitime-http";
+import { postCard, getItem, postCardById } from "../../common/vmeitime-http";
 import { _ } from "../../utils/lodash";
-import { handlePayment, fetchUser } from "../../services";
+import { handlePayment, fetchUser, loadUserCard } from "../../services";
 export default {
   data() {
     return {
@@ -44,8 +45,8 @@ export default {
   },
   async onLoad(data) {
     if (data.id) {
-      await fetchUser();
-      const card = this.user.cards.find(i => i.id == data.id);
+      await loadUserCard();
+      const card = this.userCards.find(i => i.id == data.id);
       if (card) {
         this.curCard = card;
         this.curCardType = card.type;
@@ -55,12 +56,16 @@ export default {
   },
   computed: {
     cards: sync("booking/cards"),
+    userCards: sync("auth/userCards"),
     user: sync("auth/user"),
     curCards() {
-      return this.user.cards.filter(i => i.type == this.curCardType);
+      return this.userCards.filter(i => i.type == this.curCardType);
     },
     shareAble() {
-      return this.curCard && this.curCard.isGift;
+      return !!this.curCard.id && this.curCard.isGift;
+    },
+    activeAble() {
+      return !!this.curCard.id && this.curCard.status == "valid";
     }
   },
   onShareAppMessage(res) {
@@ -78,6 +83,12 @@ export default {
       if (!this.curCard.id && this.curCards.length > 0) {
         this.curCard = this.curCards[0];
       }
+    },
+    async handleActiveCard() {
+      const res = await postCardById({ method: "PUT", card: { ...this.curCard, status: "activated" }, id: this.curCard.id });
+      this.curCard = res.data
+      await Promise.all([fetchUser(), loadUserCard()]);
+      this.$forceUpdate();
     },
     selectCard(item) {
       this.curCardType = item.value;
@@ -162,6 +173,8 @@ export default {
         width 120upx
         height 120upx
   .confirm
+    display flex
+    justify-content space-between
     text-align center
     width 440upx
     margin 26upx auto 0

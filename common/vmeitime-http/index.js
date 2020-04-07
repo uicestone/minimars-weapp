@@ -239,6 +239,17 @@ export const getCardType = () => {
   });
 };
 
+export const getUserCards = ({ customer }) => {
+  return http.request({
+    url: `/card`,
+    method: "GET",
+    dataType: "json",
+    data: {
+      customer,
+    },
+  });
+};
+
 export const getEvents = ({ limit = 10, skip = 0 } = {}) => {
   const data = _.omitBy({ limit, skip }, _.isNil);
   return http.request({
@@ -267,10 +278,19 @@ export const getGifts = ({ limit = 10, skip = 0 } = {}) => {
   });
 };
 
-export const postCard = ({ card }) => {
+export const postCard = ({ card, method = "POST" }) => {
   return http.request({
     url: `/card`,
-    method: "POST",
+    method,
+    dataType: "json",
+    data: card,
+  });
+};
+
+export const postCardById = ({ id, card, method = "POST" }) => {
+  return http.request({
+    url: `/card/${id}`,
+    method,
     dataType: "json",
     data: card,
   });

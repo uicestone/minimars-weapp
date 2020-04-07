@@ -10,6 +10,7 @@
 <script>
 import { wechatGetUserInfo } from "../services";
 import { sync } from "vuex-pathify";
+import { event } from '../services/event';
 
 export default {
   computed: {
@@ -21,6 +22,7 @@ export default {
       try {
         const res = await wechatGetUserInfo();
         this.auth.showLogin = false;
+        event.emit("login")
         this.$emit("success");
       } catch (err) {
         console.log(err);

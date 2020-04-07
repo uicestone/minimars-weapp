@@ -175,7 +175,7 @@
       {
         "name": "购卡成功", //模式名称
         "path": "pages/card/success", //启动页面，必选
-        "query": "id=5e8afcc3a3f9ed666a5b2a2e" //启动参数，在页面的onLoad函数里面得到
+        "query": "id=5e8c542295ca06733ae0e21f" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "规则权益", //模式名称
@@ -190,7 +190,7 @@
       {
         "name": "分享卡片", //模式名称
         "path": "pages/index/index", //启动页面，必选
-        "query": "giftCode=eyJhbGciOiJIUzI1NiJ9.NWU3MzVjNWQ5NDk5YTQ3MmI5YjdkMDVjIDVlOGFiZWUzNWFiMWExNjE3ZmRmMmIyNQ.1sqfcF1NrrhsWjUJeX0llzlq5RE3HOBLH4iN6hASqeM" //启动参数，在页面的onLoad函数里面得到
+        "query": "giftCode=eyJhbGciOiJIUzI1NiJ9.NWU4YzQ0M2U5NDk5YTQ3MmI5ZDA4MWZjIDVlOGFiZWUzNWFiMWExNjE3ZmRmMmIyNQ.JrggoKMheVayjfS56DX9zmuICmEWBc5kvtkxoQpY1JI" //启动参数，在页面的onLoad函数里面得到
       }
     ]
   }

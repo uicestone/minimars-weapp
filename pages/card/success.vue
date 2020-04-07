@@ -4,11 +4,11 @@
       view.title Congrats,
       view.title 毛毛该吃饭了!
       view.subtitle1 您已购买成功
-    gift-card.gift-card( :item="item")
+    gift-card.gift-card(:item="item")
     view.prompt （请至前台核销并兑换实体卡）
     view.info
       view 卡片类型: {{item.title}}
-      view 有效期: 2020年6月26日——2021年6月26日
+      //- view 有效期: 2020年6月26日——2021年6月26日
       //- view 会员电话: 1312666XXXX
       //- view 支付金额: XXXX元
 </template>

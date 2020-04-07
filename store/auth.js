@@ -10,6 +10,7 @@ const state = {
     openid: "",
     customer: null,
   },
+  userCards: [],
 };
 
 const mutations = make.mutations(state);

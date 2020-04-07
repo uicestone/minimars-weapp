@@ -1,5 +1,6 @@
 <template lang="pug">
   scroll-view(scroll-y).gift-detail
+    login
     cu-custom(isBack @back="uni.navigateBack()")
       text(slot="backText") 商品详情
     mi-dialog.payment-dialog(:visible.sync="showPayment" withClose)
@@ -48,7 +49,7 @@
     view.bottom-fixed
       button.cu-btn.round.action-button.bg-primary(@click="back")
         view.normal 返回首页
-      button.cu-btn.round.action-button.bg-primary(@click="showPayment = true")
+      button.cu-btn.round.action-button.bg-primary(@click="handleShowPayment")
         view.normal 立即兑换
     
 </template>
@@ -89,6 +90,10 @@ export default {
     },
     switchType(item) {
       this.form.currentType = item.value;
+    },
+    async handleShowPayment() {
+      await checkLogin();
+      this.showPayment = true;
     },
     async handleBooking({ paymentGateway }) {
       const { id: store } = this.currentStore;

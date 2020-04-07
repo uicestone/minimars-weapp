@@ -1,5 +1,6 @@
 <template lang="pug">
   scroll-view(scroll-y).event-detail
+    login
     cu-custom(isBack @back="uni.navigateBack()")
       text(slot="backText") 活动详情
     mi-dialog.payment-dialog(:visible.sync="showPayment" withClose)
@@ -50,7 +51,7 @@
     view.bottom-fixed
       button.cu-btn.round.action-button.bg-primary(@click="back")
         view.normal 返回首页
-      button.cu-btn.round.action-button.bg-primary(@click="showPayment = true")
+      button.cu-btn.round.action-button.bg-primary(@click="handleShowPayment")
         view.normal 立即兑换
     
 </template>
@@ -59,7 +60,7 @@
 import { getItem, createBooking } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
 import { _ } from "../../utils/lodash";
-import { handlePayment } from "../../services";
+import { handlePayment, checkLogin } from "../../services";
 export default {
   data() {
     return {
@@ -98,6 +99,10 @@ export default {
       if (res.data) {
         this.item = res.data;
       }
+    },
+    async handleShowPayment() {
+      await checkLogin();
+      this.showPayment = true;
     },
     async handleBooking({ paymentGateway }) {
       const { id: store } = this.currentStore;

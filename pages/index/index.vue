@@ -21,8 +21,7 @@ export default {
     login
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     token: sync("auth/token"),
@@ -30,15 +29,14 @@ export default {
     tabs: sync("configs@tabs"),
     configs: sync("configs"),
     stores: sync("store/stores"),
-    bookingStore: sync("booking"),
-    giftCode: sync("giftCode")
+    bookingStore: sync("booking")
   },
   async onLoad({ tab, giftCode }) {
-    if(giftCode){
-      this.giftCode = giftCode
+    if (giftCode) {
+      this.giftCode = giftCode;
     }
-    await this.checkLogin();
-    await Promise.all([this.loadConfig(), this.handleGiftCode(), service.loadStore(), service.loadBookings(), ]);
+    await this.wechatLogin();
+    await Promise.all([this.loadConfig(), this.handleGiftCode(), service.loadStore(), service.loadBookings(), service.loadUserCard()]);
     if (tab) {
       setTimeout(() => {
         this.currentTab = tab;
@@ -55,7 +53,7 @@ export default {
       const res = await getConfigs();
       this.configs = { ...this.configs, ...res.data };
     },
-    async checkLogin() {
+    async wechatLogin() {
       try {
         const user = await wechatLogin();
         console.log(user);
@@ -63,11 +61,11 @@ export default {
         console.error(error);
       }
     },
-    async handleGiftCode(){
-      if(!this.giftCode)return
-      const res = await postCard({card:{giftCode: this.giftCode}})
-      if(res.data){
-        uni.navigateTo({url: `/pages/card/detail?id=${res.data.id}`})
+    async handleGiftCode() {
+      if (!this.giftCode) return;
+      const res = await postCard({ card: { giftCode: this.giftCode } });
+      if (res.data) {
+        uni.navigateTo({ url: `/pages/card/detail?id=${res.data.id}` });
       }
     },
     selectStore() {
