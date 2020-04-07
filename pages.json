@@ -186,6 +186,11 @@
         "name": "文章详情", //模式名称
         "path": "pages/post/detail", //启动页面，必选
         "query": "id=5e744fcc69e3b1441b99916e" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
+        "name": "分享卡片", //模式名称
+        "path": "pages/index/index", //启动页面，必选
+        "query": "giftCode=eyJhbGciOiJIUzI1NiJ9.NWU3MzVjNWQ5NDk5YTQ3MmI5YjdkMDVjIDVlOGFiZWUzNWFiMWExNjE3ZmRmMmIyNQ.1sqfcF1NrrhsWjUJeX0llzlq5RE3HOBLH4iN6hASqeM" //启动参数，在页面的onLoad函数里面得到
       }
     ]
   }

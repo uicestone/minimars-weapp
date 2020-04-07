@@ -1,12 +1,12 @@
 <template lang="pug">
-  button.cu-btn.round.bg-primary.action-button(@click="$emit('click')" :disabled="disabled")
+  button.cu-btn.round.bg-primary.action-button(@click="$emit('click')"  :open-type="openType" :disabled="disabled")
     view.title {{title}}
     view.sub-title {{subTitle}}
 </template>
 
 <script>
 export default {
-  props: ["title", "subTitle", "disabled"]
+  props: ["title", "subTitle", "disabled", "openType"]
 };
 </script>
 

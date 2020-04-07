@@ -12,6 +12,7 @@ pathify.options.mapping = "simple";
 
 const state = {
   loading: false,
+  giftCode: null,
   currentTab: "/pages/home/index",
   configs: {
     tabMap: {

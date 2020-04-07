@@ -1,25 +1,18 @@
 <template lang="pug">
-  scroll-view(scroll-y).event
-    top-event
-    stripe.stripe(withTail)
-      view.content(v-if="newBooking")
-        booking-item.booking-item(:item="newBooking" withAction)
-          button.cu-btn.round.action-button(slot="action")
-            view.icon(class="cuIcon-attentionfill")
-            view.text 您的预约
-        //- img.img(:src="_.get(newBooking, 'event.posterUrl')")
-        //- view.center
-        //-   view.title {{_.get(newBooking, "event.title")}}
-        //-   view.subTitle  {{newBooking.date}}
-        //- button.cu-btn.round.action-button(@click="showModal = true")
-        //-   view.icon(class="cuIcon-attentionfill")
-        //-   view.text 您的预约
-    card.card(withShape)
-      view.content
-        view.cu-list.grid.col-2
-          view.cu-item(v-for="(item,index) in events" :key="index")
-            event-item.flex.justify-center(:item="item" @click="goDetail(item)")
-    //- mi-modal(:visible.sync="showModal" :item="newBooking")
+  view
+    scroll-view(scroll-y).event
+      top-event 
+      stripe.stripe(withTail)
+        view.content(v-if="newBooking")
+          booking-item.booking-item(:item="newBooking" withAction)
+            button.cu-btn.round.action-button(slot="action")
+              view.icon(class="cuIcon-attentionfill")
+              view.text 您的预约
+      card.card(withShape)
+        view.content
+          view.cu-list.grid.col-2
+            view.cu-item(v-for="(item,index) in events" :key="index")
+              event-item.flex.justify-center(:item="item" @click="goDetail(item)")
 </template>
 
 <script>
@@ -47,7 +40,7 @@ export default {
   },
   methods: {
     async loadEvent() {
-      const res = await getEvents();
+      const res = await getEvents({ limit: 10, skip: this.events.length });
       if (res.data) {
         this.events = res.data;
       }
@@ -63,6 +56,8 @@ export default {
 
 <style lang="stylus" scoped>
 .event
+  display flex
+  flex-direction column
   .stripe
     .content
       display flex
@@ -96,7 +91,7 @@ export default {
           color white
   .card
     .content
-      min-height calc(100vh - 450upx)
+      min-height calc(100vh - 400upx)
       padding 20upx 20upx 100upx
       .cu-list
         background transparent

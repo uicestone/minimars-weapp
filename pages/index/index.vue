@@ -14,14 +14,15 @@
 import { sync } from "vuex-pathify";
 import { wechatLogin, wechatGetUserInfo } from "../../services";
 import login from "../login";
-import { getStores, getConfigs, getBookings } from "../../common/vmeitime-http";
+import { getStores, getConfigs, getBookings, postCard } from "../../common/vmeitime-http";
 import * as service from "../../services";
 export default {
   coπmponents: {
     login
   },
   data() {
-    return {};
+    return {
+    };
   },
   computed: {
     token: sync("auth/token"),
@@ -29,16 +30,20 @@ export default {
     tabs: sync("configs@tabs"),
     configs: sync("configs"),
     stores: sync("store/stores"),
-    bookingStore: sync("booking")
+    bookingStore: sync("booking"),
+    giftCode: sync("giftCode")
   },
-  async onLoad({ tab }) {
+  async onLoad({ tab, giftCode }) {
+    if(giftCode){
+      this.giftCode = giftCode
+    }
+    await this.checkLogin();
+    await Promise.all([this.loadConfig(), this.handleGiftCode(), service.loadStore(), service.loadBookings(), ]);
     if (tab) {
       setTimeout(() => {
         this.currentTab = tab;
       }, 1000);
     }
-    await this.checkLogin();
-    await Promise.all([this.loadConfig(), service.loadStore(), service.loadBookings()]);
   },
   onShow() {
     if (this.token) {
@@ -56,6 +61,13 @@ export default {
         console.log(user);
       } catch (error) {
         console.error(error);
+      }
+    },
+    async handleGiftCode(){
+      if(!this.giftCode)return
+      const res = await postCard({card:{giftCode: this.giftCode}})
+      if(res.data){
+        uni.navigateTo({url: `/pages/card/detail?id=${res.data.id}`})
       }
     },
     selectStore() {

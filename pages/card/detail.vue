@@ -19,14 +19,14 @@
       //- view
       //-   mi-input-number(:valu e.sync="form.amount" suffix="数量")
       view.confirm
-        menu-link(title="确认分享" subTitle="Confirm" @click="handleShare" :disabled="!shareAble")
+        menu-link(title="确认分享" openType="share" subTitle="Confirm" :disabled="!shareAble")
 </template>
 
 <script>
 import { sync } from "vuex-pathify";
 import { postCard, getItem } from "../../common/vmeitime-http";
 import { _ } from "../../utils/lodash";
-import { handlePayment } from "../../services";
+import { handlePayment, fetchUser } from "../../services";
 export default {
   data() {
     return {
@@ -43,10 +43,15 @@ export default {
     };
   },
   async onLoad(data) {
-    if (data.type) {
-      this.curCardType = data.type;
+    if (data.id) {
+      await fetchUser();
+      const card = this.user.cards.find(i => i.id == data.id);
+      if (card) {
+        this.curCard = card;
+        this.curCardType = card.type;
+      }
     }
-    this.setCard()
+    this.setCard();
   },
   computed: {
     cards: sync("booking/cards"),
@@ -54,8 +59,8 @@ export default {
     curCards() {
       return this.user.cards.filter(i => i.type == this.curCardType);
     },
-    shareAble(){
-      return this.curCard && this.curCard.isGift
+    shareAble() {
+      return this.curCard && this.curCard.isGift;
     }
   },
   onShareAppMessage(res) {
@@ -63,29 +68,27 @@ export default {
       console.log(res.target);
     }
     return {
-    title: "分享卡片",
-    // imageUrl: "/static/share.jpg",
-    path: "/pages/index?id=1&source=1"
-  };
+      title: "分享卡片",
+      // imageUrl: "/static/share.jpg",
+      path: `/pages/index?giftCode=${this.curCard.gifyCode}`
+    };
   },
   methods: {
-    setCard(){
-      if(!this.curCard.id && this.curCards.length > 0){
-        this.curCard = this.curCards[0]
+    setCard() {
+      if (!this.curCard.id && this.curCards.length > 0) {
+        this.curCard = this.curCards[0];
       }
     },
     selectCard(item) {
       this.curCardType = item.value;
-      this.curCard = {}
-      this.setCard()
+      this.curCard = {};
+      this.setCard();
     },
     goCardRule() {
       if (!this.curCard.id) return;
       uni.navigateTo({
         url: `/pages/card/rule?id=${this.curCard.id}`
       });
-    },
-    async handleShare() {
     }
   }
 };
