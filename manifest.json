@@ -2,7 +2,7 @@
     "name" : "MINIMARS亲子会所",
     "appid" : "__UNI__991921B",
     "description" : "",
-    "versionName" : "0.9.0",
+    "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
@@ -68,6 +68,6 @@
                 "desc" : "你的位置信息将用于寻找附近的门店"
             }
         },
-        "navigateToMiniProgramAppIdList": ["wx0b9a05ad7c33f761"]
+        "navigateToMiniProgramAppIdList" : [ "wx0b9a05ad7c33f761" ]
     }
 }
