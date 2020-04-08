@@ -66,7 +66,7 @@ export default {
     userCards: sync("auth/userCards"),
     currentStore: sync("store/currentStore"),
     cards() {
-      return this.userCards.filter(i => i.type == "times" && i.status == "activated'");
+      return this.userCards.filter(i => i.type == "times" && i.status == "activated");
     },
     validDateStart() {
       // book starts tommorrow if its 16:00 or later
