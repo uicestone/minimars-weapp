@@ -146,6 +146,7 @@ export default {
     font-family PingFangSC-Medium, PingFang SC
     font-weight 500
     line-height 40upx
+    margin-top 50upx
     .card
       &.active
         .label

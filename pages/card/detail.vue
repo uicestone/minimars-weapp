@@ -7,20 +7,28 @@
         view.text
           view.title Hello,
           view.title {{user.name}}
-          view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
-          view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
+          view.subtitle1 你可以在这里查看您的所有会员卡
+          view.subtitle2(v-if="curCard.id") 这是您的 {{curCard.title}}
       view.card-selector
         view(v-for="(item,index) in cardTypes" :key="index" @click="selectCard(item)" :class="[curCardType == item.value ? 'active': '', 'card']")
           img.img(:src="item.img")
           view.label {{item.label}}
-      //- view.prompt(@click="goCardRule") （点击查看会员权益及使用规则）
       .selector
-        mi-card-selecter(:items="curCards" :curItem.sync="curCard")
-      //- view
-      //-   mi-input-number(:valu e.sync="form.amount" suffix="数量")
+        mi-card-selecter(:items="curCards" :check="false" :curItem.sync="curCard")
+      view.card-info(v-if="curCard.id")
+        view(v-if="curCard.type==='times'")
+          text 剩余次数：
+          text {{ curCard.timesLeft }}
+        view(v-if="curCard.type==='period'")
+          text 有效期间：
+          text {{ curCard.start }} - {{ curCard.end }}
+        view(v-if="curCard.type==='balance'")
+          text 面值：
+          text {{ curCard.balance }}
+          text(v-if="curCard.status==='expired'") （已充入您的账户余额）
       view.confirm
-        menu-link(title="确认分享" openType="share" subTitle="Confirm" :disabled="!shareAble")
-        menu-link(title="确认激活" @click="handleActiveCard" subTitle="Confirm" :disabled="!activeAble")
+        menu-link(title="赠予他人" openType="share" subTitle="Share" v-if="shareAble")
+        menu-link(title="激活使用" @click="handleActiveCard" subTitle="Activate" v-if="activeAble")
 </template>
 
 <script>
@@ -62,7 +70,7 @@ export default {
       return this.userCards.filter(i => i.type == this.curCardType);
     },
     shareAble() {
-      return !!this.curCard.id && this.curCard.isGift;
+      return !!this.curCard.id && this.curCard.isGift && this.curCards.status === "valid";
     },
     activeAble() {
       return !!this.curCard.id && this.curCard.status == "valid";
@@ -161,6 +169,7 @@ export default {
     font-family PingFangSC-Medium, PingFang SC
     font-weight 500
     line-height 40upx
+    margin-top 50upx
     .card
       &.active
         .label
