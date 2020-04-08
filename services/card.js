@@ -3,7 +3,7 @@ import store from "../store";
 
 export const loadCard = async () => {
   const res = await getCardType();
-  store.state.booking.cards = res.data;
+  store.state.booking.cardTypes = res.data;
 };
 
 export const loadUserCard = async () => {

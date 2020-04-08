@@ -27,6 +27,7 @@ import { sync } from "vuex-pathify";
 import { postCard, getItem } from "../../common/vmeitime-http";
 import { _ } from "../../utils/lodash";
 import { handlePayment, loadUserCard } from "../../services";
+import * as  service from '../..//services';
 export default {
   data() {
     return {
@@ -43,13 +44,20 @@ export default {
     };
   },
   async onLoad(data) {
-    if (data.type) {
-      this.curCardType = data.type;
+    await service.loadCard()
+    if (data.id) {
+      const card = this.cards.find(i => i.id == data.id)
+      console.log({card})
+      if(card){
+        this.curCard = card
+        this.curCardType = card.type
+      }
     }
+    
     this.setCard();
   },
   computed: {
-    cards: sync("booking/cards"),
+    cards: sync("booking/cardTypes"),
     curCards() {
       return this.cards.filter(i => i.type == this.curCardType);
     },

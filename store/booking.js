@@ -3,7 +3,7 @@ import { make } from "vuex-pathify";
 const state = {
   selectDate: new Date(),
   bookings: [],
-  cards: [],
+  cardTypes: [],
   curBooking: null,
   showBooking: false
 };

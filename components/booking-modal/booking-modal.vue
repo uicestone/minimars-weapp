@@ -39,6 +39,9 @@ export default {
   methods: {
     tooggleModal() {
       this.booking.showBooking = !this.visible;
+      if(!this.booking.showBooking){
+        this.$emit("close")
+      }
     },
     makeQRCode() {
       uQRCode.make({

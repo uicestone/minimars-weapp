@@ -52,8 +52,8 @@ export default {
     };
   },
   async onLoad(data) {
+    await loadUserCard();
     if (data.id) {
-      await loadUserCard();
       const card = this.userCards.find(i => i.id == data.id);
       if (card) {
         this.curCard = card;
@@ -63,7 +63,7 @@ export default {
     this.setCard();
   },
   computed: {
-    cards: sync("booking/cards"),
+    cards: sync("booking/cardTypes"),
     userCards: sync("auth/userCards"),
     user: sync("auth/user"),
     curCards() {

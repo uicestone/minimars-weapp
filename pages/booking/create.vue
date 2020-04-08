@@ -27,7 +27,7 @@
               view.title 
                 text 确认支付/预约
                 text.margin-right.text-orange(v-if="price>0" style="font-size:40upx;font-weight:bold") ￥{{price}}
-    booking-modal
+    booking-modal(@close="onCloseModal")
 
 
       
@@ -66,7 +66,7 @@ export default {
     userCards: sync("auth/userCards"),
     currentStore: sync("store/currentStore"),
     cards() {
-      return this.userCards.filter(i => i.type == "times" && i.status == "activated");
+      return this.userCards.filter(i => i.type == "times" && i.status == "activated" && (!i.store || i.store === this.currentStore.id));
     },
     validDateStart() {
       // book starts tommorrow if its 16:00 or later
@@ -119,6 +119,9 @@ export default {
     DateChange(data) {
       this.form.date = data.detail.value;
       console.log(data);
+    },
+    onCloseModal(){
+      uni.navigateBack()
     },
     onUseCard(e) {
       this.useCard = e.detail.value;
