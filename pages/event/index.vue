@@ -1,7 +1,7 @@
 <template lang="pug">
   view
     scroll-view(scroll-y).event
-      top-event 
+      top-event(:item="eventsRecommend")
       stripe.stripe(withTail)
         view.content(v-if="newBooking")
           booking-item.booking-item(:item="newBooking" withAction)
@@ -23,7 +23,8 @@ export default {
     return {
       showModal: false,
       avatar: "",
-      events: []
+      events: [],
+      eventsRecommend: null
     };
   },
   computed: {
@@ -32,8 +33,8 @@ export default {
       return this.bookings.find(i => i.type == "event");
     }
   },
-  created() {
-    this.loadEvent();
+  async created() {
+    await Promise.all([this.loadEvent(), this.loadRecommentEvent()]);
   },
   onReachBottom() {
     this.loadEvent();
@@ -43,6 +44,12 @@ export default {
       const res = await getEvents({ limit: 10, skip: this.events.length });
       if (res.data) {
         this.events = res.data;
+      }
+    },
+    async loadRecommentEvent() {
+      const res = await getEvents({ limit: 10, skip: this.events.length, tag: "recommended" });
+      if (res.data) {
+        this.eventsRecommend = res.data[0];
       }
     },
     goDetail(item) {

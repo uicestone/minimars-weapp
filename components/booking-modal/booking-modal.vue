@@ -77,8 +77,8 @@ export default {
     font-family PingFangSC-Semibold, PingFang SC
     padding 0upx 0 90upx
     .qrcode
-      width 240upx
-      height 240upx
+      width 128px
+      height 129px
       border-radius 50upx
     .title, .code
       font-size 30upx

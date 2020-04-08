@@ -84,8 +84,8 @@ export default {
     font-family PingFangSC-Semibold, PingFang SC
     padding 40upx 0 90upx
     .img
-      width 240upx
-      height 240upx
+      width 130px
+      height 130px
       border-radius 50upx
       background #22242A
       display flex
@@ -93,8 +93,8 @@ export default {
       justify-content center
       margin-top 10upx
       .qrcode
-        width 200upx
-        height 200upx
+        width 110px
+        height 110px
     .title
       font-size 30upx
       font-weight 600

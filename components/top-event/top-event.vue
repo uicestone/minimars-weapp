@@ -1,16 +1,17 @@
 <template lang="pug">
   view.top-event
-    img.bg.w-full.absolute(src="/static/img/profile-bg.png" mode='widthFix')
+    img.bg.w-full.absolute(:src="_.get(item, 'posterUrl')" mode='widthFix')
     view.content
       button.action.cu-btn.round 
         view.icon(class="cuIcon-likefill")
         text 精选
-      //- view.text Shake
-      //- view.text & Shake
+      view.text {{_.get(item, "title")}}
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["item"]
+};
 </script>
 
 <style lang="stylus" scoped>

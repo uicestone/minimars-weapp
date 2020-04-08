@@ -33,6 +33,7 @@
 <script>
 import { sync } from "vuex-pathify";
 import { getPost } from "../../common/vmeitime-http";
+import * as service from "@/services";
 export default {
   data() {
     return {
@@ -41,6 +42,7 @@ export default {
     };
   },
   computed: {
+    token: sync("auth/token"),
     currentTab: sync("currentTab"),
     bookings: sync("booking/bookings"),
     currentStore: sync("store/currentStore"),
@@ -48,8 +50,11 @@ export default {
       return this.bookings.find(i => i.type == "play");
     }
   },
-  created() {
+  mounted() {
     this.loadPost();
+    if (this.token) {
+      service.loadBookings();
+    }
   },
   methods: {
     async goBooking() {

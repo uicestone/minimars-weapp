@@ -52,9 +52,10 @@
 </template>
 
 <script>
-import { loadCard } from "../../services";
+import { loadCard, fetchUser } from "../../services";
 import { sync } from "vuex-pathify";
 import uQRCode from "../../common/uqrcode";
+import * as service from "@/services";
 export default {
   data() {
     return {
@@ -66,7 +67,6 @@ export default {
       swiperList: []
     };
   },
-
   computed: {
     user: sync("auth/user"),
     userCards: sync("auth/userCards"),
@@ -76,7 +76,7 @@ export default {
     }
   },
   async created() {
-    await Promise.all([loadCard()]);
+    await Promise.all([loadCard(), fetchUser(), service.loadBookings()]);
   },
   methods: {
     showQrCode() {

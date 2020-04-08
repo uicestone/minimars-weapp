@@ -250,8 +250,8 @@ export const getUserCards = ({ customer }) => {
   });
 };
 
-export const getEvents = ({ limit = 10, skip = 0 } = {}) => {
-  const data = _.omitBy({ limit, skip }, _.isNil);
+export const getEvents = ({ limit = 10, skip = 0, tag } = {}) => {
+  const data = _.omitBy({ limit, skip, tag }, _.isNil);
   return http.request({
     url: `/event`,
     method: "GET",

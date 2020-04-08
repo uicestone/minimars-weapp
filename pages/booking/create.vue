@@ -26,7 +26,7 @@
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
               view.title 
                 text 确认支付/预约
-                text.margin-right.text-orange(v-if="!useCard" style="font-size:40upx;font-weight:bold") ￥{{price}}
+                text.margin-right.text-orange(v-if="price>0" style="font-size:40upx;font-weight:bold") ￥{{price}}
     booking-modal
 
 
@@ -59,13 +59,14 @@ export default {
     if (this.userCards.length > 0) {
       this.onUseCard({ detail: { value: true } });
     }
+    this.getPirce();
   },
   computed: {
     user: sync("auth/user"),
     userCards: sync("auth/userCards"),
     currentStore: sync("store/currentStore"),
     cards() {
-      return this.userCards.filter(i => i.type == "times");
+      return this.userCards.filter(i => i.type == "times" && i.status == "activated'");
     },
     validDateStart() {
       // book starts tommorrow if its 16:00 or later
@@ -80,26 +81,34 @@ export default {
   watch: {
     form: {
       async handler() {
-        if (this.loadingPrice) return;
-        this.loadingPrice = true;
-        const { id: store } = this.currentStore;
-        const { date, adultsCount, kidsCount } = this.form;
-        // const { curCard: card, useCard } = this;
-        const res = await getBookingPrice({ store, date, adultsCount, kidsCount, paymentGateway: "wechatpay" });
-        console.log(res);
-        this.price = res.data.price;
-        this.loadingPrice = false;
+        this.getPirce();
       },
-      immediate: true,
       deep: true
+    },
+    useCard() {
+      this.getPirce();
+    },
+    curCard() {
+      this.getPirce();
     }
   },
   methods: {
+    async getPirce(force) {
+      if (this.loadingPrice) return;
+      this.loadingPrice = true;
+      const { id: store } = this.currentStore;
+      const { date, adultsCount, kidsCount } = this.form;
+      const { curCard: card, useCard } = this;
+      const res = await getBookingPrice({ store, date, adultsCount, kidsCount, card: useCard ? card.id : null, paymentGateway: "wechatpay" });
+      console.log(res);
+      this.price = res.data.price;
+      this.loadingPrice = false;
+    },
     async handleBooking() {
       const { id: store } = this.currentStore;
       const { date, adultsCount, kidsCount } = this.form;
       const { curCard: card, useCard } = this;
-      const res = await createBooking({ store, date, adultsCount, kidsCount, card: useCard ? card : null, paymentGateway: "wechatpay" });
+      const res = await createBooking({ store, date, adultsCount, kidsCount, card: useCard ? card.id : null, paymentGateway: "wechatpay" });
       const payArgs = _.get(res, "data.payments.0.payArgs");
       if (payArgs) {
         await handlePayment(payArgs);
