@@ -18,9 +18,11 @@
               view.count {{user.balance}}
               view.label 我的余额
             view.line
-          view.item
-            button.cu-btn(@click="showQrCode")
+          view.item(@click="showQrCode")
+            button.cu-btn
               img.icon(src="/static/icon/code.svg")
+            view.stat.flex
+              img.icon(src="/static/icon/qr.png" style="width:64upx;height:64upx")
     //- mi-modal(:visible.sync="isShowBooking" :item="curBooking")
     card.card(withShape :withClose="status=='userQR'" @close="status='normal'")
       view.content
