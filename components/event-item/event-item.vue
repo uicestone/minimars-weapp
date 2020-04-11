@@ -32,4 +32,5 @@ export default {
     left 0
     border-radius 80upx
     background #666
+    height 100%
 </style>

@@ -39,7 +39,6 @@ export default {
 @import 'common/colorui/main.css'
 @import 'common/colorui/icon.css'
 @import 'common/colorui/animation.css'
-
 body
   --primary #57ff9a
   --primary-light #d1fddf
@@ -116,4 +115,6 @@ $color-primary-light = #d1fddf
   .booking-item
     .sub-title
       color white !important
+.with-tab-bar
+  margin-bottom 100upx
 </style>

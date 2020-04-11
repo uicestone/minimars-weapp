@@ -1,18 +1,17 @@
 <template lang="pug">
-  view
-    scroll-view(scroll-y).event
-      top-event(:item="eventsRecommend")
-      stripe.stripe(withTail)
-        view.content(v-if="newBooking")
-          booking-item.booking-item(:item="newBooking" withAction)
-            button.cu-btn.round.action-button(slot="action")
-              view.icon(class="cuIcon-attentionfill")
-              view.text 您的预约
-      card.card(withShape)
-        view.content
-          view.cu-list.grid.col-2
-            view.cu-item(v-for="(item,index) in events" :key="index")
-              event-item.flex.justify-center(:item="item" @click="goDetail(item)")
+  view.with-tab-bar
+    top-event(:item="eventsRecommend")
+    stripe.stripe(withTail)
+      view.content(v-if="newBooking")
+        booking-item.booking-item(:item="newBooking" withAction)
+          button.cu-btn.round.action-button(slot="action")
+            view.icon(class="cuIcon-attentionfill")
+            view.text 您的预约
+    card.card(withShape)
+      view.content
+        view.cu-list.grid.col-2
+          view.cu-item(v-for="(item,index) in events" :key="index")
+            event-item.flex.justify-center(:item="item" @click="goDetail(item)")
 </template>
 
 <script>
@@ -62,6 +61,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+top-event
+  height 30vh
 .event
   display flex
   flex-direction column

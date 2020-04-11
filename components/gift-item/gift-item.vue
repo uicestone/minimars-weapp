@@ -1,6 +1,6 @@
 <template lang="pug">
   view.gift-item
-    img(:src="item.posterUrl").img
+    img(:src="item.posterUrl" mode="aspectFill").img
     view.content
       view {{item.title}}
       button.cu-btn.bg-primary.action-button

@@ -1,11 +1,11 @@
 <template lang="pug">
   view.top-event
-    img.bg.w-full.absolute(:src="_.get(item, 'posterUrl')" mode='widthFix')
+    img.bg.w-full.absolute(:src="_.get(item, 'posterUrl')" mode='aspectFill')
     view.content
       button.action.cu-btn.round 
         view.icon(class="cuIcon-likefill")
         text 精选
-      view.text {{_.get(item, "title")}}
+      //- view.text {{_.get(item, "title")}}
 </template>
 
 <script>
@@ -25,6 +25,7 @@ export default {
     height 120%
   .content
     padding 200upx 40upx 20upx
+    height 640upx
     .action
       position relative
       background rgba(87, 255, 154, 0.3)
