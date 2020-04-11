@@ -47,7 +47,7 @@ export default {
     bookings: sync("booking/bookings"),
     currentStore: sync("store/currentStore"),
     newBooking() {
-      return this.bookings.find(i => i.type == "play");
+      return this.bookings.find(i => i.type == "play" && ["pending", "booked", "in_service"].includes(i.status));
     }
   },
   mounted() {

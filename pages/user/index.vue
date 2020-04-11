@@ -30,7 +30,7 @@
           view.with-padding(@click="navigateTo('/pages/booking/list')")
             card-title(title="我的预约" action="所有预约")
           swiper.card-swiper(:circular='true' @change="cardSwiper" :autoplay='false' interval='5000' duration='500'  indicator-color='#8799a3' indicator-active-color='#0081ff')
-            swiper-item(v-for='(item,index) in bookings'  :class="cardCur==index?'cur':''" :key='index')
+            swiper-item(v-for='(item,index) in activeBookings'  :class="cardCur==index?'cur':''" :key='index')
               view.swiper-item
                 booking-item(:item="item")
                 //- img.img1(:src="utils.booking.getImage(item)" mode='aspectFit' )
@@ -73,8 +73,8 @@ export default {
     user: sync("auth/user"),
     userCards: sync("auth/userCards"),
     bookings: sync("booking/bookings"),
-    bookedBookings() {
-      return this.bookings.filter(i => i.status == "booked");
+    activeBookings() {
+      return this.bookings.filter(i => ["pending", "booked", "in_service"].includes(i.status));
     }
   },
   async created() {
