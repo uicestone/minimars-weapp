@@ -1,5 +1,5 @@
 <template lang="pug">
-  view.top-event
+  view.top-event(@click="goDetail")
     img.bg.w-full.absolute(:src="_.get(item, 'posterUrl')" mode='aspectFill')
     view.content
       button.action.cu-btn.round 
@@ -10,7 +10,15 @@
 
 <script>
 export default {
-  props: ["item"]
+  props: ["item"],
+  methods:{
+    goDetail(){
+      console.log(123)
+      uni.navigateTo({
+        url: `/pages/event/detail?id=${this.item.id}`
+      });
+    }
+  }
 };
 </script>
 
