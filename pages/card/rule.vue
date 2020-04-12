@@ -61,10 +61,12 @@ export default {
   },
   methods: {
     async loadCard(id) {
+      uni.showLoading();
       const res = await getItem({ id, type: "card-type" });
       if (res.data) {
         this.data = res.data;
       }
+      uni.hideLoading();
     }
   }
 };

@@ -35,6 +35,7 @@ export default {
     if (giftCode) {
       this.giftCode = giftCode;
     }
+    uni.showLoading();
     await this.wechatLogin();
     await Promise.all([this.loadConfig(), this.handleGiftCode(), service.loadStore(), service.loadBookings(), service.loadUserCard()]);
     if (tab) {
@@ -42,6 +43,7 @@ export default {
         this.currentTab = tab;
       }, 1000);
     }
+    uni.hideLoading();
   },
   onShow() {
     if (this.token) {

@@ -27,10 +27,12 @@ export default {
   },
   async onLoad(data) {
     if (data.id) {
+      uni.showLoading();
       const res = await getItem({ type: "card", id: data.id });
       if (res.data) {
         this.item = res.data;
       }
+      uni.hideLoading();
     }
   },
   methods: {}

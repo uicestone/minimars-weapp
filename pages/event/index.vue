@@ -32,8 +32,10 @@ export default {
       return this.bookings.find(i => i.type == "event");
     }
   },
-  async created() {
+  async mounted() {
+    uni.showLoading();
     await Promise.all([this.loadEvent(), this.loadRecommentEvent()]);
+    uni.hideLoading();
   },
   onReachBottom() {
     this.loadEvent();

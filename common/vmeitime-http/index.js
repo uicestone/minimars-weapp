@@ -304,3 +304,11 @@ export const getPost = (data) => {
     data,
   });
 };
+
+export const getBrand = () => {
+  return http.request({
+    url: `/post/brand`,
+    method: "GET",
+    dataType: "json",
+  });
+};

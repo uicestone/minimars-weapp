@@ -55,9 +55,10 @@ export default {
       this.loadBooking();
     },
     async loadBooking() {
-      const res = await getBookings({ status: this.curStatus == "all" ? null : this.curStatus, skip: this.booking.length, limit: 10 });
+      const status = this.curStatus;
+      const res = await getBookings({ status: status == "all" ? null : status, skip: this.booking.length, limit: 10 });
       if (res.data) {
-        this.bookings[this.curStatus] = [...this.booking, ...res.data];
+        this.bookings[status] = [...this.booking, ...res.data];
       }
     }
   }

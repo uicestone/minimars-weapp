@@ -1,19 +1,19 @@
 <template lang="pug">
-  view.store-detail.page
+  view.store-detail
     store-switcher
     view.alert
       img.icon(src="/static/icon/dog.svg")
       uni-notice-bar.w-full(:show-icon='true' :speed="100" :scrollable='true' :single='true' text='我们在疫情期间, 工作人员清洁消毒30分钟/次，设施 …')
     img.img.w-full(src="/static/img/logo1.png" mode='aspectFill')
-    view.info
-      html-parser(:html="currentStore.content")
+    view.info(v-if="item")
+    html-parser(:html="item.content")
       //- view.name 门店信息
       //- view 地址：静安区江宁路428号
       //- view 电话：61555725
       //- view 营业时间：09:30-20:00
       //- view 交通沿线：地铁1/12/13号线汉中路站10号口步行1.1km
     img.cover(:src="currentStore.posterUrl" mode='aspectFill')
-    view.bottom-bar
+    view.bottom-bar(v-if="!item.open")
       text 本店已休息
     
 
@@ -21,9 +21,23 @@
 
 <script>
 import { sync } from "vuex-pathify";
+import { getItem } from "../../common/vmeitime-http";
 export default {
+  data() {
+    return {
+      item: null
+    };
+  },
   computed: {
     currentStore: sync("store/currentStore")
+  },
+  async onLoad() {
+    uni.showLoading();
+    const res = await getItem({ type: "store", id: this.currentStore.id });
+    if (res.data) {
+      this.item = res.data;
+    }
+    uni.hideLoading();
   }
 };
 </script>
@@ -31,8 +45,9 @@ export default {
 
 <style lang="stylus" scoped>
 .store-detail
-  padding 40upx 40upx 0
-  height calc(100vh - 100upx)
+  padding 40upx 40upx 100upx
+  width 100vw
+  min-height 100vh
   display flex
   flex-direction column
   position absolute

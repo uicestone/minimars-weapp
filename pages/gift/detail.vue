@@ -83,10 +83,12 @@ export default {
   },
   methods: {
     async loadGift(id) {
+      uni.showLoading();
       const res = await getItem({ id, type: "gift" });
       if (res.data) {
         this.item = res.data;
       }
+      uni.hideLoading();
     },
     switchType(item) {
       this.form.currentType = item.value;

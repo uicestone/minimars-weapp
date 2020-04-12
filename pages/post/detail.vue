@@ -14,7 +14,9 @@ export default {
   },
   onLoad(data) {
     if (data.id) {
+      uni.showLoading();
       this.loadPost(data.id);
+      uni.hideLoading();
     }
   },
   methods: {

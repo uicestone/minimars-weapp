@@ -77,8 +77,10 @@ export default {
       return this.bookings.filter(i => ["pending", "booked", "in_service"].includes(i.status));
     }
   },
-  async created() {
+  async mounted() {
+    uni.showLoading();
     await Promise.all([loadCard(), fetchUser(), service.loadBookings()]);
+    uni.hideLoading();
   },
   methods: {
     showQrCode() {

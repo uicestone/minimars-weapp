@@ -82,9 +82,8 @@ export default {
       }
     };
   },
-  onLoad(data) {
+  async onLoad(data) {
     if (data.id) {
-      console.log(data.id);
       this.loadEvent(data.id);
     }
   },
@@ -96,10 +95,12 @@ export default {
   },
   methods: {
     async loadEvent(id) {
+      uni.showLoading();
       const res = await getItem({ id, type: "event" });
       if (res.data) {
         this.item = res.data;
       }
+      uni.hideLoading();
     },
     async handleShowPayment() {
       await checkLogin();

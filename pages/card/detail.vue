@@ -52,6 +52,7 @@ export default {
     };
   },
   async onLoad(data) {
+    uni.showLoading();
     await loadUserCard();
     if (data.id) {
       const card = this.userCards.find(i => i.id == data.id);
@@ -61,6 +62,7 @@ export default {
       }
     }
     this.setCard();
+    uni.hideLoading();
   },
   computed: {
     cards: sync("booking/cardTypes"),

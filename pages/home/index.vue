@@ -50,11 +50,13 @@ export default {
       return this.bookings.find(i => i.type == "play" && ["pending", "booked", "in_service"].includes(i.status));
     }
   },
-  mounted() {
+  async mounted() {
+    uni.showLoading();
     this.loadPost();
     if (this.token) {
       service.loadBookings();
     }
+    uni.hideLoading();
   },
   methods: {
     async goBooking() {

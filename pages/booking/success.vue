@@ -36,10 +36,12 @@ export default {
     };
   },
   async onLoad(data) {
+    uni.show();
     await wechatLogin();
     if (data.id) {
       this.loadBooking(data.id);
     }
+    uni.hideLoading();
   },
   computed: {
     user: sync("auth/user")
