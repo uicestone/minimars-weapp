@@ -30,10 +30,10 @@
     view.placeholder
     card.card(withGreenShape)
       view.content
-        view.name {{item.title}} (剩余 {{item.quantity}})
+        view.name {{item.title || "-"}} (剩余 {{item.quantity || "-"}})
         view.price 
           img.icon(src="/static/icon/pointmain.svg")
-          text {{item.priceInPoints}} / ￥ {{item.price || '-'}}
+          text {{item.priceInPoints || "-"}} / ￥ {{item.price || '-'}}
         view.prompt （请凭兑换码至门店前台核销并领取商品）
     view.cu-card.no-card
       view.cu-item.content
