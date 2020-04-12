@@ -6,7 +6,8 @@
           img.img1(src="/static/img/create-success.png" mode='aspectFill')
           view.title 您已成功预约
           view.code 预约码
-          canvas.qrcode(canvas-id="qrcode")
+          view(v-show="visible" )
+            canvas.qrcode(canvas-id="qrcode")
           view.hint (请在到店时出示)
           view.info
             view 日期：{{_.get(item,  "date", "")}}
@@ -62,7 +63,9 @@ export default {
   },
   watch: {
     visible() {
-      this.makeQRCode();
+      if(this.visible){
+        this.makeQRCode();
+      }
     }
   }
 };
