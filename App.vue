@@ -39,6 +39,7 @@ export default {
 @import 'common/colorui/main.css'
 @import 'common/colorui/icon.css'
 @import 'common/colorui/animation.css'
+
 body
   --primary #57ff9a
   --primary-light #d1fddf
@@ -54,7 +55,7 @@ $color-primary-light = #d1fddf
   text-align center
   object-fit contain
 .no-bg
-  background transparent
+  background-color transparent !important
 .bg
   position fixed
   top 0

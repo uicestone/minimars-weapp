@@ -16,6 +16,7 @@ export default {
 .event-item
   height 420upx
   width 316upx
+  background transparent
   border-radius 80upx
   text-align center
   text-align left

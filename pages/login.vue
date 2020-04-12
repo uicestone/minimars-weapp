@@ -10,7 +10,7 @@
 <script>
 import { wechatGetUserInfo } from "../services";
 import { sync } from "vuex-pathify";
-import { event } from '../services/event';
+import { event } from "../services/event";
 
 export default {
   computed: {
@@ -22,7 +22,7 @@ export default {
       try {
         const res = await wechatGetUserInfo();
         this.auth.showLogin = false;
-        event.emit("login")
+        event.emit("login");
         this.$emit("success");
       } catch (err) {
         console.log(err);
@@ -37,7 +37,4 @@ export default {
 };
 </script>
 
-<style lang="stylus">
-.no-bg
-  background transparent
-</style>
+<style lang="stylus"></style>

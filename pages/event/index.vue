@@ -9,7 +9,7 @@
             view.text 您的预约
     card(withShape)
       view.content
-        view.cu-list.grid.col-2
+        view.cu-list.grid.col-2.no-bg
           view.cu-item(v-for="(item,index) in events" :key="index")
             event-item.flex.justify-center(:item="item" @click="goDetail(item)")
 </template>
@@ -63,8 +63,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-top-event
-  height 30vh
 .event
   display flex
   flex-direction column
@@ -104,5 +102,6 @@ top-event
       min-height calc(100vh - 400upx)
       padding 20upx 20upx 100upx
       .cu-list
-        background transparent
+        .grid
+          background transparent
 </style>
