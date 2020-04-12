@@ -6,7 +6,7 @@
     mi-dialog.payment-dialog(:visible.sync="showPayment" withClose)
       view.cotent
         view.head
-          img.img(:src="item.posterUrl")
+          img.img(:src="item.posterUrl" mode='aspectFill')
           view.info
             view.text
               view.name {{item.title}}
@@ -26,7 +26,7 @@
           view.w-full(v-else)
             button.cu-btn.bg-primary.round.action-button.full(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 确认兑换
 
-    img.bg.w-full.absolute(:src="item.posterUrl" mode='widthFix')
+    img.bg.w-full.absolute(:src="item.posterUrl" mode='aspectFill')
     view.placeholder
     card.card(withGreenShape)
       view.content
@@ -126,8 +126,10 @@ export default {
 
 <style lang="stylus" scoped>
 .event-detail
+  .bg
+    height 750upx
   .placeholder
-    padding-top 420upx
+    padding-top 600upx
   .payment-dialog
     font-family PingFangSC-Regular, PingFang SC
     color var(--text-primary)

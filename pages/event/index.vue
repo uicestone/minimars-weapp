@@ -7,7 +7,7 @@
           button.cu-btn.round.action-button(slot="action")
             view.icon(class="cuIcon-attentionfill")
             view.text 您的预约
-    card.card(withShape)
+    card(withShape)
       view.content
         view.cu-list.grid.col-2
           view.cu-item(v-for="(item,index) in events" :key="index")
