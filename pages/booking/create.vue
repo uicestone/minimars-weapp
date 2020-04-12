@@ -55,8 +55,8 @@ export default {
       bookingRes: null
     };
   },
-  created() {
-    if (this.userCards.length > 0) {
+  mounted() {
+    if (this.cards.length > 0) {
       this.onUseCard({ detail: { value: true } });
     }
     this.getPirce();
@@ -79,6 +79,10 @@ export default {
     }
   },
   watch: {
+    currentStore() {
+      this.onUseCard({ detail: { value: true } });
+      this.getPirce();
+    },
     form: {
       async handler() {
         this.getPirce();
@@ -89,6 +93,10 @@ export default {
       this.getPirce();
     },
     curCard() {
+      this.getPirce();
+    },
+    cards() {
+      this.onUseCard({ detail: { value: true } });
       this.getPirce();
     }
   },
@@ -120,14 +128,12 @@ export default {
       this.form.date = data.detail.value;
       console.log(data);
     },
-    onCloseModal(){
-      uni.navigateBack()
+    onCloseModal() {
+      uni.navigateBack();
     },
     onUseCard(e) {
       this.useCard = e.detail.value;
-      if (this.userCards.length > 0) {
-        this.curCard = this.userCards[0] || {};
-      }
+      this.curCard = this.cards[0] || {};
     }
   }
 };
