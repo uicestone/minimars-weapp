@@ -21,7 +21,7 @@
               view.label 人数
               view.flex.justify-between
                 mi-input-number(:value.sync="form.adultsCount" suffix="成人")
-                mi-input-number(:value.sync="form.kidsCount" suffix="儿童")
+                mi-input-number(:value.sync="form.kidsCount" suffix="儿童" :min="1")
           view.submit(@click="handleBooking")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
               view.title 
