@@ -37,7 +37,7 @@ export default {
     };
   },
   onReachBottom() {
-    this.loadPayment(this.curTab);
+    this.loadPayment();
   },
   computed: {
     payment() {
@@ -48,7 +48,8 @@ export default {
     this.switchTab({ value: "card" });
   },
   methods: {
-    async loadPayment(curTab) {
+    async loadPayment() {
+      const curTab = this.curTab;
       const res = await getListData({ type: "payment", data: { attach: curTab == "all" ? null : curTab, limit: 10, skip: this.payment.length } });
       if (res.data) {
         this.payments[curTab] = [...this.payment, ...res.data];
@@ -56,7 +57,7 @@ export default {
     },
     switchTab(item) {
       this.curTab = item.value;
-      this.loadPayment(this.curTab);
+      this.loadPayment();
     }
   }
 };
