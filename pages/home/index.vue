@@ -24,7 +24,7 @@
         view.h3 门店介绍
         img.cover(:src="currentStore ? currentStore.posterUrl : '/static/img/booking-record.png'" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
         view.h3 品牌介绍
-        img.cover(src="/static/img/about.png" mode='aspectFill' @click="navigateTo('/pages/about')")
+        img.cover(:src="brand.posterUrl ? brand.posterUrl : '/static/img/about.png'" mode='aspectFill' @click="navigateTo('/pages/about')")
           
 
     
@@ -32,13 +32,14 @@
 
 <script>
 import { sync } from "vuex-pathify";
-import { getPost } from "../../common/vmeitime-http";
+import { getPost, getBrand } from "../../common/vmeitime-http";
 import * as service from "@/services";
 export default {
   data() {
     return {
       showModal: false,
-      posts: []
+      posts: [],
+      brand: {}
     };
   },
   computed: {
@@ -53,6 +54,7 @@ export default {
   async mounted() {
     uni.showLoading();
     this.loadPost();
+    this.loadBrand();
     if (this.token) {
       service.loadBookings();
     }
@@ -61,6 +63,13 @@ export default {
   methods: {
     async goBooking() {
       this.navigateTo("/pages/booking/create", { checkAuth: true });
+    },
+    async loadBrand() {
+      console.log(123);
+      const res = await getBrand();
+      if (res.data) {
+        this.brand = res.data;
+      }
     },
     async loadPost() {
       const res = await getPost({ tag: "home-banner" });
@@ -128,4 +137,5 @@ export default {
       border-radius 70upx
       height 360upx
       width 100%
+      border 1px solid #f0eeef
 </style>
