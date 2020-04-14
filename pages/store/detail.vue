@@ -28,16 +28,26 @@ export default {
       item: null
     };
   },
+  watch: {
+    currentStore() {
+      this.loadStore();
+    }
+  },
   computed: {
     currentStore: sync("store/currentStore")
   },
   async onLoad() {
-    uni.showLoading();
-    const res = await getItem({ type: "store", id: this.currentStore.id });
-    if (res.data) {
-      this.item = res.data;
+    this.loadStore();
+  },
+  methods: {
+    async loadStore() {
+      uni.showLoading();
+      const res = await getItem({ type: "store", id: this.currentStore.id });
+      if (res.data) {
+        this.item = res.data;
+      }
+      uni.hideLoading();
     }
-    uni.hideLoading();
   }
 };
 </script>

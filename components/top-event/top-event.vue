@@ -11,9 +11,8 @@
 <script>
 export default {
   props: ["item"],
-  methods:{
-    goDetail(){
-      console.log(123)
+  methods: {
+    goDetail() {
       uni.navigateTo({
         url: `/pages/event/detail?id=${this.item.id}`
       });

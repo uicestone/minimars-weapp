@@ -101,7 +101,7 @@ export default {
           width 42upx
           height 42upx
   .content
-    padding 0 0 0 38upx
+    padding 0 38upx 0
     font-size 24upx
     font-family PingFangSC-Semibold, PingFang SC
     font-weight 600
