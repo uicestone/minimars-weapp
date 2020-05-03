@@ -6,7 +6,7 @@
         store-switcher
       view.vip-card
         view.cu-form-group
-            view.title 选择VIP权益卡
+            view.title 选择我的权益卡
             switch(@change='onUseCard' :class="useCard?'checked':''" :checked='useCard?true:false')
         mi-card-selecter(v-if="useCard" :items="cards" :curItem.sync="curCard")
     view.content
