@@ -19,3 +19,15 @@ export const checkLogin = () =>
       res();
     }
   });
+
+export const checkMobile = () =>
+  new Promise((res, rej) => {
+    if (!store.state.auth.user.mobile) {
+      event.once("mobile", () => {
+        res();
+      });
+      store.state.auth.showGetPhone = true;
+    } else {
+      res();
+    }
+  });

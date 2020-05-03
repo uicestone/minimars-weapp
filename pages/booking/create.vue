@@ -22,7 +22,7 @@
               view.flex.justify-between
                 mi-input-number(:value.sync="form.adultsCount" suffix="成人")
                 mi-input-number(:value.sync="form.kidsCount" suffix="儿童" :min="1")
-          view.submit(@click="handleBooking")
+          view.submit(@click="showBookingConfirm")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
               view.title 
                 text 确认支付/预约
@@ -111,6 +111,16 @@ export default {
       console.log(res);
       this.price = res.data.price;
       this.loadingPrice = false;
+    },
+    async showBookingConfirm() {
+      const { date, adultsCount, kidsCount } = this.form;
+      uni.showModal({
+        title: "确认",
+        content: `请确认${this.currentStore.name}店${this.form.date} ${adultsCount}大 ${kidsCount}小的预约`,
+        success() {
+          this.handleBooking();
+        }
+      });
     },
     async handleBooking() {
       const { id: store } = this.currentStore;

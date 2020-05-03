@@ -31,6 +31,7 @@ export default {
     },
     cancelLogin() {
       this.auth.showLogin = false;
+      event.removeAllListeners("login");
       this.$emit("fail");
     }
   }

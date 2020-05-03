@@ -16,6 +16,7 @@
 import { sync } from "vuex-pathify";
 import { updateMobile } from "@/common/vmeitime-http";
 import { fetchUser } from "@/services";
+import { getPhoneNumber } from "../../services";
 export default {
   data() {
     return {
@@ -29,15 +30,8 @@ export default {
   },
   methods: {
     async getPhoneNumber(res) {
-      const { iv, encryptedData } = res.detail;
-      const {
-        session_key,
-        user: { openid }
-      } = this.auth;
       uni.showLoading();
-
-      const response = await updateMobile({ iv, encryptedData, session_key, openid });
-      this.user = response.data;
+      await getPhoneNumber(res);
       await fetchUser();
       uni.hideLoading();
     }

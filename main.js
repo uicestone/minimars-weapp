@@ -12,7 +12,7 @@ import user from "./pages/user/index.vue";
 import login from "./pages/login.vue";
 
 import cuCustom from "./common/colorui/components/cu-custom.vue";
-import { checkLogin } from "./services";
+import { checkLogin, checkMobile } from "./services";
 
 Vue.config.productionTip = false;
 Vue.component("cu-custom", cuCustom);
@@ -33,6 +33,9 @@ Vue.prototype.back = () => {
 
 Vue.prototype.navigateTo = async (url, opt = {}) => {
   const tab = store.state.configs.tabMap[url];
+  if (opt.checkMobile) {
+    await checkMobile();
+  }
   if (opt.checkAuth) {
     await checkLogin();
   }

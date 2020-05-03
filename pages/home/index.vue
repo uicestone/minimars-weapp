@@ -1,7 +1,7 @@
 <template lang="pug">
   scroll-view(scroll-y).bg-white.page
     //- swiper
-    view(style="height: 1000upx")
+    view(style="height: 70vh")
       swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='7000' duration='700' easing-function='easeInOutCubic')
         swiper-item(v-for='(item,index) in posts' :key='index' @click="handlePost(item)")
           img(:src='item.posterUrl' mode='aspectFill')
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     async goBooking() {
-      this.navigateTo("/pages/booking/create", { checkAuth: true });
+      this.navigateTo("/pages/booking/create", { checkMobile: true });
     },
     async loadBrand() {
       console.log(123);

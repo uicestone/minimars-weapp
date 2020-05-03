@@ -1,6 +1,7 @@
 <template lang="pug">
   view
     login
+    get-phonenumber
     tab-bar
     home(v-if="currentTab=='/pages/home/index'")
     event(v-if="currentTab=='/pages/event/index'")

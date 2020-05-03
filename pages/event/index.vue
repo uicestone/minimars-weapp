@@ -1,8 +1,8 @@
 <template lang="pug">
   view.with-tab-bar
     top-event(:item="eventsRecommend")
-    stripe.stripe(withTail)
-      view.content(v-if="newBooking")
+    stripe.stripe(v-if="newBooking" withTail)
+      view.content
         booking-item.booking-item(:item="newBooking" withAction)
           button.cu-btn.round.action-button(slot="action")
             view.icon(class="cuIcon-attentionfill")

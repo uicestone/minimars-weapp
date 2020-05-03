@@ -1,6 +1,7 @@
 <template lang="pug">
   scroll-view(scroll-y).gift-detail
     login
+    get-phonenumber
     cu-custom(isBack @back="uni.navigateBack()")
       text(slot="backText") 商品详情
     mi-dialog.payment-dialog(:visible.sync="showPayment" withClose)
@@ -57,7 +58,7 @@
 <script>
 import { getItem, createBooking } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
-import { handlePayment, checkLogin } from "../../services";
+import { handlePayment, checkLogin, checkMobile } from "../../services";
 import { _ } from "../../utils/lodash";
 export default {
   data() {
@@ -94,7 +95,7 @@ export default {
       this.form.currentType = item.value;
     },
     async handleShowPayment() {
-      await checkLogin();
+      await checkMobile();
       this.showPayment = true;
     },
     async handleBooking({ paymentGateway }) {

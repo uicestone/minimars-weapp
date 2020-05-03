@@ -2,6 +2,7 @@ import { make } from "vuex-pathify";
 
 const state = {
   showLogin: false,
+  showGetPhone: false,
   token: uni.getStorageSync("token") || "",
   session_key: "",
   user: {

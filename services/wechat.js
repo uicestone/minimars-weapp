@@ -7,9 +7,9 @@ export const wechatLogin = () =>
     uni.showLoading();
     uni.login({
       provider,
-      success: async loginRes => {
+      success: async (loginRes) => {
         const res = await api.wechatLogin({
-          code: loginRes.code
+          code: loginRes.code,
         });
         const { session_key, openid, user, token } = res.data;
         if (user) {
@@ -22,7 +22,7 @@ export const wechatLogin = () =>
       },
       complete() {
         uni.hideLoading();
-      }
+      },
     });
   });
 
@@ -33,20 +33,20 @@ export const wechatGetUserInfo = () =>
     uni.getUserInfo({
       provider,
       lang: "zh_CN",
-      success: async userData => {
+      success: async (userData) => {
         // console.log(userData);
         try {
           const res = await api.wechatSignup({
             session_key: store.state.auth.session_key,
             encryptedData: userData.encryptedData,
-            iv: userData.iv
+            iv: userData.iv,
           });
           storeUser(res.data || {});
           resolve(res);
         } catch (err) {
           uni.showToast({
             title: err.message,
-            icon: "none"
+            icon: "none",
           });
           reject(err);
         }
@@ -56,7 +56,7 @@ export const wechatGetUserInfo = () =>
       },
       complete() {
         uni.hideLoading();
-      }
+      },
     });
   });
 
@@ -71,22 +71,33 @@ export const storeUser = ({ user, token, session_key }) => {
   }
 };
 
-export const handlePayment = paymentData =>
+export const handlePayment = (paymentData) =>
   new Promise((resolve, reject) => {
     uni.showLoading();
     uni.requestPayment({
       signType: "MD5",
       ...paymentData,
-      success: res => {
+      success: (res) => {
         console.log(res);
         resolve({ ...res, ...paymentData });
       },
-      fail: res => {
+      fail: (res) => {
         console.log(res);
         reject(res);
       },
       complete() {
         uni.hideLoading();
-      }
+      },
     });
   });
+
+export const getPhoneNumber = async (data) => {
+  const { iv, encryptedData } = data.detail;
+  const {
+    session_key,
+    user: { openid },
+  } = store.state.auth;
+  const res = await api.updateMobile({ iv, encryptedData, session_key, openid });
+  uni.hideLoading();
+  return res.data;
+};
