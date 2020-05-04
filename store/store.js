@@ -2,10 +2,10 @@ import { make } from "vuex-pathify";
 
 const state = {
   currentStore: {
-    id: uni.getStorageSync("storeId"),
-    name: null
+    id: null,
+    name: "",
   },
-  stores: []
+  stores: [],
 };
 
 const mutations = make.mutations(state);
@@ -13,5 +13,5 @@ const mutations = make.mutations(state);
 export default {
   namespaced: true,
   state,
-  mutations
+  mutations,
 };

@@ -1,5 +1,5 @@
 <template lang="pug">
-  view.with-tab-bar
+  view.with-tab-bar.event
     top-event(:item="eventsRecommend")
     stripe.stripe(v-if="newBooking" withTail)
       view.content
@@ -7,7 +7,7 @@
           button.cu-btn.round.action-button(slot="action")
             view.icon(class="cuIcon-attentionfill")
             view.text 您的预约
-    card(withShape)
+    card.card(withShape)
       view.content
         view.cu-list.grid.col-2.no-bg
           view.cu-item(v-for="(item,index) in events" :key="index")

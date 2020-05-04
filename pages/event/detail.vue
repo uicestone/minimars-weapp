@@ -18,8 +18,17 @@
                 text {{item.priceInPoints || "-"}}
               view(v-if="item.price") ￥ {{item.price}}
         view.form
-          view.label 报名人数（儿童）
-          mi-input-number(:value.sync="form.kidsCount")
+          view
+            view.label 报名人数（儿童）
+            mi-input-number(:value.sync="form.kidsCount")
+          view
+            view.label 日期
+            picker(mode='date' :value='date' @change='DateChange' :start='validDateStart' :end='validDateEnd' :disabled="item.date")
+              view.form-item.flex.justify-center {{moment(item.date || form.date).format("MMM Do")}}
+          view
+            view.label 门店
+            picker.action(@change="selectStore" :range="stores" range-key="name" :disabled="item.store")
+              view.form-item.flex.justify-center {{_.get(item, "store.name") || _.get(form, "store.name")|| "请选择门店"}}
         view.action
           view.w-full.flex.justify-between(v-if="item.price")
             button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 积分兑换
@@ -63,12 +72,19 @@ import { getItem, createBooking } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
 import { _ } from "../../utils/lodash";
 import { handlePayment, checkLogin, checkMobile } from "../../services";
+import { moment } from "../../utils/moment";
+
 export default {
   data() {
     return {
       showPayment: false,
       form: {
-        kidsCount: 1
+        kidsCount: 1,
+        date: moment().format("YYYY-MM-DD"),
+        store: {
+          id: null,
+          name: null
+        }
       },
       item: {
         name: "甜甜圈大作战",
@@ -90,9 +106,19 @@ export default {
   },
   computed: {
     payAble() {
-      return this.form.kidsCount !== 0;
+      return this.form.kidsCount !== 0 && (this.item.date || this.form.date);
     },
-    currentStore: sync("store/currentStore")
+    currentStore: sync("store/currentStore"),
+    stores: sync("store/stores"),
+    validDateStart() {
+      // book starts tommorrow if its 16:00 or later
+      return moment()
+        .add(moment().hours() > 16 ? 1 : 0, "day")
+        .format("YYYY-MM-DD");
+    },
+    validDateEnd() {
+      return moment().add(7, "days");
+    }
   },
   methods: {
     async loadEvent(id) {
@@ -103,6 +129,13 @@ export default {
       }
       uni.hideLoading();
     },
+    DateChange(data) {
+      this.form.date = data.detail.value;
+      console.log(data);
+    },
+    selectStore(e) {
+      this.form.store = this.stores[e.detail.value];
+    },
     async handleShowPayment() {
       await checkMobile();
       this.showPayment = true;
@@ -111,7 +144,7 @@ export default {
       const { id: store } = this.currentStore;
       const { kidsCount } = this.form;
       const { id: event } = this.item;
-      const res = await createBooking({ store, adultsCount: 0, kidsCount, paymentGateway, type: "event", event });
+      const res = await createBooking({ store, adultsCount: 0, kidsCount, paymentGateway, type: "event", event, date: this.item.date || this.form.date, store: this.item.store || this.form.store });
       const payArgs = _.get(res, "data.payments.0.payArgs");
       if (payArgs) {
         await handlePayment(payArgs);
@@ -176,6 +209,12 @@ export default {
         font-size 24upx
         line-height 34upx
         margin 30upx 0
+      .form-item
+        font-size 40upx
+        width 300upx
+        border-radius 200upx
+        padding 10upx 20upx
+        border 2px solid #ddd
     .action
       display flex
       justify-content space-between
