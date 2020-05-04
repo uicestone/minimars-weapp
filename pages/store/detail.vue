@@ -1,6 +1,6 @@
 <template lang="pug">
   view.store-detail
-    store-switcher
+    //- store-switcher
     view.alert
       img.icon(src="/static/icon/dog.svg")
       uni-notice-bar.w-full(:show-icon='true' :speed="100" :scrollable='true' :single='true' text='我们在疫情期间, 工作人员清洁消毒30分钟/次，设施 …')

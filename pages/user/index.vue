@@ -33,14 +33,11 @@
             swiper-item(v-for='(item,index) in activeBookings'  :class="cardCur==index?'cur':''" :key='index')
               view.swiper-item
                 booking-item(:item="item")
-                //- img.img1(:src="utils.booking.getImage(item)" mode='aspectFit' )
-                //- view.info
-                //-   view.title {{utils.booking.getTitle(item)}}
-                //-   view.date {{item.date}}
 
           view.with-padding(@click="navigateTo('/pages/card/sell')")
             card-title(title="我的卡券包" action="购买更多")
           view.card-list.with-padding
+            img.w-full.get-more(src="/static/img/no-card.png" mode='widthFix' @click="navigateTo('/pages/card/sell')")
             view.card-list-item(v-for="(item,index) in userCards" :key="index" )
               card-list-item(:item="item" withAction @click="goCardSelling(item)")
         view.user-qr(v-if="status == 'userQR'")
@@ -191,6 +188,8 @@ export default {
                 line-height 32upx
         .card-list
           margin-top 20upx
+          .get-more
+            border-radius 60upx
           .card-list-item
             margin-bottom 30upx
       .user-qr
