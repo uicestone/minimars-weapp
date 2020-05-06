@@ -65,7 +65,6 @@ export default {
       this.navigateTo("/pages/booking/create", { checkMobile: true });
     },
     async loadBrand() {
-      console.log(123);
       const res = await getBrand();
       if (res.data) {
         this.brand = res.data;

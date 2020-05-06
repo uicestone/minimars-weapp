@@ -1,7 +1,7 @@
 <template lang="pug">
   view.top-event(@click="goDetail")
     img.bg.w-full.absolute(src="/static/img/event-bg.png" mode='aspectFill')
-    view.content
+    //- view.content
       //- button.action.cu-btn.round 
       //-   view.icon(class="cuIcon-likefill")
       //-   text 精选
@@ -24,6 +24,7 @@ export default {
 <style lang="stylus" scoped>
 .top-event
   position relative
+  height 530upx
   .bg
     position absolute
     top 0

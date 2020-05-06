@@ -55,6 +55,7 @@ export default {
         console.log("navigateToMiniProgram: food");
         wx.navigateToMiniProgram({
           appId: "wx0b9a05ad7c33f761",
+          path: "/pages/self-service-branches/self-service-branches",
           fail: err => {
             console.error(err);
           }
