@@ -1,7 +1,7 @@
 <template lang="pug">
   scroll-view(scroll-y).bg-white.page
     //- swiper
-    view(style="height: 70vh")
+    view.banner-container(:class="{'has-new-booking':newBooking}")
       swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='7000' duration='700' easing-function='easeInOutCubic')
         swiper-item(v-for='(item,index) in posts' :key='index' @click="handlePost(item)")
           img(:src='item.posterUrl' mode='aspectFill')
@@ -90,6 +90,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.banner-container
+  height 75vh
+  &.has-new-booking
+    height 65vh
 .content
   padding 80upx 60upx 200upx
   .new-booking
