@@ -1,10 +1,12 @@
 <template lang="pug">
-  view.store-switcher.flex.align-center
-    button.cu-btn.round.bg-primary.button
-      view.title {{currentStore.name || "请选择门店"}}
-    picker.action(@change="selectStore" :range="stores" range-key="name")
-      text.arrow(class='cuIcon-right')
-      text.text 切换门店
+  view.store-switcher
+    picker(@change="selectStore" :range="stores" range-key="name")
+      .flex.align-center
+        button.cu-btn.round.bg-primary.button
+          view.title {{currentStore.name || "请选择门店"}}
+        .action
+          text.arrow(class='cuIcon-right')
+          text.text 切换门店
       
 </template>
 

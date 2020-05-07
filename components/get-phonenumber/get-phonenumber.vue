@@ -21,8 +21,7 @@ export default {
   methods: {
     async getPhoneNumber(res) {
       try {
-        this.auth.user = await getPhoneNumber(res);
-        await getAuthUser();
+        await getPhoneNumber(res);
         this.auth.showGetPhone = false;
         event.emit("mobile");
       } catch (err) {

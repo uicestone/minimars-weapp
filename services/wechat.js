@@ -99,5 +99,8 @@ export const getPhoneNumber = async (data) => {
   } = store.state.auth;
   const res = await api.updateMobile({ iv, encryptedData, session_key, openid });
   uni.hideLoading();
+  const { user, token } = res.data;
+  store.state.auth.user = user;
+  store.state.auth.token = token;
   return res.data;
 };

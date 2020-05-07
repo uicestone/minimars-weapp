@@ -23,7 +23,7 @@
                 mi-input-number(:value.sync="form.adultsCount" suffix="成人")
                 mi-input-number(:value.sync="form.kidsCount" suffix="儿童" :min="1")
           view.submit(@click="showBookingConfirm")
-            button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx")
+            button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx" :disabled="!payable")
               view.title 
                 text 确认支付/预约
                 text.margin-right.text-orange(v-if="price>0" style="font-size:40upx;font-weight:bold") ￥{{price}}
@@ -67,6 +67,9 @@ export default {
     currentStore: sync("store/currentStore"),
     cards() {
       return this.userCards.filter(i => i.type == "times" && i.status == "activated" && (!i.store || i.store === this.currentStore.id));
+    },
+    payable() {
+      return !!this.currentStore.id;
     },
     validDateStart() {
       // book starts tommorrow if its 16:00 or later
