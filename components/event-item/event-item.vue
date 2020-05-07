@@ -1,9 +1,9 @@
 <template lang="pug">
   view.event-item(@click="$emit('click')")
     img(:src="item.posterUrl" mode="aspectFill").img
-    view.store(v-if="item.store") {{ item.store.name.substr(0,2)+"店" }}
     view.desc
-      view {{item.title}}
+      view.store {{ item.store ? item.store.name.substr(0,2)+"店" : "门店通用" }}
+      view.title {{item.title}}
       view {{moment(item.date).format("YYYY.MM.DD")}}
 </template>
 
@@ -18,7 +18,7 @@ export default {
   height 420upx
   width 316upx
   background transparent
-  border-radius 80upx
+  border-radius 50upx
   text-align center
   text-align left
   color white
@@ -34,27 +34,22 @@ export default {
     position absolute
     top 0
     left 0
-    border-radius 80upx
+    border-radius 50upx
     background #666
     height 100%
-  .store
-    position absolute
-    right 30rpx
-    top 10rpx
-    background rgba(8, 243, 60, 0.7)
-    border-radius 10rpx
-    padding 5rpx
   .desc
     position absolute
     bottom 0
     width 100%
-    background rgba(8, 243, 60, 0.7)
+    background rgba(0, 0, 0, 0.5)
     display block
-    padding-left 40upx
-    padding-bottom 10upx
-    border-radius 60upx
-    padding-top 10upx
-    // color: #000;
-    min-height 82upx
-    font-size 26rpx
+    padding-left 40rpx
+    padding-bottom 0
+    border-radius 50rpx
+    padding-top 6rpx
+    min-height 120rpx
+    font-size 30rpx
+    line-height 1.2
+    .title
+      font-weight bold
 </style>
