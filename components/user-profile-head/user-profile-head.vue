@@ -31,7 +31,7 @@ export default {
   methods: {
     async getPhoneNumber(res) {
       uni.showLoading();
-      await getPhoneNumber(res);
+      this.auth.user = await getPhoneNumber(res);
       await fetchUser();
       uni.hideLoading();
     }
