@@ -11,6 +11,7 @@
 import { sync } from "vuex-pathify";
 import { event } from "../../services/event";
 import { getPhoneNumber } from "../../services";
+import { getAuthUser } from "../../common/vmeitime-http";
 
 export default {
   computed: {
@@ -21,6 +22,7 @@ export default {
     async getPhoneNumber(res) {
       try {
         await getPhoneNumber(res);
+        await getAuthUser();
         this.auth.showGetPhone = false;
         event.emit("mobile");
       } catch (err) {
@@ -29,7 +31,7 @@ export default {
     },
     cancel() {
       this.auth.showGetPhone = false;
-      event.removeAllListeners("mobile")
+      event.removeAllListeners("mobile");
       this.$emit("fail");
     }
   }
