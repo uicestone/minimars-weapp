@@ -37,7 +37,7 @@
           view.with-padding(@click="navigateTo('/pages/card/sell')")
             card-title(title="我的卡券包" action="购买更多")
           view.card-list.with-padding
-            img.w-full.get-more(src="/static/img/no-card.png" mode='widthFix' @click="navigateTo('/pages/card/sell')")
+            img.w-full.get-more(v-if="userCards && !userCards.length" src="/static/img/no-card.png" mode='widthFix' @click="navigateTo('/pages/card/sell')")
             view.card-list-item(v-for="(item,index) in userCards" :key="index" )
               card-list-item(:item="item" withAction @click="goCardSelling(item)")
         view.user-qr(v-if="status == 'userQR'")
