@@ -131,7 +131,7 @@ export default {
     .arrow
       font-size 40upx
   .store
-    margin-top 80upx
+    margin-top 120upx
     .h3
       font-size 38upx
       font-weight bold
