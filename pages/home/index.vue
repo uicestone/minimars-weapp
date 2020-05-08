@@ -22,12 +22,12 @@
           menu-link(title="预约/购票" subTitle="Book" @click="goBooking")
       view.store
         view.h3 门店介绍
-        view.flex.store-bar
-          button.cu-btn.round.action-button.bg-primary(v-for="(store, index) in stores" @click="switchStore(store)") {{store.name.substr(0,2)}}店
+        view.flex.store-bar(v-if="stores.length > 0")
+          button.cu-btn.round.action-button(v-for="(store, index) in stores" :class="[store.id == currentLocalStore.id ? 'active' : '']" @click="switchStore(store)") {{store.name.substr(0,2)}}店
         img.cover(:src="currentLocalStore.posterUrl ? currentLocalStore.posterUrl : _.get(stores,'0.posterUrl')" mode='aspectFill'  @click="goStoreDetail")
-        view.h3 品牌介绍
-        view.flex.store-bar
-          button.cu-btn.round.action-button.bg-primary(v-for="(item, index) in brands" @click="switchBrand(item)") {{item.title}}
+        view.h3.margin-top 品牌介绍
+        view.flex.store-bar(v-if="brands.length > 0")
+          button.cu-btn.round.action-button.bg-primary(v-for="(item, index) in brands" :class="[item.id == brand.id ? 'active': '']" @click="switchBrand(item)") {{item.title}}
         img.cover(:src="brand.posterUrl ? brand.posterUrl : '/static/img/about.png'" mode='aspectFill' @click="goAbout")
           
 
@@ -163,6 +163,11 @@ export default {
       .cu-btn
         padding 0 40upx
         margin-right 15upx
+        background #c2c7c4
+        color white
+        &.active
+          color var(--darkGray)
+          background var(--primary)
     .h3
       font-size 38upx
       font-weight bold
