@@ -145,6 +145,7 @@ export default {
       const { id: store } = this.currentStore;
       const { kidsCount } = this.form;
       const { id: event } = this.item;
+      const date = this.item.date ? moment(this.item.date).format("YYYY-MM-DD") : null;
       const res = await createBooking({
         store,
         adultsCount: 0,
@@ -152,7 +153,7 @@ export default {
         paymentGateway,
         type: "event",
         event,
-        date: this.item.date || this.form.date,
+        date: date || this.form.date,
         store: _.get(this.item, "store.id") || _.get(this.form, "store.id") || _.get(this.currentLocalStore, "id")
       });
       const payArgs = _.get(res, "data.payments.0.payArgs");
