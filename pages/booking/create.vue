@@ -7,7 +7,7 @@
       view.vip-card
         view.cu-form-group
             view.title 选择我的权益卡
-            switch(@change='onUseCard' :class="useCard?'checked':''" :checked='useCard?true:false')
+            switch.primary(@change='onUseCard' :class="useCard?'checked':''" :checked='useCard?true:false')
         mi-card-selecter(v-if="useCard" :items="cards" :curItem.sync="curCard")
     view.content
       card.card(withShape)

@@ -121,4 +121,7 @@ $color-primary-light = #d1fddf
       color var(--text-primary) !important
 .with-tab-bar
   margin-bottom 100upx
+switch.primary[checked] .wx-switch-input.wx-switch-input-checked, checkbox.primary[checked] .wx-checkbox-input, radio.primary[checked] .wx-radio-input, switch.primary.checked .uni-switch-input.uni-switch-input-checked, checkbox.primary.checked .uni-checkbox-input, radio.primary.checked .uni-radio-input
+  background-color var(--primary) !important
+  color var(--white) !important
 </style>
