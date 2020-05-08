@@ -19,7 +19,9 @@
       view
         mi-input-number(:value.sync="form.amount" suffix="数量")
       view.confirm
-        menu-link(title="确认购买" subTitle="Confirm" @click="handleBuyCard" :disabled="!buyable")
+        menu-link(title="确认购买"  @click="handleBuyCard" :disabled="!buyable")
+          text.margin-right.text-orange(slot="append" style="font-size:40upx;font-weight:bold") ￥{{curCard.price}}
+
 </template>
 
 <script>
