@@ -22,9 +22,13 @@
           menu-link(title="预约/购票" subTitle="Book" @click="goBooking")
       view.store
         view.h3 门店介绍
-        img.cover(:src="currentStore ? currentStore.posterUrl : '/static/img/booking-record.png'" mode='aspectFill' @click="navigateTo('/pages/store/detail')")
+        view.flex.store-bar
+          button.cu-btn.round.action-button.bg-primary(v-for="(store, index) in stores" @click="switchStore(store)") {{store.name.substr(0,2)}}店
+        img.cover(:src="currentLocalStore.posterUrl ? currentLocalStore.posterUrl : _.get(stores,'0.posterUrl')" mode='aspectFill'  @click="goStoreDetail")
         view.h3 品牌介绍
-        img.cover(:src="brand.posterUrl ? brand.posterUrl : '/static/img/about.png'" mode='aspectFill' @click="navigateTo('/pages/about')")
+        view.flex.store-bar
+          button.cu-btn.round.action-button.bg-primary(v-for="(item, index) in brands" @click="switchBrand(item)") {{item.title}}
+        img.cover(:src="brand.posterUrl ? brand.posterUrl : '/static/img/about.png'" mode='aspectFill' @click="goAbout")
           
 
     
@@ -39,6 +43,7 @@ export default {
     return {
       showModal: false,
       posts: [],
+      brands: [],
       brand: {}
     };
   },
@@ -46,7 +51,8 @@ export default {
     token: sync("auth/token"),
     currentTab: sync("currentTab"),
     bookings: sync("booking/bookings"),
-    currentStore: sync("store/currentStore"),
+    currentLocalStore: sync("store/currentLocalStore"),
+    stores: sync("store/stores"),
     newBooking() {
       return this.bookings.find(i => i.type == "play" && ["pending", "booked", "in_service"].includes(i.status));
     }
@@ -67,8 +73,28 @@ export default {
     async loadBrand() {
       const res = await getBrand();
       if (res.data) {
-        this.brand = res.data;
+        this.brands = res.data;
+        this.brand = this.brand[0];
       }
+    },
+    goStoreDetail() {
+      if (!this.currentLocalStore.id) {
+        return;
+      }
+      this.navigateTo(`/pages/store/detail?id=${this.currentLocalStore.id}`);
+    },
+    goAbout() {
+      if (!this.brand.id) {
+        return;
+      }
+      this.navigateTo(`/pages/about?id=${this.brand.id}`);
+    },
+    switchStore(item) {
+      uni.setStorageSync("localStoreId", item.id);
+      this.currentLocalStore = this.stores.find(i => i.id == item.id);
+    },
+    switchBrand(item) {
+      this.brand = item;
     },
     async loadPost() {
       const res = await getPost({ tag: "home-banner" });
@@ -132,6 +158,11 @@ export default {
       font-size 40upx
   .store
     margin-top 120upx
+    .store-bar
+      margin 20upx 0
+      .cu-btn
+        padding 0 40upx
+        margin-right 15upx
     .h3
       font-size 38upx
       font-weight bold

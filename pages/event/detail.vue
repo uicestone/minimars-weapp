@@ -28,7 +28,7 @@
           view
             view.label 门店
             picker.action(@change="selectStore" :range="stores" range-key="name" :disabled="item.store")
-              view.form-item.flex.justify-center {{_.get(item, "store.name") || _.get(form, "store.name")|| "请选择门店"}}
+              view.form-item.flex.justify-center {{_.get(item, "store.name")  || _.get(form, "store.name" ) || _.get(currentLocalStore, "name")|| "请选择门店"}}
         view.action
           view.w-full.flex.justify-between(v-if="item.price")
             button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 积分兑换
@@ -109,6 +109,7 @@ export default {
       return this.form.kidsCount !== 0 && (this.item.date || this.form.date);
     },
     currentStore: sync("store/currentStore"),
+    currentLocalStore: sync("store/currentLocalStore"),
     stores: sync("store/stores"),
     validDateStart() {
       // book starts tommorrow if its 16:00 or later
@@ -144,7 +145,16 @@ export default {
       const { id: store } = this.currentStore;
       const { kidsCount } = this.form;
       const { id: event } = this.item;
-      const res = await createBooking({ store, adultsCount: 0, kidsCount, paymentGateway, type: "event", event, date: this.item.date || this.form.date, store: this.item.store || this.form.store });
+      const res = await createBooking({
+        store,
+        adultsCount: 0,
+        kidsCount,
+        paymentGateway,
+        type: "event",
+        event,
+        date: this.item.date || this.form.date,
+        store: this.item.store.id || this.form.store.id || this.currentLocalStore.store.id
+      });
       const payArgs = _.get(res, "data.payments.0.payArgs");
       if (payArgs) {
         await handlePayment(payArgs);

@@ -24,7 +24,7 @@ export default {
 <style lang="stylus" scoped>
 .top-event
   position relative
-  height 530upx
+  height 350upx
   .bg
     position absolute
     top 0
@@ -32,7 +32,6 @@ export default {
     width 100%
     height 400upx
   .content
-    padding 350upx 40upx 0
     // height 400upx
     .action
       position relative

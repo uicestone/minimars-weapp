@@ -6,6 +6,10 @@ const state = {
     name: "",
   },
   stores: [],
+  currentLocalStore: {
+    id: null,
+    name: "",
+  },
 };
 
 const mutations = make.mutations(state);

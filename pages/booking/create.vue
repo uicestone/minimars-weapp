@@ -59,12 +59,16 @@ export default {
     if (this.cards.length > 0) {
       this.onUseCard({ detail: { value: true } });
     }
+    if (!this.currentStore.id && this.currentLocalStore.id) {
+      this.currentStore = this.currentLocalStore;
+    }
     this.getPirce();
   },
   computed: {
     user: sync("auth/user"),
     userCards: sync("auth/userCards"),
     currentStore: sync("store/currentStore"),
+    currentLocalStore: sync("store/currentLocalStore"),
     cards() {
       return this.userCards.filter(i => i.type == "times" && i.status == "activated" && (!i.store || i.store === this.currentStore.id));
     },

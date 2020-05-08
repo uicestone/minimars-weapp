@@ -13,20 +13,29 @@
 </template>
 
 <script>
-import { getBrand } from "../common/vmeitime-http";
+import { getBrand, getItem } from "../common/vmeitime-http";
 export default {
   data() {
     return {
       item: null
     };
   },
-  async created() {
-    uni.showLoading();
-    const res = await getBrand();
-    if (res.data) {
-      this.item = res.data;
+  onLoad(data) {
+    if (data.id) {
+      uni.showLoading();
+      this.loadStore(data.id);
+      uni.hideLoading();
     }
-    uni.hideLoading();
+  },
+  methods: {
+    async loadStore(id) {
+      uni.showLoading();
+      const res = await getItem({ type: "post", id });
+      if (res.data) {
+        this.item = res.data;
+      }
+      uni.hideLoading();
+    }
   }
 };
 </script>

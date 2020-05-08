@@ -307,7 +307,7 @@ export const getPost = (data) => {
 
 export const getBrand = () => {
   return http.request({
-    url: `/post/brand`,
+    url: `/post?tag=brand`,
     method: "GET",
     dataType: "json",
   });

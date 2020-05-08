@@ -17,6 +17,7 @@ import { wechatLogin, wechatGetUserInfo } from "../../services";
 import login from "../login";
 import { getStores, getConfigs, getBookings, postCard } from "../../common/vmeitime-http";
 import * as service from "../../services";
+import { event } from "../../services/event";
 export default {
   coπmponents: {
     login
@@ -27,6 +28,8 @@ export default {
   computed: {
     token: sync("auth/token"),
     currentTab: sync("currentTab"),
+    currentLocalStore: sync("store/currentLocalStore"),
+    currentStore: sync("store/currentStore"),
     tabs: sync("configs@tabs"),
     configs: sync("configs"),
     stores: sync("store/stores"),
@@ -50,6 +53,9 @@ export default {
     if (this.token) {
       service.loadBookings();
     }
+  },
+  onReachBottom() {
+    event.emit("index.onReachBottom");
   },
   methods: {
     async loadConfig() {

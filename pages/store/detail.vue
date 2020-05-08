@@ -36,13 +36,17 @@ export default {
   computed: {
     currentStore: sync("store/currentStore")
   },
-  async onLoad() {
-    this.loadStore();
+  onLoad(data) {
+    if (data.id) {
+      uni.showLoading();
+      this.loadStore(data.id);
+      uni.hideLoading();
+    }
   },
   methods: {
-    async loadStore() {
+    async loadStore(id) {
       uni.showLoading();
-      const res = await getItem({ type: "store", id: this.currentStore.id });
+      const res = await getItem({ type: "store", id });
       if (res.data) {
         this.item = res.data;
       }

@@ -4,7 +4,11 @@ import store from "../store";
 export const loadStore = async () => {
   const res = await api.getStores();
   store.state.store.stores = res.data;
-  if (store.state.store.currentStore.id) {
-    store.state.store.currentStore = res.data.find((i) => i.id == store.state.store.currentStore.id);
+  const localStoreId = uni.getStorageSync("localStoreId");
+  if (store.state.auth.user.store) {
+    store.state.store.currentStore = res.data.find((i) => i.id == store.state.auth.user.store);
+  }
+  if (localStoreId) {
+    store.state.store.currentLocalStore = res.data.find((i) => i.id == localStoreId);
   }
 };

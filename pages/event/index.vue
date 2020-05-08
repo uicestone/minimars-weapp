@@ -1,22 +1,24 @@
 <template lang="pug">
-  view.with-tab-bar.event
-    top-event(:item="eventsRecommend")
-    stripe.stripe(v-if="newBooking" withTail)
-      view.content
-        booking-item.booking-item(:item="newBooking" withAction)
-          button.cu-btn.round.action-button(slot="action")
-            view.icon(class="cuIcon-attentionfill")
-            view.text 您的预约
-    card.card(withShape)
-      view.content
-        view.cu-list.grid.col-2.no-bg
-          view.cu-item(v-for="(item,index) in events" :key="index")
-            event-item.flex.justify-center(:item="item" @click="goDetail(item)")
-</template>
+  view
+    scroll-view(scroll-y).with-tab-bar.event
+      top-event(:item="eventsRecommend")
+      stripe.stripe(withTail theme="light")
+        view.content(v-if="newBooking" )
+          booking-item.booking-item(:item="newBooking" withAction)
+            button.cu-btn.round.action-button(slot="action")
+              view.icon(class="cuIcon-attentionfill")
+              view.text 您的预约
+      card.card(withShape)
+        view.content
+          view.cu-list.grid.col-2.no-bg
+            view.cu-item(v-for="(item,index) in events" :key="index")
+              event-item.flex.justify-center(:item="item" @click="goDetail(item)")
+  </template>
 
 <script>
 import { getEvents } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
+import { event } from "../../services/event";
 export default {
   data() {
     return {
@@ -27,6 +29,7 @@ export default {
     };
   },
   computed: {
+    currentTab: sync("currentTab"),
     bookings: sync("booking/bookings"),
     newBooking() {
       return this.bookings.find(i => i.type == "event");
@@ -34,23 +37,19 @@ export default {
   },
   async mounted() {
     uni.showLoading();
-    await Promise.all([this.loadEvent(), this.loadRecommentEvent()]);
-    uni.hideLoading();
-  },
-  onReachBottom() {
     this.loadEvent();
+    uni.hideLoading();
+    event.on("index.onReachBottom", () => {
+      if (this.currentTab == "/pages/event/index") {
+        this.loadEvent();
+      }
+    });
   },
   methods: {
     async loadEvent() {
       const res = await getEvents({ limit: 10, skip: this.events.length });
       if (res.data) {
-        this.events = res.data;
-      }
-    },
-    async loadRecommentEvent() {
-      const res = await getEvents({ limit: 10, skip: this.events.length, tag: "recommended" });
-      if (res.data) {
-        this.eventsRecommend = res.data[0];
+        this.events = [...this.events, ...res.data];
       }
     },
     goDetail(item) {
@@ -70,10 +69,12 @@ export default {
     .content
       display flex
       align-items center
-      padding 40upx
+      padding 20upx 25upx
+      .booking-item
+        width 100%
       .img
-        height 120rpx
-        width 120upx
+        height 100rpx
+        width 100upx
         border-radius 20upx
       .center
         margin-left 20upx
@@ -84,9 +85,8 @@ export default {
         .subTitle
           font-size 28upx
           line-height 34upx
-          color white
       .action-button
-        background #91e2a7
+        background #acffe6
         height 48upx
         width 208upx
         color #484746

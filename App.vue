@@ -114,8 +114,10 @@ $color-primary-light = #d1fddf
     font-weight 600
 .event
   .booking-item
+    .title
+      font-weight bold
     .sub-title
-      color white !important
+      color var(--text-primary) !important
 .with-tab-bar
   margin-bottom 100upx
 </style>
