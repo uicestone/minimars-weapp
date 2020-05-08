@@ -14,7 +14,8 @@
             view.card-list-item(v-for="(item,index) in payment" :key="index")
               card-list-item(:item="item" withAction)
                 view.price(slot="action") 
-                  text {{item.price}}
+                  text {{item.paid ? "已付款" : "未付款"}}
+                  text {{item.amount}}
 
 </template>
 
@@ -103,7 +104,7 @@ export default {
         margin-bottom 30upx
       .price
         text-align left
-        font-size 32upx
+        font-size 26upx
         font-family PingFangSC-Medium, PingFang SC
         font-weight 500
         line-height 48upx

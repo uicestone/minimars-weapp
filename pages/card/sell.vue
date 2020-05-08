@@ -26,7 +26,7 @@
 
 <script>
 import { sync } from "vuex-pathify";
-import { postCard, getItem } from "../../common/vmeitime-http";
+import { postCard, getItem, getAuthUser } from "../../common/vmeitime-http";
 import { _ } from "../../utils/lodash";
 import { handlePayment, loadUserCard } from "../../services";
 import * as service from "../..//services";
@@ -94,6 +94,7 @@ export default {
         await handlePayment(payment.payArgs);
       }
       await loadUserCard();
+      await getAuthUser();
       uni.navigateTo({
         url: `/pages/card/success?id=${res.data.id}`
       });

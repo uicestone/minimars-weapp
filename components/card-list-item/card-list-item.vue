@@ -22,6 +22,7 @@ export default {
   display flex
   background #fffeff
   border-radius 30upx
+  align-items center
   height 140upx
   align-items center
   box-shadow 0px 2px 12px 0px rgba(0, 0, 0, 0.1)

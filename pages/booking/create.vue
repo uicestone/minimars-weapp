@@ -35,7 +35,7 @@
 
 <script>
 import { moment } from "../../utils/moment";
-import { createBooking, getBookingPrice } from "../../common/vmeitime-http";
+import { createBooking, getBookingPrice, getAuthUser } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
 import { handlePayment } from "../../services";
 import { _ } from "../../utils/lodash";
@@ -139,6 +139,7 @@ export default {
         await handlePayment(payArgs);
       }
       this.bookingRes = res.data;
+      await getAuthUser();
       this.service.toggleBooking(this.bookingRes);
     },
     DateChange(data) {
