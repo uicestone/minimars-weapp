@@ -1,5 +1,5 @@
 <template lang="pug">
-  scroll-view(scroll-y).bg-white.page
+  view.bg-white
     //- swiper
     view.banner-container(:class="{'has-new-booking':newBooking}")
       swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='7000' duration='700' easing-function='easeInOutCubic')
