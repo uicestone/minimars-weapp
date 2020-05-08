@@ -155,7 +155,7 @@
       {
         "name": "活动支付成功", //模式名称
         "path": "pages/booking/success", //启动页面，必选
-        "query": "id=5e8d67853c9379794f325046" //启动参数，在页面的onLoad函数里面得到
+        "query": "id=5eb3f7714f002e69d5dbe267" //启动参数，在页面的onLoad函数里面得到
       },
       {
         "name": "商品详情", //模式名称

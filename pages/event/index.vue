@@ -25,7 +25,8 @@ export default {
       showModal: false,
       avatar: "",
       events: [],
-      eventsRecommend: null
+      eventsRecommend: null,
+      loading: false
     };
   },
   computed: {
@@ -47,10 +48,17 @@ export default {
   },
   methods: {
     async loadEvent() {
-      const res = await getEvents({ limit: 10, skip: this.events.length });
-      if (res.data) {
-        this.events = [...this.events, ...res.data];
-      }
+      if (this.loading) return;
+      this.loading = true;
+      getEvents({ limit: 10, skip: this.events.length })
+        .then(res => {
+          if (res.data) {
+            this.events = [...this.events, ...res.data];
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     goDetail(item) {
       uni.navigateTo({

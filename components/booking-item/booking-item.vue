@@ -3,7 +3,7 @@
     img.img(:src="img" :mode='mode')
     view.center
       view.title {{title}}
-      view.sub-title {{item.date}}
+      view.sub-title {{moment(item.date).format('YYYY.MM.DD hh:mm')}}
     slot.action(v-if="withAction" name="action")
       text.arrow(class='cuIcon-right')
 

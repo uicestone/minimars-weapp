@@ -36,8 +36,10 @@ export default {
     };
   },
   async onLoad(data) {
-    uni.show();
-    await wechatLogin();
+    uni.showLoading();
+    if (process.env.NODE_ENV == "development") {
+      await wechatLogin();
+    }
     if (data.id) {
       this.loadBooking(data.id);
     }

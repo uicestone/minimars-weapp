@@ -153,7 +153,7 @@ export default {
         type: "event",
         event,
         date: this.item.date || this.form.date,
-        store: this.item.store.id || this.form.store.id || this.currentLocalStore.store.id
+        store: this.item.store || this.form.store || _.get(this.currentLocalStore, "store.id")
       });
       const payArgs = _.get(res, "data.payments.0.payArgs");
       if (payArgs) {
