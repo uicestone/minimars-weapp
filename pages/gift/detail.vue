@@ -102,7 +102,7 @@ export default {
       const { id: store } = this.currentStore;
       const { quantity } = this.form;
       const { id: gift } = this.item;
-      const res = await createBooking({ store, adultsCount: 0, quantity, paymentGateway, type: "gift", gift });
+      const res = await createBooking({ store, adultsCount: 0, quantity, paymentGateway, type: "gift", gift, store: this.item.store });
       const payArgs = _.get(res, "data.payments.0.payArgs");
       if (payArgs) {
         await handlePayment(payArgs);
@@ -216,6 +216,7 @@ export default {
     margin-top 20upx
     font-family PingFangSC-Semibold, PingFang SC
     .content
+      min-height 800upx
       padding 80upx 0 200upx
       .title
         text-align center

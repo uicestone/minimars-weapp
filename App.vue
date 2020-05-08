@@ -93,6 +93,7 @@ $color-primary-light = #d1fddf
 .bottom-fixed
   position fixed
   bottom 0
+  left 0
   width 100%
 .flex-1
   flex 1
