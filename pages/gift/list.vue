@@ -26,6 +26,7 @@
 
 <script>
 import { getEvents, getGifts } from "../../common/vmeitime-http";
+import { event } from "../../services/event";
 export default {
   data() {
     return {
@@ -52,8 +53,13 @@ export default {
       this.currentTabKey = data.tab;
     }
   },
-  created() {
+  mounted() {
     this.switchTab({ key: 0 });
+    event.on("index.onReachBottom", () => {
+      if (this.currentTab == "/pages/gift/list") {
+        this.loadData();
+      }
+    });
   },
   methods: {
     switchTab(item) {

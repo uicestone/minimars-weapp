@@ -2,7 +2,7 @@
   view.gift-card
     img.img(:src="item.posterUrl")
     view.check(v-if="checked" class='cuIcon-check')
-    view.name(v-if="item.title") {{item.title}}
+    //- view.name(v-if="item.title") {{item.title}}
 </template>
 
 <script>

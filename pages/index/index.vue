@@ -5,6 +5,7 @@
     tab-bar
     home(v-if="currentTab=='/pages/home/index'")
     event(v-if="currentTab=='/pages/event/index'")
+    gift-list(v-if="currentTab=='/pages/gift/list'")
     user(v-if="currentTab=='/pages/user/index'")
     booking-modal
 

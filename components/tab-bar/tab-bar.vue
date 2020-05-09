@@ -26,6 +26,13 @@ export default {
           key: "/pages/event/index"
         },
         {
+          icon: "/static/icon/mall.svg",
+          iconActive: "/static/icon/mall-active.svg",
+          name: "礼品",
+          // page: true,
+          key: "/pages/gift/list"
+        },
+        {
           icon: "/static/icon/food.svg",
           iconActive: "/static/icon/food-active.svg",
           name: "点餐",
@@ -51,6 +58,9 @@ export default {
       if (item.requireAuth) {
         await checkLogin();
       }
+      // if (item.page) {
+      //   uni.navigateTo({ url: item.key });
+      // }
       if (item.key === "FOOD") {
         console.log("navigateToMiniProgram: food");
         wx.navigateToMiniProgram({

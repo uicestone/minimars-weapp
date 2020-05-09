@@ -10,6 +10,7 @@ import home from "./pages/home/index.vue";
 import eventPage from "./pages/event/index.vue";
 import user from "./pages/user/index.vue";
 import login from "./pages/login.vue";
+import giftList from "./pages/gift/list.vue";
 
 import cuCustom from "./common/colorui/components/cu-custom.vue";
 import { checkLogin, checkMobile } from "./services";
@@ -21,6 +22,7 @@ Vue.component("home", home);
 Vue.component("login", login);
 Vue.component("event", eventPage);
 Vue.component("user", user);
+Vue.component("gift-list", giftList);
 
 App.mpType = "app";
 global.store = store; // for debug

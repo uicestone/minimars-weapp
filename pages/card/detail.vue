@@ -16,6 +16,8 @@
       .selector
         mi-card-selecter(:items="curCards" :check="false" :curItem.sync="curCard")
       view.card-info(v-if="curCard.id")
+        view
+          text {{curCard.title}}
         view(v-if="curCard.type==='times'")
           text 剩余次数：
           text {{ curCard.timesLeft }}
@@ -27,8 +29,8 @@
           text {{ curCard.balance }}
           text(v-if="curCard.status==='expired'") （已充入您的账户余额）
       view.confirm
-        menu-link(title="赠予他人" openType="share" subTitle="Share" v-if="shareAble")
-        menu-link(title="激活使用" @click="handleActiveCard" subTitle="Activate" v-if="activeAble")
+        menu-link.margin-lr(title="赠予他人" openType="share" subTitle="Share" v-if="shareAble")
+        menu-link.margin-lr(title="激活使用" @click="handleActiveCard" subTitle="Activate" v-if="activeAble")
 </template>
 
 <script>
@@ -185,8 +187,7 @@ export default {
         height 120upx
   .confirm
     display flex
-    justify-content space-between
+    justify-content center
     text-align center
-    width 440upx
-    margin 26upx auto 0
+    width 100%
 </style>

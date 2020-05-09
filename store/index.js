@@ -25,6 +25,9 @@ const state = {
       "/pages/event/index": {
         active: "/pages/event/index",
       },
+      "/pages/gift/list": {
+        active: "/pages/gift/list",
+      },
       "/pages/food/index": {
         active: "/pages/food/index",
       },
