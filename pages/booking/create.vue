@@ -22,11 +22,11 @@
                 mi-input-number(:value.sync="form.adultsCount" suffix="成人")
                 mi-input-number(:value.sync="form.kidsCount" suffix="儿童" :min="1")
           view.submit(@click="showBookingConfirm")
+            view.text-center.margin-top(v-if="price>0" style="font-size:32upx;font-weight:bold")
+              text.text-orange.margin-right(v-if="wechatPayPrice") 微信支付 ￥{{ wechatPayPrice }}
+              text.text-orange(v-if="balancePayPrice") 余额支付 ￥{{`${balancePayPrice}`}}
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx" :disabled="!payable")
-              view.title 
-                view 确认支付/预约
-                view.margin-right.text-orange(v-if="price>0" style="font-size:30upx;font-weight:bold") 
-                  text 金额￥{{price}} {{`余额支付￥${Math.min(price, user.balance)}元`}}
+              view.title 确认支付/预约
     booking-modal(@close="onCloseModal")
 
 
@@ -74,6 +74,12 @@ export default {
     },
     payable() {
       return !!this.currentStore.id;
+    },
+    wechatPayPrice() {
+      return this.price - this.balancePayPrice;
+    },
+    balancePayPrice() {
+      return Math.min(this.price, this.user.balance) || 0;
     },
     validDateStart() {
       // book starts tommorrow if its 16:00 or later
@@ -181,7 +187,7 @@ export default {
         font-size 32upx
   .content
     flex 1
-    margin-top 20upx
+    margin-top 35upx
     .card
       height 100%
       .form
