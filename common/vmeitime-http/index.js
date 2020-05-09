@@ -312,3 +312,11 @@ export const getBrand = () => {
     dataType: "json",
   });
 };
+
+export const getCardRule = () => {
+  return http.request({
+    url: `/post/card-rule`,
+    method: "GET",
+    dataType: "json",
+  });
+};
