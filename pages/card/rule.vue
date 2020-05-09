@@ -7,7 +7,7 @@
       view.icon-list
         view.icon(v-for="(item,index) in imgs" :key="index" )
           img(:src="item")
-      html-parser.content(v-if="cardRule" :html="cardRule.content")
+      html-parser.content(v-if="curTypeData" :html="curTypeData.content")
     //- view.content
     //-   view.title
     //-     text 您享有的会员权益
@@ -32,7 +32,6 @@ export default {
     return {
       avatar: "",
       data: null,
-      cardRule: null,
       typeMapping: {
         times: {
           text: "次卡",
@@ -65,14 +64,10 @@ export default {
   methods: {
     async loadCard(id) {
       uni.showLoading();
-      const [res, cardRulesRes] = await Promise.all([getItem({ id, type: "card-type" }), getCardRule()]);
+      const [res] = await Promise.all([getItem({ id, type: "card-type" })]);
       if (res.data) {
         this.data = res.data;
       }
-      if (cardRulesRes.data) {
-        this.cardRule = cardRulesRes.data;
-      }
-
       uni.hideLoading();
     }
   }
