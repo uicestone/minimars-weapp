@@ -17,9 +17,9 @@
       .selector
         mi-card-selecter(:items="curCards" :curItem.sync="curCard")
       view
-        mi-input-number(:value.sync="form.amount" suffix="数量")
+        text {{curCard.title}}
       view.confirm
-        menu-link(title="确认购买" :subTitle="curCard.price?'':'Confirm'" @click="handleBuyCard" :disabled="!buyable")
+        menu-link(title="确认购买" :subTitle="curCard.price?'':'Confirm'" @click="handleBuyCard" )
           text.margin-right.text-orange(v-if="curCard.price" slot="append" style="font-size:40upx;font-weight:bold") ￥{{curCard.price}}
 
 </template>
@@ -35,21 +35,21 @@ export default {
     return {
       curCard: {},
       form: {
-        amount: 1
+        amount: 1,
       },
       curCardType: "times",
       cardTypes: [
         { label: "次卡", value: "times", img: "/static/img/card-times-round.png" },
         { label: "时效卡", value: "period", img: "/static/img/card-period.round.png" },
-        { label: "礼品卡", value: "balance", img: "/static/img/card-credit-round.png" }
-      ]
+        { label: "礼品卡", value: "balance", img: "/static/img/card-credit-round.png" },
+      ],
     };
   },
   async onLoad(data) {
     uni.showLoading();
     await service.loadCard();
     if (data.id) {
-      const card = this.cards.find(i => i.id == data.id);
+      const card = this.cards.find((i) => i.id == data.id);
       console.log({ card });
       if (card) {
         this.curCard = card;
@@ -63,12 +63,12 @@ export default {
   computed: {
     cards: sync("booking/cardTypes"),
     curCards() {
-      return this.cards.filter(i => i.type == this.curCardType);
+      return this.cards.filter((i) => i.type == this.curCardType);
     },
     buyable() {
       return this.form.amount > 0 && !!this.curCard.id;
     },
-    user: sync("auth/user")
+    user: sync("auth/user"),
   },
   methods: {
     setCard() {
@@ -84,7 +84,7 @@ export default {
     goCardRule() {
       if (!this.curCard.id) return;
       uni.navigateTo({
-        url: `/pages/card/rule?id=${this.curCard.id}`
+        url: `/pages/card/rule?id=${this.curCard.id}`,
       });
     },
     async handleBuyCard() {
@@ -96,10 +96,10 @@ export default {
       await loadUserCard();
       await getAuthUser();
       uni.navigateTo({
-        url: `/pages/card/success?id=${res.data.id}`
+        url: `/pages/card/success?id=${res.data.id}`,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
