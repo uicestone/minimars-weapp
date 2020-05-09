@@ -13,11 +13,13 @@
         view(v-for="(item,index) in cardTypes" :key="index" @click="selectCard(item)" :class="[curCardType == item.value ? 'active': '', 'card']")
           img.img(:src="item.img")
           view.label {{item.label}}
-      view.prompt(@click="goCardRule" v-if="curCard") （点击查看会员权益及使用规则）
+      view.prompt(@click="goCardRule" v-if="curCard.id") （点击查看会员权益及使用规则）
       .selector
         mi-card-selecter(:items="curCards" :curItem.sync="curCard")
       view
         text {{curCard.title}}
+      view(v-if="curCard.store")
+        text {{curCard.store.name}}
       view.confirm
         menu-link(title="确认购买" :subTitle="curCard.price?'':'Confirm'" @click="handleBuyCard" :disabled="!buyable")
           text.margin-right.text-orange(v-if="curCard.price" slot="append" style="font-size:40upx;font-weight:bold") ￥{{curCard.price}}
