@@ -4,7 +4,7 @@
     view.vip
       .switcher.with-padding
         store-switcher
-      view.vip-card
+      view.vip-card(v-if="cards.length > 0")
         view.cu-form-group
             view.title 选择我的权益卡
             switch.primary(@change='onUseCard' :class="useCard?'checked':''" :checked='useCard?true:false')
@@ -25,8 +25,9 @@
           view.submit(@click="showBookingConfirm")
             button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx" :disabled="!payable")
               view.title 
-                text 确认支付/预约
-                text.margin-right.text-orange(v-if="price>0" style="font-size:40upx;font-weight:bold") ￥{{price}}
+                view 确认支付/预约
+                view.margin-right.text-orange(v-if="price>0" style="font-size:30upx;font-weight:bold") 
+                  text 金额￥{{price}} {{`余额支付￥${Math.min(price, user.balance)}元`}}
     booking-modal(@close="onCloseModal")
 
 
