@@ -60,7 +60,7 @@ export default {
       uQRCode.make({
         canvasId: "qrcode",
         componentInstance: this,
-        text: _.get(this, "data.customer.id", "test"),
+        text: _.get(this, "item.customer.id", ""),
         size: 110,
         margin: 10,
         backgroundColor: "#ffffff",

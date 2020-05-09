@@ -40,15 +40,15 @@ export default {
   methods: {
     tooggleModal() {
       this.booking.showBooking = !this.visible;
-      if(!this.booking.showBooking){
-        this.$emit("close")
+      if (!this.booking.showBooking) {
+        this.$emit("close");
       }
     },
     makeQRCode() {
       uQRCode.make({
         canvasId: "qrcode",
         componentInstance: this,
-        text: _.get(this, "item.customer.id", "test"),
+        text: _.get(this, "item.customer.id", ""),
         size: 128,
         margin: 10,
         backgroundColor: "#ffffff",
@@ -63,7 +63,7 @@ export default {
   },
   watch: {
     visible() {
-      if(this.visible){
+      if (this.visible) {
         this.makeQRCode();
       }
     }
