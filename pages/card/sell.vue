@@ -19,7 +19,7 @@
       view
         text {{curCard.title}}
       view.confirm
-        menu-link(title="确认购买" :subTitle="curCard.price?'':'Confirm'" @click="handleBuyCard" )
+        menu-link(title="确认购买" :subTitle="curCard.price?'':'Confirm'" @click="handleBuyCard" :disabled="!buyable")
           text.margin-right.text-orange(v-if="curCard.price" slot="append" style="font-size:40upx;font-weight:bold") ￥{{curCard.price}}
 
 </template>
@@ -66,7 +66,7 @@ export default {
       return this.cards.filter((i) => i.type == this.curCardType);
     },
     buyable() {
-      return this.form.amount > 0 && !!this.curCard.id;
+      return !!this.curCard.id;
     },
     user: sync("auth/user"),
   },
