@@ -28,9 +28,9 @@
           text 面值：
           text {{ curCard.balance }}
           text(v-if="curCard.status==='expired'") （已充入您的账户余额）
-      view.confirm
-        menu-link.margin-lr(title="赠予他人" openType="share" subTitle="Share" v-if="shareAble")
-        menu-link.margin-lr(title="激活使用" @click="handleActiveCard" subTitle="Activate" v-if="activeAble")
+      view.confirm.margin-top
+        menu-link.margin-lr(title="赠予他人" openType="share" subTitle="Share" v-if="shareAble" style="width:320upx")
+        menu-link.margin-lr(title="激活使用" @click="handleActiveCard" subTitle="Activate" v-if="activeAble" style="width:320upx")
 </template>
 
 <script>
@@ -74,7 +74,7 @@ export default {
       return this.userCards.filter(i => i.type == this.curCardType);
     },
     shareAble() {
-      return !!this.curCard.id && this.curCard.isGift && this.curCards.status === "valid";
+      return !!this.curCard.id && this.curCard.isGift && this.curCard.status === "valid";
     },
     activeAble() {
       return !!this.curCard.id && this.curCard.status == "valid";
