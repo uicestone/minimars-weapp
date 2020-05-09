@@ -13,7 +13,7 @@
         view(v-for="(item,index) in cardTypes" :key="index" @click="selectCard(item)" :class="[curCardType == item.value ? 'active': '', 'card']")
           img.img(:src="item.img")
           view.label {{item.label}}
-      view.prompt(@click="goCardRule") （点击查看会员权益及使用规则）
+      view.prompt(@click="goCardRule" v-if="curCard") （点击查看会员权益及使用规则）
       .selector
         mi-card-selecter(:items="curCards" :curItem.sync="curCard")
       view
