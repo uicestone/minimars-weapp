@@ -19,7 +19,7 @@
             view(v-if="_.get(item, 'gift.title')") 商品：{{_.get(item, "gift.title","")}}
             view(v-if="item.quantity") 数量：{{item.quantity||""}}
             view(v-if="item.priceInPoints") 抵扣积分：{{item.priceInPoints||""}}
-            view(v-if="user.points") 剩余积分：{{user.points ? Number(user.points.toFixed(2)) : ""}}
+            view(v-if="points") 剩余积分：{{points}}
 </template>
 
 <script>
@@ -30,11 +30,15 @@ import { sync } from "vuex-pathify";
 export default {
   computed: {
     booking: sync("booking"),
+    user: sync("auth/user"),
     visible() {
       return this.booking.showBooking;
     },
     item() {
       return this.booking.curBooking;
+    },
+    points() {
+      return this.user.points ? Number(user.points.toFixed(2)) : "";
     },
   },
   methods: {
