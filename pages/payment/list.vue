@@ -13,9 +13,9 @@
           view.card-list
             view.card-list-item(v-for="(item,index) in payment" :key="index")
               card-list-item(:item="item" withAction)
-                view.price(slot="action") 
-                  text {{item.paid ? "已付款" : "未付款"}}
-                  text {{item.amount}}
+                view.price.margin-right(slot="action") 
+                  text.margin-right {{item.paid ? "已付款" : "未付款"}}
+                  text ¥{{item.amount.toFixed(2)}}
 
 </template>
 
