@@ -1,5 +1,5 @@
 <template lang="pug">
-  view.gift-item
+  view.gift-item(:class="[size]")
     img(:src="item.posterUrl" mode="aspectFill").img
     view.content
       view 
@@ -16,7 +16,10 @@
 
 <script>
 export default {
-  props: ["item"]
+  props: {
+    item: { type: Object, default: {} },
+    size: { type: String, default: "normal" }
+  }
 };
 </script>
 
@@ -32,6 +35,8 @@ export default {
   color var(--text-primary)
   display flex
   flex-direction column
+  &.small
+    height 400upx
   .img
     flex 1
     border-top-left-radius 80upx

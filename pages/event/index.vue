@@ -40,7 +40,10 @@ export default {
     uni.showLoading();
     this.loadEvent();
     uni.hideLoading();
-    event.on("index.onReachBottom", () => {
+
+    event
+    .removeAllListeners("index.onReachBottom")
+    .on("index.onReachBottom", () => {
       if (this.currentTab == "/pages/event/index") {
         this.loadEvent();
       }

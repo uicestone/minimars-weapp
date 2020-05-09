@@ -55,11 +55,6 @@ export default {
   },
   mounted() {
     this.switchTab({ key: 0 });
-    event.on("index.onReachBottom", () => {
-      if (this.currentTab == "/pages/gift/list") {
-        this.loadData();
-      }
-    });
   },
   methods: {
     switchTab(item) {

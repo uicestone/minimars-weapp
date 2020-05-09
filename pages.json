@@ -188,6 +188,11 @@
         "query": "id=5e744fcc69e3b1441b99916e" //启动参数，在页面的onLoad函数里面得到
       },
       {
+        "name": "商城", //模式名称
+        "path": "pages/index/index", //启动页面，必选
+        "query": "tab=/pages/mall/index" //启动参数，在页面的onLoad函数里面得到
+      },
+      {
         "name": "分享卡片", //模式名称
         "path": "pages/index/index", //启动页面，必选
         "query": "giftCode=eyJhbGciOiJIUzI1NiJ9.NWU4YzQ0M2U5NDk5YTQ3MmI5ZDA4MWZjIDVlOGFiZWUzNWFiMWExNjE3ZmRmMmIyNQ.JrggoKMheVayjfS56DX9zmuICmEWBc5kvtkxoQpY1JI" //启动参数，在页面的onLoad函数里面得到

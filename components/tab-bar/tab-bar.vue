@@ -28,9 +28,9 @@ export default {
         {
           icon: "/static/icon/mall.svg",
           iconActive: "/static/icon/mall-active.svg",
-          name: "礼品",
+          name: "商城",
           // page: true,
-          key: "/pages/gift/list"
+          key: "/pages/mall/index"
         },
         {
           icon: "/static/icon/food.svg",
