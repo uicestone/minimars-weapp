@@ -1,6 +1,5 @@
 <template lang="pug">
   view.user-giftlist
-    cu-custom(isBack @back="uni.navigateBack")
     view.head
       img.bg.w-full.absolute(src="/static/img/mall-bg.png" mode='widthFix')
     stripe.stripe(withTail theme="light")
