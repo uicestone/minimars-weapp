@@ -9,13 +9,13 @@ export default {
   props: {
     withTail: {
       type: Boolean,
-      default: false
+      default: false,
     },
     theme: {
       type: String,
-      default: "dark"
-    }
-  }
+      default: "dark",
+    },
+  },
 };
 </script>
 
@@ -25,10 +25,11 @@ export default {
   min-height 70upx
   background #b2b2b2
   border-top-right-radius 80upx
+  z-index 0
   &.light
     background #00ffa2
   .tail
-    z-index -1
+    z-index 0
     position absolute
     bottom -198upx
     left 0

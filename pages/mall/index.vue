@@ -18,11 +18,11 @@ import { sync } from "vuex-pathify";
 export default {
   data() {
     return {
-      gifts: []
+      gifts: [],
     };
   },
   computed: {
-    currentTab: sync("currentTab")
+    currentTab: sync("currentTab"),
   },
   mounted(data) {
     uni.showLoading();
@@ -48,11 +48,10 @@ export default {
     },
     goGiftDetail(item) {
       this.navigateTo(`/pages/gift/detail?id=${item.id}`);
-    }
-  }
+    },
+  },
 };
 </script>
-
 
 <style lang="stylus" scoped>
 .user-giftlist
@@ -61,7 +60,10 @@ export default {
     display flex
     justify-content center
     text-align center
+    background white
     .bg
+      z-index 0
+      margin-top 20upx
       min-height 400upx
   .card
     .content

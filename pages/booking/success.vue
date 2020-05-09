@@ -16,7 +16,7 @@
         view(v-if="item.priceInPoints") 抵扣积分：{{item.priceInPoints||""}}
         view(v-if="_.get(item, 'gift.title')") 商品：{{_.get(item, "gift.title","")}}
         view(v-if="item.quantity") 数量：{{item.quantity||""}}
-        view(v-if="user.points") 剩余积分：{{user.points||""}}
+        view(v-if="user.points") 剩余积分：{{user.points ? Number(user.points.toFixed(2)) : ""}}
 
 
 
@@ -32,7 +32,7 @@ import { _ } from "../../utils/lodash";
 export default {
   data() {
     return {
-      item: {}
+      item: {},
     };
   },
   async onLoad(data) {
@@ -46,7 +46,7 @@ export default {
     uni.hideLoading();
   },
   computed: {
-    user: sync("auth/user")
+    user: sync("auth/user"),
   },
   methods: {
     async loadBooking(id) {
@@ -67,12 +67,12 @@ export default {
         foregroundColor: "#000000",
         fileType: "jpg",
         correctLevel: uQRCode.defaults.correctLevel,
-        success: res => {
+        success: (res) => {
           console.log(res);
-        }
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

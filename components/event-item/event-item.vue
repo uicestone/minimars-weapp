@@ -2,14 +2,14 @@
   view.event-item(@click="$emit('click')")
     img(:src="item.posterUrl" mode="aspectFill").img
     view.desc
-      view.store {{ item.store ? item.store.name.substr(0,2)+"店" : "门店通用" }}
+      view.store {{ _.get(item, "store.name") ? item.store.name.substr(0,2)+"店" : "门店通用" }}
       view.title {{item.title}}
       view {{moment(item.date).format("YYYY.MM.DD")}}
 </template>
 
 <script>
 export default {
-  props: ["item"]
+  props: ["item"],
 };
 </script>
 
