@@ -126,8 +126,10 @@ export default {
       uni.showModal({
         title: "确认",
         content: `请确认${this.currentStore.name}${this.form.date} ${adultsCount}大 ${kidsCount}小的预约`,
-        success: () => {
-          this.handleBooking();
+        success: (res) => {
+          if (res.confirm) {
+            this.handleBooking();
+          }
         },
       });
     },
