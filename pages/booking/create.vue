@@ -116,7 +116,7 @@ export default {
       const { id: store } = this.currentStore;
       const { date, adultsCount, kidsCount } = this.form;
       const { curCard: card, useCard } = this;
-      const res = await getBookingPrice({ store, date, adultsCount, kidsCount, card: card ? card.id : null, paymentGateway: "wechatpay" });
+      const res = await getBookingPrice({ store, date, adultsCount, kidsCount, card: useCard ? card.id : null, paymentGateway: "wechatpay" });
       console.log(res);
       this.price = res.data.price;
       this.loadingPrice = false;
@@ -135,7 +135,7 @@ export default {
       const { id: store } = this.currentStore;
       const { date, adultsCount, kidsCount } = this.form;
       const { curCard: card, useCard } = this;
-      const res = await createBooking({ store, date, adultsCount, kidsCount, card: card ? card.id : null, paymentGateway: "wechatpay" });
+      const res = await createBooking({ store, date, adultsCount, kidsCount, card: useCard ? card.id : null, paymentGateway: "wechatpay" });
       const payArgs = _.get(res, "data.payments.0.payArgs");
       if (payArgs) {
         await handlePayment(payArgs);
