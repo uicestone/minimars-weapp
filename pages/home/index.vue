@@ -3,7 +3,7 @@
     //- swiper
     view.banner-container(:class="{'has-new-booking':newBooking}")
       swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='7000' duration='700' easing-function='easeInOutCubic')
-        swiper-item(v-for='(item,index) in posts' :key='index' @click="handlePost(item)")
+        swiper-item(v-for='(item,index) in posts' :key='item.id' @click="handlePost(item)")
           img(:src='item.posterUrl' mode='aspectFill')
     //- content
     view.content
@@ -23,11 +23,11 @@
       view.store
         view.h3 门店介绍
         view.flex.store-bar(v-if="stores.length > 0")
-          button.cu-btn.round.action-button(v-for="(store, index) in stores" :class="[store.id == currentLocalStore.id ? 'active' : '']" @click="switchStore(store)") {{store.name.substr(0,2)}}店
+          button.cu-btn.round.action-button(v-for="(store, index) in stores" :key="store.id" :class="[store.id == currentLocalStore.id ? 'active' : '']" @click="switchStore(store)") {{store.name.substr(0,2)}}店
         img.cover(:src="currentLocalStore.posterUrl ? currentLocalStore.posterUrl : _.get(stores,'0.posterUrl')" mode='aspectFill'  @click="goStoreDetail")
         view.h3.margin-top 品牌介绍
         view.flex.store-bar(v-if="brands.length > 0")
-          button.cu-btn.round.action-button.bg-primary(v-for="(item, index) in brands" :class="[item.id == brand.id ? 'active': '']" @click="switchBrand(item)") {{item.title}}
+          button.cu-btn.round.action-button.bg-primary(v-for="(item, index) in brands" :key="item.id" :class="[item.id == brand.id ? 'active': '']" @click="switchBrand(item)") {{item.title}}
         img.cover(:src="brand.posterUrl ? brand.posterUrl : '/static/img/about.png'" mode='aspectFill' @click="goAbout")
           
 
