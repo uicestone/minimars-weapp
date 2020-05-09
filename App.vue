@@ -39,7 +39,6 @@ export default {
 @import 'common/colorui/main.css'
 @import 'common/colorui/icon.css'
 @import 'common/colorui/animation.css'
-
 body
   --primary #57ff9a
   --primary-light #d1fddf
@@ -121,6 +120,13 @@ $color-primary-light = #d1fddf
       color var(--text-primary) !important
 .with-tab-bar
   margin-bottom 100upx
+.mall-giftlist
+  .card
+    .content
+      .action-button
+        color #fff
+        .icon
+          filter invert(100%) grayscale(100%) brightness(2)
 switch.primary[checked] .wx-switch-input.wx-switch-input-checked, checkbox.primary[checked] .wx-checkbox-input, radio.primary[checked] .wx-radio-input, switch.primary.checked .uni-switch-input.uni-switch-input-checked, checkbox.primary.checked .uni-checkbox-input, radio.primary.checked .uni-radio-input
   background-color var(--primary) !important
   color var(--white) !important

@@ -1,5 +1,5 @@
 <template lang="pug">
-  view.user-giftlist
+  view.mall-giftlist
     view.head
       img.bg.w-full.absolute(src="/static/img/mall-bg.png" mode='widthFix')
     stripe.stripe(withTail theme="light")
@@ -8,7 +8,7 @@
         view.title.with-padding {{currentTab.label}}
           view.cu-list.grid.col-2
             view.cu-item(v-for="(item,index) in gifts" :key="index" @click="goGiftDetail(item)")
-              gift-item.flex.justify-center(:item="item" size="small")
+              gift-item.flex.justify-center(:item="item")
 </template>
 
 <script>
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.user-giftlist
+.mall-giftlist
   .head
     min-height 350upx
     display flex
@@ -71,6 +71,9 @@ export default {
       min-height calc(100vh - 500upx)
       .with-padding
         padding 0 40upx
+      // .cu-list.grid>.cu-item
+      //   padding-top 0
+      //   padding-bottom 0
       .title
         font-size 30upx
         font-family PingFangSC-Medium, PingFang SC
