@@ -3,11 +3,11 @@
     view.head
       img.cu-avatar.round.lg(:src="curTypeData.img")
       view.desc
-        text {{curTypeData.text}} 售价{{data.price}}元\n （可叠加购买）
+        text {{data.title}} 售价{{data.price}}元\n （可叠加购买）
       view.icon-list
         view.icon(v-for="(item,index) in imgs" :key="index" )
           img(:src="item")
-      html-parser.content(v-if="curTypeData" :html="curTypeData.content")
+      html-parser.content(v-if="curTypeData" :html="data.content")
     //- view.content
     //-   view.title
     //-     text 您享有的会员权益
@@ -35,25 +35,25 @@ export default {
       typeMapping: {
         times: {
           text: "次卡",
-          img: "/static/img/card-times-circle.png"
+          img: "/static/img/card-times-circle.png",
         },
         period: {
           text: "时效卡",
-          img: "/static/img/card-period-circle.png"
+          img: "/static/img/card-period-circle.png",
         },
         balance: {
           text: "充值卡",
-          img: "/static/img/card-credit-circle.png"
-        }
+          img: "/static/img/card-credit-circle.png",
+        },
       },
-      imgs: ["/static/icon/cost.svg", "/static/icon/pointmain.svg", "/static/icon/bday.svg", "/static/icon/gift.svg"]
+      imgs: ["/static/icon/cost.svg", "/static/icon/pointmain.svg", "/static/icon/bday.svg", "/static/icon/gift.svg"],
     };
   },
   computed: {
     curTypeData() {
       if (!this.data) return this.typeMapping.times;
       return this.typeMapping[this.data.type];
-    }
+    },
   },
   onLoad(data) {
     console.log(data);
@@ -69,8 +69,8 @@ export default {
         this.data = res.data;
       }
       uni.hideLoading();
-    }
-  }
+    },
+  },
 };
 </script>
 
