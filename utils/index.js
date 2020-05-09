@@ -3,13 +3,22 @@ import { _ } from "./lodash";
 
 export const utils = {
   booking: {
-    getTitle(item) {
-      if (item.type == "event") {
-        return _.get(item, "event.title");
-      } else if (item.type == "gift") {
-        return _.get(item, "gift.title");
+    getTitle(booking) {
+      let title = `${booking.store.name} ${booking.adultsCount}大${booking.kidsCount}小 ${booking.date.substr(5)} ${booking.checkInAt.substr(0, 5)}入场`;
+
+      if (booking.type === "gift") {
+        title = `${booking.gift.title} ${booking.quantity}份 ${booking.store.name} `;
       }
-      return `预约${_.get(item, "store.name")} ${item.adultsCount}大${item.kidsCount}小`;
+
+      if (booking.type === "event") {
+        title = `${booking.event.title} ${booking.kidsCount}人 ${booking.store.name} `;
+      }
+
+      if (booking.type === "food") {
+        title = `餐饮消费`;
+      }
+
+      return title;
     },
     getImage(item) {
       if (item.type == "event") {
@@ -18,6 +27,6 @@ export const utils = {
         return _.get(item, "gift.posterUrl");
       }
       return "/static/img/booking.png";
-    }
-  }
+    },
+  },
 };
