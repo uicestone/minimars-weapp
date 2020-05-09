@@ -31,13 +31,13 @@ export default {
         return "scaleToFit";
       }
     },
-    bookingStore: sync("booking")
+    bookingStore: sync("booking"),
   },
   methods: {
     async handleClick() {
       let item = this.item;
-      const payment = _.get(item, "payments.0", {});
-      if (!payment.paid) {
+      const payment = _.get(item, "payments.0");
+      if (payment && !payment.paid) {
         await handlePayment(payment.payArgs);
         const res = await getItem({ type: "booking", id: item.id });
         if (res.data) {
@@ -46,8 +46,8 @@ export default {
       }
       this.bookingStore.curBooking = item;
       this.bookingStore.showBooking = true;
-    }
-  }
+    },
+  },
 };
 </script>
 

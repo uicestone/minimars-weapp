@@ -38,7 +38,7 @@ export default {
       return this.booking.curBooking;
     },
     points() {
-      return this.user.points ? Number(user.points.toFixed(2)) : "";
+      return this.user.points ? Number(this.user.points.toFixed(2)) : "";
     },
   },
   methods: {
