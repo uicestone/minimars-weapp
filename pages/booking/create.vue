@@ -1,4 +1,3 @@
-
 <template lang="pug">
   view.booking-create
     view.vip
@@ -51,9 +50,9 @@ export default {
       form: {
         date: moment().format("YYYY-MM-DD"),
         adultsCount: 1,
-        kidsCount: 1
+        kidsCount: 1,
       },
-      bookingRes: null
+      bookingRes: null,
     };
   },
   mounted() {
@@ -71,7 +70,7 @@ export default {
     currentStore: sync("store/currentStore"),
     currentLocalStore: sync("store/currentLocalStore"),
     cards() {
-      return this.userCards.filter(i => i.type == "times" && i.status == "activated" && (!i.store || i.store === this.currentStore.id));
+      return this.userCards.filter((i) => i.type == "times" && i.status == "activated" && (!i.store || i.store === this.currentStore.id));
     },
     payable() {
       return !!this.currentStore.id;
@@ -84,7 +83,7 @@ export default {
     },
     validDateEnd() {
       return moment().add(7, "days");
-    }
+    },
   },
   watch: {
     currentStore() {
@@ -93,29 +92,31 @@ export default {
     },
     form: {
       async handler() {
-        this.getPirce();
+        this.getPirce({ force: true });
       },
-      deep: true
+      deep: true,
     },
     useCard() {
       this.getPirce();
     },
     curCard() {
-      this.getPirce();
+      this.getPirce({ force: true });
     },
     cards() {
       this.onUseCard({ detail: { value: true } });
       this.getPirce();
-    }
+    },
   },
   methods: {
-    async getPirce(force) {
-      if (this.loadingPrice) return;
+    async getPirce({ force = false } = {}) {
+      if (!force) {
+        if (this.loadingPrice) return;
+      }
       this.loadingPrice = true;
       const { id: store } = this.currentStore;
       const { date, adultsCount, kidsCount } = this.form;
       const { curCard: card, useCard } = this;
-      const res = await getBookingPrice({ store, date, adultsCount, kidsCount, card: useCard ? card.id : null, paymentGateway: "wechatpay" });
+      const res = await getBookingPrice({ store, date, adultsCount, kidsCount, card: card ? card.id : null, paymentGateway: "wechatpay" });
       console.log(res);
       this.price = res.data.price;
       this.loadingPrice = false;
@@ -127,14 +128,14 @@ export default {
         content: `请确认${this.currentStore.name}${this.form.date} ${adultsCount}大 ${kidsCount}小的预约`,
         success: () => {
           this.handleBooking();
-        }
+        },
       });
     },
     async handleBooking() {
       const { id: store } = this.currentStore;
       const { date, adultsCount, kidsCount } = this.form;
       const { curCard: card, useCard } = this;
-      const res = await createBooking({ store, date, adultsCount, kidsCount, card: useCard ? card.id : null, paymentGateway: "wechatpay" });
+      const res = await createBooking({ store, date, adultsCount, kidsCount, card: card ? card.id : null, paymentGateway: "wechatpay" });
       const payArgs = _.get(res, "data.payments.0.payArgs");
       if (payArgs) {
         await handlePayment(payArgs);
@@ -153,8 +154,8 @@ export default {
     onUseCard(e) {
       this.useCard = e.detail.value;
       this.curCard = this.cards[0] || {};
-    }
-  }
+    },
+  },
 };
 </script>
 

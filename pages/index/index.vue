@@ -55,6 +55,12 @@ export default {
       service.loadBookings();
     }
   },
+  onShareAppMessage(res) {
+    return {
+      title: "分享主页",
+      path: `/pages/index/index`
+    };
+  },
   onReachBottom() {
     event.emit("index.onReachBottom");
   },

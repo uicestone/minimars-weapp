@@ -2,8 +2,6 @@
   view.store-detail
     //- store-switcher
     //- view.alert
-    //-   img.icon(src="/static/icon/dog.svg")
-    //-   uni-notice-bar.w-full(:show-icon='true' :speed="100" :scrollable='true' :single='true' text='我们在疫情期间, 工作人员清洁消毒30分钟/次，设施 …')
     img.img.w-full(src="/static/img/logo1.png" mode='aspectFill')
     view.info(v-if="item")
     html-parser(:html="item.content")

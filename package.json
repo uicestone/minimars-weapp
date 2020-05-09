@@ -6,8 +6,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@dcloudio/types": "^0.4.4",
-    "@types/moment": "^2.13.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "tki-qrcode": "^0.1.5",
@@ -15,6 +13,8 @@
     "vuex-pathify": "^1.2.2"
   },
   "devDependencies": {
+    "@dcloudio/types": "^0.4.4",
+    "@types/moment": "^2.13.0",
     "@types/typescript": "^2.0.0",
     "@types/uni-app": "^1.4.1",
     "typescript": "^3.8.3"
