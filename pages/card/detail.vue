@@ -1,5 +1,6 @@
 <template lang="pug">
   view
+    get-phonenumber
     cu-custom(isBack @back="uni.navigateBack()")
     view.card-selling
       view.with-padding
@@ -37,7 +38,7 @@
 import { sync } from "vuex-pathify";
 import { postCard, getItem, postCardById } from "../../common/vmeitime-http";
 import { _ } from "../../utils/lodash";
-import { handlePayment, fetchUser, loadUserCard } from "../../services";
+import { handlePayment, fetchUser, loadUserCard, checkMobile } from "../../services";
 export default {
   data() {
     return {
@@ -54,6 +55,7 @@ export default {
     };
   },
   async onLoad(data) {
+    await checkMobile()
     uni.showLoading();
     await loadUserCard();
     if (data.id) {
