@@ -4,7 +4,7 @@ import { _ } from "./lodash";
 export const utils = {
   booking: {
     getTitle(booking) {
-      let title = `${booking.store.name} ${booking.adultsCount}大${booking.kidsCount}小 ${booking.date.substr(5)} ${booking.checkInAt.substr(0, 5)}入场`;
+      let title = `${booking.store.name} ${booking.adultsCount}大${booking.kidsCount}小 ${booking.date.substr(5)} ${booking.checkInAt.substr(0, 5)}前入场`;
 
       if (booking.type === "gift") {
         title = `${booking.gift.title} ${booking.quantity}份 ${booking.store.name} `;

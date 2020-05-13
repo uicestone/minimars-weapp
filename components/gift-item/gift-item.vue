@@ -4,7 +4,7 @@
     view.content
       view 
         text(style="display: inline") {{item.title}}
-        text(v-if="_.get(item, 'store.name')" style="display: inline;margin-left:4px") ({{item.store.name.substr(0,2) }}店)
+        text(v-if="_.get(item, 'store.name')" style="display: inline;margin-left:4px") （{{item.store.name.substr(0,2) }}店）
       button.cu-btn.bg-primary.action-button
         view.flex
           img.icon(src="/static/icon/pointmain.svg")
