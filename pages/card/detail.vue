@@ -87,7 +87,7 @@ export default {
     return {
       title: "分享卡片",
       // imageUrl: "/static/share.jpg",
-      path: `/pages/index?giftCode=${this.curCard.gifyCode}`
+      path: `/pages/index/index?giftCode=${this.curCard.giftCode}`
     };
   },
   methods: {
