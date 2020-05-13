@@ -20,6 +20,9 @@ export default {
   },
   methods: {
     async getPhoneNumber(res) {
+      if(res.detail.errMsg){
+        return
+      }
       try {
         await getPhoneNumber(res);
         this.auth.showGetPhone = false;
