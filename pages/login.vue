@@ -18,7 +18,8 @@ export default {
     auth: sync("auth")
   },
   methods: {
-    async wechatGetUserInfo() {
+    async wechatGetUserInfo(data) {
+      if(!data.detail.encryptedData) return
       try {
         const res = await wechatGetUserInfo();
         this.auth.showLogin = false;

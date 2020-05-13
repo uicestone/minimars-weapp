@@ -19,6 +19,7 @@ import login from "../login";
 import { getStores, getConfigs, getBookings, postCard } from "../../common/vmeitime-http";
 import * as service from "../../services";
 import { event } from "../../services/event";
+import { errorHandler } from "../../utils";
 export default {
   coπmponents: {
     login
@@ -74,6 +75,7 @@ export default {
         const user = await wechatLogin();
         console.log(user);
       } catch (error) {
+        errorHandler(error);
         console.error(error);
       }
     },

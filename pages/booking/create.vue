@@ -21,11 +21,11 @@
               view.flex.justify-between
                 mi-input-number(:value.sync="form.adultsCount" suffix="成人")
                 mi-input-number(:value.sync="form.kidsCount" suffix="儿童" :min="1")
-          view.submit(@click="showBookingConfirm")
+          view.submit
             view.text-center.margin-top(v-if="price>0" style="font-size:32upx;font-weight:bold")
               text.text-orange.margin-right(v-if="wechatPayPrice") 微信支付 ￥{{ wechatPayPrice }}
               text.text-orange(v-if="balancePayPrice") 余额支付 ￥{{`${balancePayPrice}`}}
-            button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx" :disabled="!payable")
+            button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx" :disabled="!payable" @click="showBookingConfirm")
               view.title 确认支付/预约
     booking-modal(@close="onCloseModal")
 

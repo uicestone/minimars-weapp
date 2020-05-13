@@ -20,9 +20,7 @@ export default {
   },
   methods: {
     async getPhoneNumber(res) {
-      if(res.detail.errMsg){
-        return
-      }
+      if(!res.detail.encryptedData) return
       try {
         await getPhoneNumber(res);
         this.auth.showGetPhone = false;
