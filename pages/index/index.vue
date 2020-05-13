@@ -43,7 +43,11 @@ export default {
     }
     uni.showLoading();
     await this.wechatLogin();
-    await Promise.all([this.loadConfig(), this.handleGiftCode(), service.loadStore(), service.loadBookings(), service.loadUserCard()]);
+    await this.loadConfig();
+    await this.handleGiftCode();
+    await service.loadStore();
+    await service.loadBookings();
+    await service.loadUserCard();
     if (tab) {
       setTimeout(() => {
         this.currentTab = tab;
@@ -75,8 +79,8 @@ export default {
         const user = await wechatLogin();
         console.log(user);
       } catch (error) {
+        console.error(1123, error);
         errorHandler(error);
-        console.error(error);
       }
     },
     async handleGiftCode() {

@@ -13,10 +13,11 @@ export const wechatLogin = () =>
           const res = await api.wechatLogin({
             code: loginRes.code,
           });
-          const { session_key, openid, user, token } = res.data;
-          if (user) {
+          if (res.data) {
             storeUser(res.data);
             return resolve(res);
+          } else {
+            reject(new Error("数据错误"));
           }
         } catch (error) {
           reject(error);
