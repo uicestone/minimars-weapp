@@ -1,5 +1,5 @@
 <template lang="pug">
-  view
+  scroll-view(scroll-y)
     login
     get-phonenumber
     tab-bar
