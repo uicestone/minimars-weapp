@@ -19,28 +19,35 @@ export default {
   data() {
     return {
       gifts: [],
+      loading: false
     };
   },
   computed: {
-    currentTab: sync("currentTab"),
+    currentTab: sync("currentTab")
   },
   mounted(data) {
     uni.showLoading();
     this.loadData();
     uni.hideLoading();
     event.removeAllListeners("index.onReachBottom").on("index.onReachBottom", () => {
-      console.log(this.currentTabKey);
-      if (this.currentTabKey == "/pages/mall/index") {
+      if (this.currentTab == "/pages/mall/index") {
         this.loadData();
       }
     });
   },
   methods: {
     async loadData() {
-      const res = await getGifts();
-      if (res.data) {
-        this.gifts = res.data;
-      }
+      if (this.loading) return;
+      this.loading = true;
+      getGifts({ limit: 10, skip: this.gifts.length })
+        .then(res => {
+          if (res.data) {
+            this.gifts = [...this.gifts, ...res.data];
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
 
     goEventDetail(item) {
@@ -48,8 +55,8 @@ export default {
     },
     goGiftDetail(item) {
       this.navigateTo(`/pages/gift/detail?id=${item.id}`);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -72,8 +79,8 @@ export default {
       .with-padding
         padding 0 40upx
       // .cu-list.grid>.cu-item
-      //   padding-top 0
-      //   padding-bottom 0
+      // padding-top 0
+      // padding-bottom 0
       .title
         font-size 30upx
         font-family PingFangSC-Medium, PingFang SC

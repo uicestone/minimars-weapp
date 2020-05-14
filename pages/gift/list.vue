@@ -48,7 +48,6 @@ export default {
     this.loadData();
   },
   onLoad(data) {
-    console.log(data);
     if (data.tab) {
       this.currentTabKey = data.tab;
     }
@@ -62,15 +61,16 @@ export default {
       this.loadData();
     },
     async loadData() {
+      if (this.loading) return;
       if (this.currentTabKey == 0) {
-        const res = await getEvents();
+        const res = await getEvents({ skip: this.events.length });
         if (res.data) {
-          this.events = res.data;
+          this.events = [...this.events, ...res.data];
         }
       } else {
-        const res = await getGifts();
+        const res = await getGifts({ skip: this.gifts.length });
         if (res.data) {
-          this.gifts = res.data;
+          this.gifts = [...this.gifts, ...res.data];
         }
       }
     },

@@ -8,7 +8,7 @@
             button.cu-btn
               img.icon(src="/static/icon/point2.svg")
             view.stat
-              view.count {{user.points ? Number(user.points.toFixed(2)) : ""}}
+              view.count {{user.points ? Number(user.points.toFixed(2)) : 0}}
               view.label 我的积分
             view.line
           view.item(@click="navigateTo('/pages/payment/list')")
@@ -63,7 +63,7 @@ export default {
       isShowBooking: false,
       curBooking: null,
       cards: [],
-      swiperList: [],
+      swiperList: []
     };
   },
   computed: {
@@ -71,8 +71,8 @@ export default {
     userCards: sync("auth/userCards"),
     bookings: sync("booking/bookings"),
     activeBookings() {
-      return this.bookings.filter((i) => ["pending", "booked", "in_service"].includes(i.status));
-    },
+      return this.bookings.filter(i => ["pending", "booked", "in_service"].includes(i.status));
+    }
   },
   async mounted() {
     uni.showLoading();
@@ -95,9 +95,9 @@ export default {
         foregroundColor: "#000000",
         fileType: "jpg",
         correctLevel: uQRCode.defaults.correctLevel,
-        success: (res) => {
+        success: res => {
           console.log(res);
-        },
+        }
       });
     },
     cardSwiper(e) {
@@ -105,10 +105,10 @@ export default {
     },
     goCardSelling(item) {
       uni.navigateTo({
-        url: `/pages/card/detail?id=${item.id}`,
+        url: `/pages/card/detail?id=${item.id}`
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
