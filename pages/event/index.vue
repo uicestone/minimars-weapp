@@ -33,7 +33,7 @@ export default {
     currentTab: sync("currentTab"),
     bookings: sync("booking/bookings"),
     newBooking() {
-      return this.bookings.find(i => i.type == "event");
+      return this.bookings.find(i => i.type == "event" && i.status == "booked");
     }
   },
   async mounted() {
@@ -41,9 +41,7 @@ export default {
     this.loadEvent();
     uni.hideLoading();
 
-    event
-    .removeAllListeners("index.onReachBottom")
-    .on("index.onReachBottom", () => {
+    event.removeAllListeners("index.onReachBottom").on("index.onReachBottom", () => {
       if (this.currentTab == "/pages/event/index") {
         this.loadEvent();
       }
