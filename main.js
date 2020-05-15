@@ -56,8 +56,6 @@ Vue.prototype.utils = utils;
 Vue.prototype.service = service;
 Vue.prototype._ = _;
 
-console.log(service);
-
 const app = new Vue({
   store,
   ...App,

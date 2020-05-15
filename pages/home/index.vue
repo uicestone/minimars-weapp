@@ -58,13 +58,13 @@ export default {
     }
   },
   async mounted() {
-    uni.showLoading();
+    // uni.showLoading();
     this.loadPost();
     this.loadBrand();
     if (this.token) {
       service.loadBookings();
     }
-    uni.hideLoading();
+    // uni.hideLoading();
   },
   methods: {
     async goBooking() {

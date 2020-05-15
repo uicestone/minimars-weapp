@@ -2,7 +2,7 @@ import store from "../store";
 import * as api from "../common/vmeitime-http";
 
 export const wechatLogin = () =>
-  new Promise((resolve, reject) => {
+  new Promise(async (resolve, reject) => {
     const provider = "weixin";
     uni.showLoading();
     uni.login({

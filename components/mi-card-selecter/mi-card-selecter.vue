@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  props: ["items", "curItem", { check: { default: true } }],
+  props: { items: { type: Object }, curItem: { type: Object }, check: { default: true } },
   methods: {
     onChange(e) {
       this.$emit("update:curItem", this.items[e.detail.current]);

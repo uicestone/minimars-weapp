@@ -41,7 +41,6 @@ export default {
     if (giftCode) {
       this.giftCode = giftCode;
     }
-    uni.showLoading();
     await this.wechatLogin();
     await this.loadConfig();
     await this.handleGiftCode();
@@ -53,7 +52,6 @@ export default {
         this.currentTab = tab;
       }, 1000);
     }
-    uni.hideLoading();
   },
   onShow() {
     if (this.token) {
