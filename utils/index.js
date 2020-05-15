@@ -4,18 +4,16 @@ import { _ } from "./lodash";
 export const utils = {
   booking: {
     getTitle(booking) {
-      let title = `${booking.store.name} ${booking.adultsCount}大${booking.kidsCount}小 ${booking.date.substr(5)} ${booking.checkInAt.substr(0, 5)}前入场`;
+      let title;
 
       if (booking.type === "gift") {
-        title = `${booking.gift.title} ${booking.quantity}份 ${booking.store.name} `;
-      }
-
-      if (booking.type === "event") {
+        title = `${booking.gift.title} ${booking.quantity}份 ${booking.store?.name || ""} `;
+      } else if (booking.type === "event") {
         title = `${booking.event.title} ${booking.kidsCount}人 ${booking.store.name} `;
-      }
-
-      if (booking.type === "food") {
+      } else if (booking.type === "food") {
         title = `餐饮消费`;
+      } else {
+        title = `${booking.store.name} ${booking.adultsCount}大${booking.kidsCount}小 ${booking.date.substr(5)} ${booking.checkInAt.substr(0, 5)}前入场`;
       }
 
       return title;
