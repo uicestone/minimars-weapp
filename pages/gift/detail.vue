@@ -12,7 +12,7 @@
             view.text
               view.name {{item.title}}
             view.price
-              view.credit
+              view.credit(v-if="item.priceInPoints")
                 img.icon(src="/static/icon/pointmain.svg")
                 text {{item.priceInPoints}}
               view(v-if="item.price") ￥ {{item.price}}
@@ -20,11 +20,13 @@
           view.label 数量
           mi-input-number(:value.sync="form.quantity")
         view.action
-          view.w-full.flex.justify-between(v-if="item.price")
+          view.w-full.flex.justify-between(v-if="item.price && item.priceInPoints")
             button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 积分兑换
-            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") 微信支付
-          view.w-full(v-else)
+            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") 余额/微信支付
+          view.w-full(v-else-if="item.priceInPoints")
             button.cu-btn.bg-primary.round.action-button.full(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 确认兑换
+          view.w-full(v-else)
+            button.cu-btn.bg-primary.round.action-button.full(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") 余额/微信支付
 
 
     img.bg.w-full.absolute(:src="item.posterUrl" mode='aspectFill')
@@ -115,7 +117,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="stylus" scoped>
 .gift-detail

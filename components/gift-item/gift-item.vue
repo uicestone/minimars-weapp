@@ -8,8 +8,9 @@
       button.cu-btn.bg-primary.action-button
         view.flex
           img.icon(src="/static/icon/pointmain.svg")
-          view.price {{item.priceInPoints}}
-        view.line
+          view.price(v-if="item.priceInPoints") {{item.priceInPoints}}
+          view.price(v-else) ¥{{ item.price }}
+        view.linew
         view 兑换
 
 </template>
@@ -19,6 +20,12 @@ export default {
   props: {
     item: { type: Object, default: {} },
     size: { type: String, default: "normal" }
+  },
+  filters: {
+    fix(v, n = 0) {
+      if (!v.toFixed) return v;
+      return v.toFixed(n);
+    }
   }
 };
 </script>
