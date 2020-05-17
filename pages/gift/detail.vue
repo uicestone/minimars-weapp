@@ -22,7 +22,7 @@
         view.action
           view.w-full.flex.justify-between(v-if="item.price && item.priceInPoints")
             button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 积分兑换
-            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") 余额/微信支付
+            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble")  {{item.useBalance && "余额/"}} 微信支付
           view.w-full(v-else-if="item.priceInPoints")
             button.cu-btn.bg-primary.round.action-button.full(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 确认兑换
           view.w-full(v-else)
@@ -103,8 +103,9 @@ export default {
     async handleBooking({ paymentGateway }) {
       const { id: store } = this.currentStore;
       const { quantity } = this.form;
-      const { id: gift } = this.item;
-      const res = await createBooking({ store, adultsCount: 0, quantity, paymentGateway, type: "gift", gift, store: this.item.store });
+      const { id: gift, useBalance = false } = this.item;
+      console.log({ useBalance });
+      const res = await createBooking({ store, adultsCount: 0, quantity, paymentGateway, type: "gift", gift, store: this.item.store, useBalance });
       const payArgs = _.get(res, "data.payments.0.payArgs");
       if (payArgs) {
         await handlePayment(payArgs);
