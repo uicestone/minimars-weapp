@@ -22,11 +22,11 @@
         view.action
           view.w-full.flex.justify-between(v-if="item.price && item.priceInPoints")
             button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 积分兑换
-            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble")  {{item.useBalance && "余额/"}} 微信支付
+            button.cu-btn.bg-primary.round.action-button(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble")  {{item.useBalance ? "余额/" : ""}} 微信支付
           view.w-full(v-else-if="item.priceInPoints")
             button.cu-btn.bg-primary.round.action-button.full(@click="handleBooking({paymentGateway: 'points'})" :disabled="!payAble") 确认兑换
           view.w-full(v-else)
-            button.cu-btn.bg-primary.round.action-button.full(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") 余额/微信支付
+            button.cu-btn.bg-primary.round.action-button.full(@click="handleBooking({paymentGateway: 'wechatpay'})" :disabled="!payAble") {{item.useBalance ? "余额/" : ""}} 微信支付
 
 
     img.bg.w-full.absolute(:src="item.posterUrl" mode='aspectFill')
@@ -37,7 +37,7 @@
         view.price 
           img.icon(src="/static/icon/pointmain.svg")
           text {{item.priceInPoints || "-"}} / ￥ {{item.price || '-'}}
-        view.prompt （请凭兑换码至门店前台核销并领取商品）
+        view.prompt （请凭兑换码或“我的”会员码至门店前台核销并领取商品）
     view.cu-card.no-card
       view.cu-item.content
         view.title 商品详情
