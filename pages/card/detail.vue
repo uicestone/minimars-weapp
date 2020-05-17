@@ -24,7 +24,7 @@
           text {{ curCard.timesLeft }}
         view(v-if="curCard.type==='period'")
           text 有效期间：
-          text {{ curCard.start }} - {{ curCard.end }}
+          text {{ moment(curCard.start || curCard.createdAt).format("YYYY-MM-DD") }} - {{ moment(curCard.end || curCard.expiresAt).format("YYYY-MM-DD") }}
         view(v-if="curCard.type==='balance'")
           text 面值：
           text {{ curCard.balance }}
@@ -55,7 +55,7 @@ export default {
     };
   },
   async onLoad(data) {
-    await checkMobile()
+    await checkMobile();
     uni.showLoading();
     await loadUserCard();
     if (data.id) {
