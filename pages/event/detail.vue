@@ -47,7 +47,7 @@
             text {{item.priceInPoints || "-"}} / ￥ {{item.price || '-'}}
           view.date 日期：{{moment(item.date).format("MMM Do")}} 
           view.address 门店：{{item.store.name || "-"}}
-        view.prompt （兑换后请凭兑换码至前台核销并领取入场券）
+        view.prompt （兑换后请凭或“我的”会员码至前台核销）
     view.cu-card.no-card
       view.cu-item.content
         view.title 活动详情
@@ -168,7 +168,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="stylus" scoped>
 .event-detail
