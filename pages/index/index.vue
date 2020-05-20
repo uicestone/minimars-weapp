@@ -41,11 +41,10 @@ export default {
     if (giftCode) {
       this.giftCode = giftCode;
     }
-    //debug
     let firstTime = new Date().valueOf();
     await this.wechatLogin();
     let secondTime = new Date().valueOf();
-    console.log('微信登录: ' + (secondTime - firstTime) + 'ms');
+    console.log('微信登录: [' + (secondTime - firstTime) + ']ms');
     await this.loadConfig();
     await this.handleGiftCode();
     await service.loadStore();
@@ -65,7 +64,7 @@ export default {
   onShareAppMessage(res) {
     return {
       title: "分享主页",
-      path: `/pages/index/index`
+      path: `/pages/index/index?tab=${this.currentTab}`
     };
   },
   onReachBottom() {
