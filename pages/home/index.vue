@@ -3,8 +3,8 @@
     //- swiper
     view.banner-container(:class="{'has-new-booking':newBooking}")
       swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='7000' duration='700' easing-function='easeInOutCubic')
-        swiper-item(v-for='(item,index) in posts' :key='item.id' @click="handlePost(item)")
-          img(:src='item.loaded ? item.posterUrl : _.get(posts,"0.posterUrl")'  @load="handleLoadImage({item, index})" mode='aspectFill')
+        swiper-item(v-for='(item,index) in swiperImgs' :key='item.id' @click="handlePost(item)")
+          img(:src='item.posterUrl'  @load="handleLoadImage({item, index})" mode='aspectFill')
     //- content
     view.content
       booking-item(v-if="newBooking" :item="newBooking" withAction withShadow)
@@ -41,6 +41,7 @@ import * as service from "@/services";
 export default {
   data() {
     return {
+      firstImageLoaded: false,
       showModal: false,
       posts: [],
       brands: [],
@@ -53,6 +54,9 @@ export default {
     bookings: sync("booking/bookings"),
     currentLocalStore: sync("store/currentLocalStore"),
     stores: sync("store/stores"),
+    swiperImgs(){
+      return this.firstImageLoaded ? this.posts : this.posts.slice(0,1)
+    },
     newBooking() {
       return this.bookings.find(i => i.type == "play" && ["pending", "booked", "in_service"].includes(i.status));
     }
@@ -68,7 +72,8 @@ export default {
   },
   methods: {
     handleLoadImage({item, index}){
-      this.$set(this.posts[index], 'loaded', true)
+      // this.$set(this.posts[index], 'loaded', true)
+      this.firstImageLoaded = true
     },
     async goBooking() {
       this.navigateTo("/pages/booking/create", { checkMobile: true });
