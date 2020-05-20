@@ -41,7 +41,11 @@ export default {
     if (giftCode) {
       this.giftCode = giftCode;
     }
+    //debug
+    let firstTime = new Date().valueOf();
     await this.wechatLogin();
+    let secondTime = new Date().valueOf();
+    console.log('微信登录: ' + (secondTime - firstTime) + 'ms');
     await this.loadConfig();
     await this.handleGiftCode();
     await service.loadStore();

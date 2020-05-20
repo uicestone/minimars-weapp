@@ -21,7 +21,11 @@ export default {
     async wechatGetUserInfo(data) {
       if(!data.detail.encryptedData) return
       try {
+        // debug
+        let firstTime = new Date().valueOf();
         const res = await wechatGetUserInfo();
+        let secondTime = new Date().valueOf();
+        console.log('getuserInfo: ' + (secondTime - firstTime) + 'ms');
         this.auth.showLogin = false;
         event.emit("login");
         this.$emit("success");

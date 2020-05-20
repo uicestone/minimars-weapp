@@ -22,7 +22,12 @@ export default {
     async getPhoneNumber(res) {
       if(!res.detail.encryptedData) return
       try {
+        //debug
+        let firstTime = new Date().valueOf();
         await getPhoneNumber(res);
+        let secondTime = new Date().valueOf();
+        console.log('获取手机号: ' + (secondTime - firstTime) + 'ms');
+        
         this.auth.showGetPhone = false;
         event.emit("mobile");
       } catch (err) {
