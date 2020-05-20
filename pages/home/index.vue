@@ -4,7 +4,7 @@
     view.banner-container(:class="{'has-new-booking':newBooking}")
       swiper.screen-swiper.h-full(class='round-dot'  indicator-color="white" indicator-active-color="white" :indicator-dots='true' :circular='true' :autoplay='true' interval='7000' duration='700' easing-function='easeInOutCubic')
         swiper-item(v-for='(item,index) in posts' :key='item.id' @click="handlePost(item)")
-          img(:src='item.posterUrl' mode='aspectFill')
+          img(:src='item.loaded ? item.posterUrl : _.get(posts,"0.posterUrl")'  @load="handleLoadImage({item, index})" mode='aspectFill')
     //- content
     view.content
       booking-item(v-if="newBooking" :item="newBooking" withAction withShadow)
@@ -67,6 +67,9 @@ export default {
     // uni.hideLoading();
   },
   methods: {
+    handleLoadImage({item, index}){
+      this.$set(this.posts[index], 'loaded', true)
+    },
     async goBooking() {
       this.navigateTo("/pages/booking/create", { checkMobile: true });
     },
