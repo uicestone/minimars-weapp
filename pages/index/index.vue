@@ -16,7 +16,7 @@
 import { sync } from "vuex-pathify";
 import { wechatLogin, wechatGetUserInfo } from "../../services";
 import login from "../login";
-import { getStores, getConfigs, getBookings, postCard } from "../../common/vmeitime-http";
+import { getStores, getConfigs, getBookings, postCard, getPost } from "../../common/vmeitime-http";
 import * as service from "../../services";
 import { event } from "../../services/event";
 import { errorHandler } from "../../utils";
@@ -35,25 +35,23 @@ export default {
     tabs: sync("configs@tabs"),
     configs: sync("configs"),
     stores: sync("store/stores"),
-    bookingStore: sync("booking")
+    bookingStore: sync("booking"),
+    banners: sync("banners")
   },
-  async onLoad({ tab, giftCode }) {
-    if (giftCode) {
-      this.giftCode = giftCode;
-    }
-    let firstTime = new Date().valueOf();
-    await this.wechatLogin();
-    let secondTime = new Date().valueOf();
-    console.log('微信登录: [' + (secondTime - firstTime) + ']ms');
-    await this.loadConfig();
-    await this.handleGiftCode();
-    await service.loadStore();
-    await service.loadBookings();
-    await service.loadUserCard();
+  onLoad({ tab, giftCode }) {
+    this.loadBanners();
+    this.loadConfig();
+    service.loadStore();
+    this.wechatLogin().then(() => {
+      if (giftCode) {
+        this.handleGiftCode(giftCode);
+        return; // avoid below code executing
+      }
+      service.loadBookings();
+      service.loadUserCard();
+    });
     if (tab) {
-      setTimeout(() => {
-        this.currentTab = tab;
-      }, 1000);
+      this.currentTab = tab;
     }
   },
   onShow() {
@@ -63,7 +61,7 @@ export default {
   },
   onShareAppMessage(res) {
     return {
-      title: "分享主页",
+      title: "MINIMARS+",
       path: `/pages/index/index?tab=${this.currentTab}`
     };
   },
@@ -75,21 +73,26 @@ export default {
       const res = await getConfigs();
       this.configs = { ...this.configs, ...res.data };
     },
+    async loadBanners() {
+      const res = await getPost({ tag: "home-banner" });
+      this.banners = res.data;
+    },
     async wechatLogin() {
       try {
+        const start = new Date();
         const user = await wechatLogin();
-        console.log(user);
+        console.log(`Wechat login took ${new Date() - start}ms.`);
       } catch (error) {
-        console.error(1123, error);
         errorHandler(error);
       }
     },
-    async handleGiftCode() {
-      if (!this.giftCode) return;
-      const res = await postCard({ card: { giftCode: this.giftCode } });
+    handleGiftCode(code) {
+      if (!code) return false;
+      const res = postCard({ card: { giftCode: code } });
       if (res.data) {
         uni.navigateTo({ url: `/pages/card/detail?id=${res.data.id}` });
       }
+      return true;
     },
     selectStore() {
       return;

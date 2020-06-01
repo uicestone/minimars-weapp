@@ -17,28 +17,29 @@ const state = {
   configs: {
     tabMap: {
       "/pages/home/index": {
-        active: "/pages/home/index",
+        active: "/pages/home/index"
       },
       "/pages/user/index": {
-        active: "/pages/user/index",
+        active: "/pages/user/index"
       },
       "/pages/event/index": {
-        active: "/pages/event/index",
+        active: "/pages/event/index"
       },
       "/pages/mall/index": {
-        active: "/pages/mall/index",
+        active: "/pages/mall/index"
       },
       "/pages/food/index": {
-        active: "/pages/food/index",
-      },
-    },
+        active: "/pages/food/index"
+      }
+    }
   },
+  banners: []
 };
 
 const mutations = make.mutations(state);
 
 const getters = {
-  curTabConfig: (state) => state.configs.tabMap[state.currentTab],
+  curTabConfig: state => state.configs.tabMap[state.currentTab]
 };
 
 const store = new Vuex.Store({
@@ -46,7 +47,7 @@ const store = new Vuex.Store({
   state,
   getters,
   mutations,
-  modules: { auth, store: _store, booking },
+  modules: { auth, store: _store, booking }
 });
 
 Vue.prototype.$store = store;

@@ -29,6 +29,9 @@ export const test = data => {
 };
 
 http.interceptor.request = config => {
+  console.log("Req ==>:", config.url);
+  if (!global.requestStart) global.requestStart = {};
+  global.requestStart[config.requestId] = new Date();
   const token = _.get(store, "state.auth.token");
   if (token) {
     config.header = {
@@ -40,7 +43,8 @@ http.interceptor.request = config => {
 };
 
 http.interceptor.response = response => {
-  console.log("response:", response);
+  const duration = new Date() - global.requestStart[response.config.requestId];
+  console.log(`Res <== (${duration}ms):`, response.config.url, response);
   //判断返回状态 执行相应操作
   if (!response.statusCode || response.statusCode !== 200) {
     uni.showToast({

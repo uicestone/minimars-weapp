@@ -43,7 +43,6 @@ export default {
     return {
       firstImageLoaded: false,
       showModal: false,
-      posts: [],
       brands: [],
       brand: {}
     };
@@ -54,16 +53,17 @@ export default {
     bookings: sync("booking/bookings"),
     currentLocalStore: sync("store/currentLocalStore"),
     stores: sync("store/stores"),
-    swiperImgs(){
-      return this.firstImageLoaded ? this.posts : this.posts.slice(0,1)
+    swiperImgs() {
+      return this.firstImageLoaded ? this.banners : this.banners.slice(0, 1);
     },
     newBooking() {
       return this.bookings.find(i => i.type == "play" && ["pending", "booked", "in_service"].includes(i.status));
-    }
+    },
+    banners: sync("banners")
   },
   async mounted() {
     // uni.showLoading();
-    this.loadPost();
+    // this.loadPost();
     this.loadBrand();
     if (this.token) {
       service.loadBookings();
@@ -71,9 +71,9 @@ export default {
     // uni.hideLoading();
   },
   methods: {
-    handleLoadImage({item, index}){
+    handleLoadImage({ item, index }) {
       // this.$set(this.posts[index], 'loaded', true)
-      this.firstImageLoaded = true
+      this.firstImageLoaded = true;
     },
     async goBooking() {
       this.navigateTo("/pages/booking/create", { checkMobile: true });
@@ -104,10 +104,10 @@ export default {
     switchBrand(item) {
       this.brand = item;
     },
-    async loadPost() {
-      const res = await getPost({ tag: "home-banner" });
-      this.posts = res.data;
-    },
+    // async loadPost() {
+    //   const res = await getPost({ tag: "home-banner" });
+    //   this.posts = res.data;
+    // },
     async handlePost(item) {
       if (item.target) {
         uni.navigateTo({
