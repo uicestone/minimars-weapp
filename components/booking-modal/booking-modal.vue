@@ -19,7 +19,7 @@
             view(v-if="_.get(item, 'gift.title')") 商品：{{_.get(item, "gift.title","")}}
             view(v-if="item.quantity") 数量：{{item.quantity||""}}
             view(v-if="item.priceInPoints") 抵扣积分：{{item.priceInPoints||""}}
-            view(v-if="points") 剩余积分：{{points}}
+            view(v-if="user.points") 剩余积分：{{user.points ? Number(user.points.toFixed(2)) : ""}}
 </template>
 
 <script>
@@ -36,10 +36,7 @@ export default {
     },
     item() {
       return this.booking.curBooking;
-    },
-    points() {
-      return this.user.points ? Number(this.user.points.toFixed(2)) : "";
-    },
+    }
   },
   methods: {
     tooggleModal() {
@@ -59,19 +56,19 @@ export default {
         foregroundColor: "#000000",
         fileType: "jpg",
         correctLevel: uQRCode.defaults.correctLevel,
-        success: (res) => {
+        success: res => {
           console.log(res);
-        },
+        }
       });
-    },
+    }
   },
   watch: {
     visible() {
       if (this.visible) {
         this.makeQRCode();
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -37,7 +37,7 @@
 import { moment } from "../../utils/moment";
 import { createBooking, getBookingPrice, getAuthUser } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
-import { handlePayment } from "../../services";
+import { handlePayment, fetchUser } from "../../services";
 import { _ } from "../../utils/lodash";
 
 export default {
@@ -50,9 +50,9 @@ export default {
       form: {
         date: moment().format("YYYY-MM-DD"),
         adultsCount: 1,
-        kidsCount: 1,
+        kidsCount: 1
       },
-      bookingRes: null,
+      bookingRes: null
     };
   },
   mounted() {
@@ -70,7 +70,7 @@ export default {
     currentStore: sync("store/currentStore"),
     currentLocalStore: sync("store/currentLocalStore"),
     cards() {
-      return this.userCards.filter((i) => i.status == "activated" && (!i.store || i.store === this.currentStore.id));
+      return this.userCards.filter(i => i.status == "activated" && (!i.store || i.store === this.currentStore.id));
     },
     payable() {
       return !!this.currentStore.id;
@@ -89,7 +89,7 @@ export default {
     },
     validDateEnd() {
       return moment().add(7, "days");
-    },
+    }
   },
   watch: {
     currentStore() {
@@ -100,7 +100,7 @@ export default {
       async handler() {
         this.getPirce({ force: true });
       },
-      deep: true,
+      deep: true
     },
     useCard() {
       this.getPirce();
@@ -111,7 +111,7 @@ export default {
     cards() {
       this.onUseCard({ detail: { value: true } });
       this.getPirce();
-    },
+    }
   },
   methods: {
     async getPirce({ force = false } = {}) {
@@ -132,11 +132,11 @@ export default {
       uni.showModal({
         title: "确认",
         content: `请确认${this.currentStore.name}${this.form.date} ${adultsCount}大 ${kidsCount}小的预约`,
-        success: (res) => {
+        success: res => {
           if (res.confirm) {
             this.handleBooking();
           }
-        },
+        }
       });
     },
     async handleBooking() {
@@ -149,7 +149,7 @@ export default {
         await handlePayment(payArgs);
       }
       this.bookingRes = res.data;
-      await getAuthUser();
+      await fetchUser();
       this.service.toggleBooking(this.bookingRes);
     },
     DateChange(data) {
@@ -162,8 +162,8 @@ export default {
     onUseCard(e) {
       this.useCard = e.detail.value;
       this.curCard = this.cards[0] || {};
-    },
-  },
+    }
+  }
 };
 </script>
 

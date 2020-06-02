@@ -31,29 +31,29 @@
 import { sync } from "vuex-pathify";
 import { postCard, getItem, getAuthUser } from "../../common/vmeitime-http";
 import { _ } from "../../utils/lodash";
-import { handlePayment, loadUserCard, checkMobile } from "../../services";
+import { handlePayment, loadUserCard, checkMobile, fetchUser } from "../../services";
 import * as service from "../..//services";
 export default {
   data() {
     return {
       curCard: {},
       form: {
-        amount: 1,
+        amount: 1
       },
       curCardType: "times",
       cardTypes: [
         { label: "次卡", value: "times", img: "/static/img/card-times-round.png" },
         { label: "时效卡", value: "period", img: "/static/img/card-period.round.png" },
-        { label: "礼品卡", value: "balance", img: "/static/img/card-credit-round.png" },
-      ],
+        { label: "礼品卡", value: "balance", img: "/static/img/card-credit-round.png" }
+      ]
     };
   },
   async onLoad(data) {
-    await checkMobile()
+    await checkMobile();
     uni.showLoading();
     await service.loadCard();
     if (data.id) {
-      const card = this.cards.find((i) => i.id == data.id);
+      const card = this.cards.find(i => i.id == data.id);
       console.log({ card });
       if (card) {
         this.curCard = card;
@@ -67,12 +67,12 @@ export default {
   computed: {
     cards: sync("booking/cardTypes"),
     curCards() {
-      return this.cards.filter((i) => i.type == this.curCardType);
+      return this.cards.filter(i => i.type == this.curCardType);
     },
     buyable() {
       return !!this.curCard.id;
     },
-    user: sync("auth/user"),
+    user: sync("auth/user")
   },
   methods: {
     setCard() {
@@ -88,7 +88,7 @@ export default {
     goCardRule() {
       if (!this.curCard.id) return;
       uni.navigateTo({
-        url: `/pages/card/rule?id=${this.curCard.id}`,
+        url: `/pages/card/rule?id=${this.curCard.id}`
       });
     },
     async handleBuyCard() {
@@ -98,12 +98,12 @@ export default {
         await handlePayment(payment.payArgs);
       }
       await loadUserCard();
-      await getAuthUser();
+      await fetchUser();
       uni.navigateTo({
-        url: `/pages/card/success?id=${res.data.id}`,
+        url: `/pages/card/success?id=${res.data.id}`
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
