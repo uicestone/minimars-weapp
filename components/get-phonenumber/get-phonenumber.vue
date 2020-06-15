@@ -10,7 +10,7 @@
 <script>
 import { sync } from "vuex-pathify";
 import { event } from "../../services/event";
-import { getPhoneNumber } from "../../services";
+import { getPhoneNumber, loadUserCard } from "../../services";
 import { getAuthUser } from "../../common/vmeitime-http";
 
 export default {
@@ -20,14 +20,14 @@ export default {
   },
   methods: {
     async getPhoneNumber(res) {
-      if(!res.detail.encryptedData) return
+      if (!res.detail.encryptedData) return;
       try {
         //debug
         let firstTime = new Date().valueOf();
         await getPhoneNumber(res);
         let secondTime = new Date().valueOf();
-        console.log('获取手机号: ' + (secondTime - firstTime) + 'ms');
-        
+        console.log("获取手机号: " + (secondTime - firstTime) + "ms");
+        await loadUserCard();
         this.auth.showGetPhone = false;
         event.emit("mobile");
       } catch (err) {

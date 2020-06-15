@@ -16,7 +16,7 @@
 import { sync } from "vuex-pathify";
 import { updateMobile } from "@/common/vmeitime-http";
 import { fetchUser } from "@/services";
-import { getPhoneNumber } from "../../services";
+import { getPhoneNumber, loadUserCard } from "../../services";
 export default {
   data() {
     return {
@@ -32,6 +32,7 @@ export default {
     async getPhoneNumber(res) {
       uni.showLoading();
       await getPhoneNumber(res);
+      await loadUserCard();
       uni.hideLoading();
     }
   }
