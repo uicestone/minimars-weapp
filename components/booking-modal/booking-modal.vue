@@ -6,8 +6,8 @@
           img.img1(src="/static/img/create-success.png" mode='aspectFill')
           view.title 您已成功预约
           view.code 预约码
-          view(v-show="visible" )
-            canvas.qrcode(canvas-id="qrcode")
+          img.qrcode(v-show="qrcodeUrl" :src="qrcodeUrl")
+          canvas.qrcode(v-show="!qrcodeUrl" canvas-id="qrcode")
           view.hint (请在到店时出示)
           view.info
             view 日期：{{_.get(item,  "date", "")}}
@@ -28,6 +28,11 @@ import { _ } from "../../utils/lodash";
 import { sync } from "vuex-pathify";
 
 export default {
+  data() {
+    return {
+      qrcodeUrl: ""
+    };
+  },
   computed: {
     booking: sync("booking"),
     user: sync("auth/user"),
@@ -58,6 +63,7 @@ export default {
         correctLevel: uQRCode.defaults.correctLevel,
         success: res => {
           console.log(res);
+          this.qrcodeUrl = res;
         }
       });
     }

@@ -6,8 +6,8 @@
       view.title(v-else-if="item.type==='gift'") 您已成功登记兑换礼品！
       view.title(v-else) 您已成功登记预约！
       view.code 兑换码
-      view.img
-        canvas.qrcode(canvas-id="qrcode")
+      img.qrcode(v-show="qrcodeUrl" :src="qrcodeUrl")
+      canvas.qrcode(v-show="!qrcodeUrl" canvas-id="qrcode")
       view.hint （请凭兑换码或“我的”会员码至前台核销）
       view.info
         view 时间：{{_.get(item,  "payments.0.title", "")}}
@@ -34,6 +34,7 @@ import { _ } from "../../utils/lodash";
 export default {
   data() {
     return {
+      qrcodeUrl: "",
       item: {}
     };
   },
@@ -71,6 +72,7 @@ export default {
         correctLevel: uQRCode.defaults.correctLevel,
         success: res => {
           console.log(res);
+          this.qrcodeUrl = res;
         }
       });
     }
