@@ -22,7 +22,7 @@
       view(v-if="curCard.store")
         text {{curCard.store.name}}
       view.confirm
-        menu-link(title="确认购买" :subTitle="curCard.price?'':'Confirm'" @click="handleBuyCard" :disabled="!buyable")
+        menu-link(:title="curCard.price?'确认购买':'确认领取'" :subTitle="curCard.price?'':'Confirm'" @click="handleBuyCard" :disabled="!buyable")
           text.margin-right.text-orange(v-if="curCard.price" slot="append" style="font-size:40upx;font-weight:bold") ￥{{curCard.price}}
 
 </template>
@@ -67,7 +67,7 @@ export default {
   computed: {
     cards: sync("booking/cardTypes"),
     curCards() {
-      return this.cards.filter(i => i.type == this.curCardType);
+      return this.cards.filter(i => (["times", "coupon"].includes(this.curCardType) ? ["times", "coupon"].includes(i.type) : i.type === this.curCardType));
     },
     buyable() {
       return !!this.curCard.id;

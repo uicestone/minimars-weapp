@@ -73,7 +73,7 @@ export default {
     userCards: sync("auth/userCards"),
     user: sync("auth/user"),
     curCards() {
-      return this.userCards.filter(i => i.type == this.curCardType);
+      return this.userCards.filter(i => (["times", "coupon"].includes(this.curCardType) ? ["times", "coupon"].includes(i.type) : i.type === this.curCardType));
     },
     shareAble() {
       return !!this.curCard.id && this.curCard.isGift && this.curCard.status === "valid";
