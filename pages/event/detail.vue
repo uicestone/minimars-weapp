@@ -62,7 +62,7 @@
     view.bottom-fixed
       button.cu-btn.round.action-button.bg-primary(@click="back")
         view.normal 返回首页
-      button.cu-btn.round.action-button.bg-primary(@click="handleShowPayment")
+      button.cu-btn.round.action-button(@click="handleShowPayment" :class="eventIsActive?'bg-primary':''")
         view.normal 立即兑换
     
 </template>
@@ -119,6 +119,10 @@ export default {
     },
     validDateEnd() {
       return moment().add(7, "days");
+    },
+    eventIsActive() {
+      console.log(moment().toDate(), this.item.date);
+      return !this.item.date || moment().toDate() <= moment(this.item.date).toDate();
     }
   },
   methods: {
@@ -127,6 +131,7 @@ export default {
       const res = await getItem({ id, type: "event" });
       if (res.data) {
         this.item = res.data;
+        console.log(this.item);
       }
       uni.hideLoading();
     },
@@ -138,6 +143,7 @@ export default {
       this.form.store = this.stores[e.detail.value];
     },
     async handleShowPayment() {
+      if (!this.eventIsActive) return;
       await checkMobile();
       this.showPayment = true;
     },
