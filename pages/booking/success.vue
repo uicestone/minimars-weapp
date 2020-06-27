@@ -6,8 +6,8 @@
       view.title(v-else-if="item.type==='gift'") 您已成功登记兑换礼品！
       view.title(v-else) 您已成功登记预约！
       view.code 兑换码
-      img.qrcode(v-show="qrcodeUrl" :src="qrcodeUrl")
-      canvas.qrcode(v-show="!qrcodeUrl" canvas-id="qrcode")
+      img.qrcode.margin-bottom(v-show="qrcodeUrl" :src="qrcodeUrl")
+      canvas.qrcode(v-show="!qrcodeUrl" canvas-id="qrcode" style="opacity:0")
       view.hint （请凭兑换码或“我的”会员码至前台核销）
       view.info
         view 时间：{{_.get(item,  "payments.0.title", "")}}
@@ -91,7 +91,7 @@ export default {
     align-items center
     font-family PingFangSC-Semibold, PingFang SC
     padding 40upx 0 90upx
-    .img
+    .qrcode
       width 130px
       height 130px
       border-radius 50upx
