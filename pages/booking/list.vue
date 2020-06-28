@@ -19,20 +19,21 @@
 
 <script>
 import { getBookings } from "../../common/vmeitime-http";
+import { wechatLogin } from "../../services";
 export default {
   data() {
     return {
-      curStatus: "booked",
+      curStatus: null,
       loadStatus: "more",
       tabs: [
         { label: "全部", value: "all" },
-        { label: "已预约", value: "booked" },
+        { label: "已预约", value: "booked,in_service,pending_refund" },
         { label: "已完成", value: "finished" },
         { label: "已取消", value: "canceled" }
       ],
       bookings: {
         all: [],
-        booked: [],
+        "booked,in_service,pending_refund": [],
         finished: [],
         canceled: []
       }
@@ -40,10 +41,11 @@ export default {
   },
   computed: {
     booking() {
+      if (!this.curStatus) return [];
       return this.bookings[this.curStatus];
     }
   },
-  onLoad({ status } = { status: "booked" }) {
+  onLoad({ status = "booked,in_service,pending_refund" }) {
     this.curStatus = status;
   },
   mounted() {
