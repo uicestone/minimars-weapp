@@ -21,7 +21,7 @@
           view
             text.hint.text-grey 退款将退至您的支付账户
         view.title 取消原因
-          text.text-green （必选）
+          text.text-primary （必选）
         view.content.has-radio-group
           radio-group.block(@change="chooseReason")
             view.cu-form-group(v-for="reason in ['订单有误，重新预约','重复预约','临时有事，计划有变','其他原因']" :key="reason")

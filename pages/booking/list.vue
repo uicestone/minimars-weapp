@@ -44,7 +44,6 @@ export default {
     }
   },
   onLoad({ status } = { status: "booked" }) {
-    console.log("booking list load:", status);
     this.curStatus = status;
   },
   mounted() {
