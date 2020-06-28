@@ -2,27 +2,18 @@
   view.booking-cancel-status
     login
     view.content
-      view.section-title 进度详情
+      view.section-title 退款详情
       view.section-content.no-padding-tb
-        view.refund-item 退回金额 {{ amountRefund }}元
-        view.refund-item 退回次数 {{ timesRefund }}次
-      view.section-title 订单流程
+        view.refund-item(v-if="amountRefund") 退回金额 {{ amountRefund }}元
+        view.refund-item(v-if="timesRefund") 退回次数 {{ timesRefund }}次
+      view.section-title 取消流程
       view.section-content.no-padding
         view.cu-timeline.margin-top
           //- view.cu-time
-          view.cu-item.cur.cuIcon-radioboxfill.text-primary
+          view.cu-item.cur.cuIcon-radioboxfill.text-primary(v-for="refundStep in refundSteps")
             view.bg-white
-              view.status-name.text-black 人工审核处理中
-              view.status-date.text-grey.text-sm 2020-06-15 14:00
-          view.cu-item.cur.cuIcon-radioboxfill.text-primary
-            view.bg-white
-              view.status-name.text-black 人工审核处理中
-              view.status-date.text-grey.text-sm 2020-06-15 14:00
-          view.cu-item.cur.cuIcon-radioboxfill.text-primary
-            view.bg-white
-              view.status-name.text-black 人工审核处理中
-              view.status-date.text-grey.text-sm 2020-06-15 14:00
-        
+              view.status-name.text-black {{ refundStep.message }}
+              view.status-date.text-grey.text-sm {{ refundStep.time }}
 
 </template>
 
@@ -40,18 +31,31 @@ export default {
     };
   },
   async onLoad({ id }) {
-    await wechatLogin();
-    console.log(`load booking ${id}`);
+    // await wechatLogin();
+    // console.log(`load booking ${id}`);
     const { data } = await getBooking({ id });
     this.booking = data;
   },
   computed: {
     user: sync("auth/user"),
     amountRefund() {
-      return 0;
+      if (!this.booking.payments) return 0;
+      return this.booking.payments.filter(p => p.paid && p.amount < 0 && !["card", "coupon"].includes(p.gateway)).reduce((amount, payment) => amount - payment.amount, 0);
     },
     timesRefund() {
-      return 0;
+      if (!this.booking.card) return 0;
+      return this.booking.kidsCount;
+    },
+    refundSteps() {
+      if (!this.booking.remarks) return [];
+      return this.booking.remarks
+        .split("\n")
+        .filter(l => l.match && l.match(/\*小程序端可见\*/))
+        .map(l => {
+          const match = l.match(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}) (.*)\*小程序端可见\*/);
+          if (!match) return "";
+          return { time: match[1], message: match[2] };
+        });
     }
   },
   methods: {}

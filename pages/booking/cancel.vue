@@ -88,7 +88,7 @@ export default {
       const { id } = this.booking;
       const { reason } = this.form;
       await cancelBooking({ id, reason });
-      uni.navigateTo({ url: "/pages/booking/list?status=canceled" });
+      uni.navigateTo({ url: "/pages/booking/cancel-status?id=" + id });
     },
     chooseReason(e) {
       this.form.reason = e.detail.value;

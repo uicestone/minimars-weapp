@@ -14,14 +14,15 @@
             view 门店：{{_.get(item,  "store.name", "")}}
             view(v-if="item.adultsCount") 成人数：{{item.adultsCount||""}}
             view(v-if="item.kidsCount") 儿童数：{{item.kidsCount||""}}
-            view(v-if="_.get(item, 'payments.0.amount')") 已付款：{{_.get(item, "payments.0.amount","")||""}}
+            view(v-if="_.get(item, 'payments.0.amount')") 已付款：{{ paidAmount }}
             
             view(v-if="_.get(item, 'gift.title')") 商品：{{_.get(item, "gift.title","")}}
             view(v-if="item.quantity") 数量：{{item.quantity||""}}
             view(v-if="item.priceInPoints") 抵扣积分：{{item.priceInPoints||""}}
             view(v-if="user.points") 剩余积分：{{user.points ? Number((user.points||0).toFixed(2)) : ""}}
           view.cancel-buttons
-            button.cu-btn.round.cancel(@click="cancelBooking()") 取消预约
+            button.cu-btn.round.cancel(@click="cancelBooking()" v-if="item.status=='booked'") 取消预约
+            button.cu-btn.round.cancel(@click="goCancelStatus()" v-if="['pending_refund','canceled'].includes(item.status)") 查看取消进度
 </template>
 
 <script>
@@ -42,7 +43,11 @@ export default {
       return this.booking.showBooking;
     },
     item() {
-      return this.booking.curBooking;
+      return this.booking.curBooking || {};
+    },
+    paidAmount() {
+      if (!this.item.payments) return 0;
+      return this.item.payments.filter(p => p.paid).reduce((amount, payment) => amount + payment.amount, 0);
     }
   },
   methods: {
@@ -72,6 +77,10 @@ export default {
     cancelBooking() {
       this.toggleModal();
       uni.navigateTo({ url: "/pages/booking/cancel?id=" + this.item.id });
+    },
+    goCancelStatus() {
+      this.toggleModal();
+      uni.navigateTo({ url: "/pages/booking/cancel-status?id=" + this.item.id });
     }
   },
   watch: {

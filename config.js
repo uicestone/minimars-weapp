@@ -1,7 +1,7 @@
 export const config = {
-  // API_ENDPOINT: "https://api.mini-mars.com",
+  API_ENDPOINT: "https://api.mini-mars.com",
   // API_ENDPOINT: "https://mini-mars.codeispoetry.tech/api",
-  API_ENDPOINT: "http://localhost:8000/api",
+  // API_ENDPOINT: "http://localhost:8000/api",
   statusLabel: {
     PENDING: "待付款",
     BOOKED: "已确认",
