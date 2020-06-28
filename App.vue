@@ -89,6 +89,8 @@ $color-primary-light = #d1fddf
   color $color-primary
 .bg-primary
   background $color-primary
+.text-primary
+  color $color-primary
 .bottom-fixed
   position fixed
   bottom 0

@@ -1,7 +1,7 @@
 <template lang="pug">
-  view.cu-modal.bottom-modal(:class="visible?'show':''" @tap="tooggleModal")
+  view.cu-modal.bottom-modal(:class="visible?'show':''" @tap="toggleModal")
     view.cu-dialog.no-bg(@tap.stop="")
-      card.card-dialog(withClose @close="tooggleModal")
+      card.card-dialog(withClose @close="toggleModal")
         view.content(v-if="item")
           img.img1(src="/static/img/create-success.png" mode='aspectFill')
           view.title 您已成功预约
@@ -20,6 +20,8 @@
             view(v-if="item.quantity") 数量：{{item.quantity||""}}
             view(v-if="item.priceInPoints") 抵扣积分：{{item.priceInPoints||""}}
             view(v-if="user.points") 剩余积分：{{user.points ? Number((user.points||0).toFixed(2)) : ""}}
+          view.cancel-buttons
+            button.cu-btn.round.cancel(@click="cancelBooking()") 取消预约
 </template>
 
 <script>
@@ -44,7 +46,7 @@ export default {
     }
   },
   methods: {
-    tooggleModal() {
+    toggleModal() {
       this.booking.showBooking = !this.visible;
       if (!this.booking.showBooking) {
         this.$emit("close");
@@ -66,6 +68,10 @@ export default {
           this.qrcodeUrl = res;
         }
       });
+    },
+    cancelBooking() {
+      this.toggleModal();
+      uni.navigateTo({ url: "/pages/booking/cancel?id=" + this.item.id });
     }
   },
   watch: {
@@ -87,7 +93,7 @@ export default {
     flex-direction column
     align-items center
     font-family PingFangSC-Semibold, PingFang SC
-    padding 0upx 0 90upx
+    padding 0upx 0 40upx
     .qrcode
       width 128px
       height 129px
@@ -111,6 +117,8 @@ export default {
       font-weight 500
       color #78757a
       line-height 40upx
+    .cancel-buttons
+      margin-top 40upx
     .img1
       width 300upx
       height 200upx

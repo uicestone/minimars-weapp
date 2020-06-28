@@ -43,8 +43,12 @@ export default {
       return this.bookings[this.curStatus];
     }
   },
+  onLoad({ status } = { status: "booked" }) {
+    console.log("booking list load:", status);
+    this.curStatus = status;
+  },
   mounted() {
-    this.switchTab({ value: "booked" });
+    this.switchTab({ value: this.curStatus });
   },
   onReachBottom() {
     this.loadBooking();
@@ -64,7 +68,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="stylus" scoped>
 .user-booking

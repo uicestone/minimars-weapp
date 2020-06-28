@@ -1,10 +1,10 @@
 <template lang="pug">
   view.box
     view.input-number.flex.justify-between.align-center
-      button(class="cu-btn icon " @click="$emit('update:value', value <=min ? min : value-1)")
+      button(class="cu-btn icon " @click="!disabled && $emit('update:value', value <=min ? min : value-1)")
         text(class="cuIcon-move")
       text {{value}}
-      button(class="cu-btn icon bg-primary radius shadow shadow-lg" @click="$emit('update:value', value >= max? max:  value+1)")
+      button(class="cu-btn icon radius shadow shadow-lg" :class="[!disabled?'bg-primary':'']" @click="!disabled && $emit('update:value', value >= max? max:  value+1)")
         text(class="cuIcon-add")
     view.suffix(v-if="suffix") {{suffix}}
 
@@ -17,7 +17,8 @@ export default {
     value: { type: Number, default: 0 },
     min: { type: Number, default: 0 },
     max: { type: Number, default: 1000000 },
-    suffix: { type: String }
+    suffix: { type: String },
+    disabled: { type: Boolean, default: false }
   }
 };
 </script>

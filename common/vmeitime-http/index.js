@@ -206,6 +206,15 @@ export const getBooking = ({ id }) => {
   });
 };
 
+export const cancelBooking = ({ id, reason }) => {
+  return http.request({
+    url: `/booking/${id}?reason=${reason}`,
+    method: "PUT",
+    dataType: "json",
+    data: { status: "canceled" }
+  });
+};
+
 export const getAuthUser = () => {
   return http.request({
     url: `/auth/user`,
