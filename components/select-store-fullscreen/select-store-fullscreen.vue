@@ -23,8 +23,9 @@ export default {
   },
   methods: {
     async selectStore() {
-      await service.handleSelectStore();
-      uni.redirectTo({ url: "/pages/index/index" });
+      const store = await service.handleSelectStore();
+      // uni.redirectTo({ url: "/pages/index/index" });
+      this.$emit("select", store);
     }
   }
 };
@@ -32,6 +33,8 @@ export default {
 
 <style lang="stylus" scoped>
 .select-store
+  height 100vh
+  background #fff
   display flex
   flex-direction column
   align-items center

@@ -20,9 +20,9 @@ export const handleSelectStore = () =>
       itemList: storeModule.stores.map(i => `MINIMARS ${i.name}`),
       success: function (res) {
         const store = storeModule.stores[res.tapIndex];
-        storeModule.currentStore = store;
+        storeModule.currentLocalStore = store;
         uni.setStorageSync("localStoreId", store.id);
-        resolve();
+        resolve(store);
       },
       fail: function (res) {
         console.log(res.errMsg);

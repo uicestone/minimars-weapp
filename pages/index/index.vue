@@ -47,7 +47,7 @@ export default {
         this.handleGiftCode(giftCode);
         return; // avoid below code executing
       }
-      this.checkStore();
+      // this.checkStore();
       service.loadBookings();
       service.loadUserCard();
     });

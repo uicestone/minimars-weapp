@@ -263,10 +263,10 @@ export const getUserCards = ({ customer }) => {
   });
 };
 
-export const getEvents = ({ limit = 10, skip = 0, tag } = {}) => {
+export const getEvents = ({ limit = 10, skip = 0, tag, storeId = null } = {}) => {
   const data = _.omitBy({ limit, skip, tag }, _.isNil);
   return http.request({
-    url: `/event`,
+    url: `/event` + (storeId ? `?store=${storeId}` : ""),
     method: "GET",
     dataType: "json",
     data

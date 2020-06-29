@@ -1,6 +1,7 @@
 <template lang="pug">
   view
-    scroll-view(scroll-y).with-tab-bar.event
+    select-store-fullscreen(v-if="showSelectStore" @select="showSelectStore=false")
+    scroll-view(v-else scroll-y).with-tab-bar.event
       top-event(:item="eventsRecommend")
       stripe.stripe(withTail theme="light")
         view.content(v-if="newBooking" )
@@ -22,6 +23,7 @@ import { event } from "../../services/event";
 export default {
   data() {
     return {
+      showSelectStore: true,
       showModal: false,
       avatar: "",
       events: [],
@@ -32,8 +34,16 @@ export default {
   computed: {
     currentTab: sync("currentTab"),
     bookings: sync("booking/bookings"),
+    currentLocalStore: sync("store/currentLocalStore"),
     newBooking() {
       return this.bookings.find(i => i.type == "event" && i.status == "booked");
+    }
+  },
+  watch: {
+    currentLocalStore(s) {
+      console.log("currentLocalStore change:", s.name);
+      this.events = [];
+      this.loadEvent();
     }
   },
   async mounted() {
@@ -49,9 +59,9 @@ export default {
   },
   methods: {
     async loadEvent() {
-      if (this.loading) return;
+      if (this.loading || !this.currentLocalStore.id) return;
       this.loading = true;
-      getEvents({ limit: 10, skip: this.events.length })
+      getEvents({ limit: 10, skip: this.events.length, storeId: this.currentLocalStore.id })
         .then(res => {
           if (res.data) {
             this.events = [...this.events, ...res.data];
