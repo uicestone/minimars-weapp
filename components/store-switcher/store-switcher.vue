@@ -1,6 +1,6 @@
 <template lang="pug">
   view.store-switcher
-    picker(@change="selectStore" :range="stores" range-key="name")
+    view(@click="selectStore")
       .flex.align-center
         button.cu-btn.round.bg-primary.button
           view.title {{currentStore.name || "请选择门店"}}
@@ -24,9 +24,8 @@ export default {
     }
   },
   methods: {
-    selectStore(e) {
-      this.currentStore = this.stores[e.detail.value];
-      // uni.setStorageSync("storeId", this.currentStore.id);
+    async selectStore() {
+      await service.handleSelectStore();
     }
   }
 };

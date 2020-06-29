@@ -28,9 +28,18 @@
             view.text-center.margin-top(v-if="price>0" style="font-size:32upx;font-weight:bold")
               text.text-orange.margin-right(v-if="wechatPayPrice") 微信支付 ￥{{ wechatPayPrice }}
               text.text-orange(v-if="balancePayPrice") 余额支付 ￥{{`${balancePayPrice}`}}
-            button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx" :disabled="!payable" @click="showBookingConfirm")
+            button.cu-btn.round.bg-primary.w-full.margin-top(style="height:80upx" :disabled="!payable" @click="handleBookingCofirm")
               view.title 确认支付/预约
     booking-modal(@close="onCloseModal")
+    mi-dialog.payment-dialog(:visible.sync="showBookingConfirm" withClose)
+      view.cotent
+        view 
+          view.label 门票使用规则 
+          text {{configs.playHint}}
+        view.margin-top
+          view.label 请确认预约 
+          view {{currentStore.name}} {{form.date}} {{form.adultsCount}}大 {{form.kidsCount}}小
+      button.cu-btn.bg-primary.round.action-button(@click="handleBooking") 同意
 
 
       
@@ -48,6 +57,7 @@ export default {
     return {
       useCard: true,
       loadingPrice: false,
+      showBookingConfirm: false,
       price: 0,
       curCard: {},
       form: {
@@ -68,6 +78,7 @@ export default {
     this.getPirce();
   },
   computed: {
+    configs: sync("configs"),
     user: sync("auth/user"),
     userCards: sync("auth/userCards"),
     currentStore: sync("store/currentStore"),
@@ -130,17 +141,18 @@ export default {
       this.price = res.data.price;
       this.loadingPrice = false;
     },
-    async showBookingConfirm() {
-      const { date, adultsCount, kidsCount } = this.form;
-      uni.showModal({
-        title: "确认",
-        content: `请确认${this.currentStore.name}${this.form.date} ${adultsCount}大 ${kidsCount}小的预约`,
-        success: res => {
-          if (res.confirm) {
-            this.handleBooking();
-          }
-        }
-      });
+    async handleBookingCofirm() {
+      this.showBookingConfirm = true;
+      // const { date, adultsCount, kidsCount } = this.form;
+      // uni.showModal({
+      //   title: "确认",
+      //   content: `请确认${this.currentStore.name}${this.form.date} ${adultsCount}大 ${kidsCount}小的预约`,
+      //   success: res => {
+      //     if (res.confirm) {
+      //       this.handleBooking();
+      //     }
+      //   }
+      // });
     },
     async handleBooking() {
       const { id: store } = this.currentStore;
@@ -209,4 +221,16 @@ export default {
           border-radius 200upx
           padding 10upx 20upx
           border 2px solid #ddd
+  .payment-dialog
+    .cotent
+      text-align left
+      font-weight bold
+      color #888
+      .label
+        color #303133
+        font-size 16px
+        line-height 32px
+    .action-button
+      width 50%
+      margin-top 100upx
 </style>

@@ -48,6 +48,11 @@
           view.date 日期：{{moment(item.date).format("MMM Do")}} 
           view.address 门店：{{item.store.name || "-"}}
         view.prompt （兑换后请凭或“我的”会员码至前台核销）
+    view.notice.no-card
+      view.cu-item.content
+        view.title 活动预约须知
+        view.text 
+          text {{configs.eventHint}}
     view.cu-card.no-card
       view.cu-item.content
         view.title 活动详情
@@ -108,6 +113,7 @@ export default {
     payAble() {
       return this.form.kidsCount !== 0 && (this.item.date || this.form.date);
     },
+    configs: sync("configs"),
     currentStore: sync("store/currentStore"),
     currentLocalStore: sync("store/currentLocalStore"),
     stores: sync("store/stores"),
@@ -273,6 +279,21 @@ export default {
       .prompt
         font-size 26upx
         color #606266
+  .notice
+    margin-top 20upx
+    font-family PingFangSC-Semibold, PingFang SC
+    background white
+    .content
+      padding 40upx 0 60upx
+    .title
+      text-align center
+      font-size 30upx
+      font-weight 600
+      color #6e6e6e
+      line-height 40upx
+    .text
+      margin 40upx 50upx 0 50upx
+      color #7d7d7d
   .cu-card
     margin-top 20upx
     font-family PingFangSC-Semibold, PingFang SC

@@ -106,6 +106,12 @@
       "style": {
         "navigationStyle": "custom"
       }
+    },
+    {
+      "path": "pages/store/select",
+      "style": {
+        "navigationBarTitleText": "门店选择"
+      }
     }
   ],
   "globalStyle": {
@@ -216,6 +222,11 @@
         "name": "取消预约进度",
         "path": "pages/booking/cancel-status",
         "query": "id=5ef77235d6a60e2fec87532a"
+      },
+      {
+        "name": "选择门店",
+        "path": "pages/store/select",
+        "query": ""
       }
     ]
   }

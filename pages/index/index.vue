@@ -47,6 +47,7 @@ export default {
         this.handleGiftCode(giftCode);
         return; // avoid below code executing
       }
+      this.checkStore();
       service.loadBookings();
       service.loadUserCard();
     });
@@ -93,6 +94,12 @@ export default {
         uni.navigateTo({ url: `/pages/card/detail?id=${res.data.id}` });
       }
       return true;
+    },
+    checkStore() {
+      const localStoreId = uni.getStorageSync("localStoreId");
+      if (!localStoreId) {
+        uni.redirectTo({ url: "/pages/store/select" });
+      }
     },
     selectStore() {
       return;

@@ -9,6 +9,6 @@ export const config = {
     CANCELED: "已取消",
     IN_SERVICE: "已入场",
     PENDING_REFUND: "已冻结",
-    FINISHED: "已完成",
-  },
+    FINISHED: "已完成"
+  }
 };

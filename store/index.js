@@ -15,6 +15,8 @@ const state = {
   giftCode: null,
   currentTab: "/pages/home/index",
   configs: {
+    playHint: "",
+    eventHint: "",
     tabMap: {
       "/pages/home/index": {
         active: "/pages/home/index"
