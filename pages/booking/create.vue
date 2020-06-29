@@ -155,6 +155,7 @@ export default {
       // });
     },
     async handleBooking() {
+      this.showBookingConfirm = false;
       const { id: store } = this.currentStore;
       const { date, adultsCount, kidsCount } = this.form;
       const { curCard: card, useCard } = this;
