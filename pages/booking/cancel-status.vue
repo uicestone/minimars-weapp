@@ -18,26 +18,15 @@
 </template>
 
 <script>
-import { moment } from "../../utils/moment";
-import { getBooking } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
-import { wechatLogin } from "../../services";
-import { _ } from "../../utils/lodash";
 
 export default {
-  data() {
-    return {
-      booking: {}
-    };
-  },
-  async onLoad({ id }) {
-    // await wechatLogin();
-    // console.log(`load booking ${id}`);
-    const { data } = await getBooking({ id });
-    this.booking = data;
-  },
   computed: {
     user: sync("auth/user"),
+    bookingStore: sync("booking"),
+    booking() {
+      return this.bookingStore.curBooking || {};
+    },
     amountRefund() {
       if (!this.booking.payments) return 0;
       return this.booking.payments.filter(p => p.paid && p.amount < 0 && !["card", "coupon"].includes(p.gateway)).reduce((amount, payment) => amount - payment.amount, 0);
@@ -57,8 +46,7 @@ export default {
           return { time: match[1], message: match[2] };
         });
     }
-  },
-  methods: {}
+  }
 };
 </script>
 

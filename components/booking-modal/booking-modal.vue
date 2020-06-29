@@ -21,7 +21,7 @@
             view(v-if="item.priceInPoints") 抵扣积分：{{item.priceInPoints||""}}
             view(v-if="user.points") 剩余积分：{{user.points ? Number((user.points||0).toFixed(2)) : ""}}
           view.cancel-buttons
-            button.cu-btn.round.cancel(@click="cancelBooking()" v-if="item.status=='booked'") 取消预约
+            button.cu-btn.round.cancel(@click="cancelBooking()" v-if="item.type=='play'&&item.status=='booked'") 取消预约
             button.cu-btn.round.cancel(@click="goCancelStatus()" v-if="['pending_refund','canceled'].includes(item.status)") 查看取消进度
 </template>
 
@@ -75,12 +75,12 @@ export default {
       });
     },
     cancelBooking() {
-      this.toggleModal();
-      uni.navigateTo({ url: "/pages/booking/cancel?id=" + this.item.id });
+      // this.toggleModal();
+      uni.navigateTo({ url: "/pages/booking/cancel" });
     },
     goCancelStatus() {
-      this.toggleModal();
-      uni.navigateTo({ url: "/pages/booking/cancel-status?id=" + this.item.id });
+      // this.toggleModal();
+      uni.navigateTo({ url: "/pages/booking/cancel-status" });
     }
   },
   watch: {

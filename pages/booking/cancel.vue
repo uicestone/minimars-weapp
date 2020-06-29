@@ -38,30 +38,24 @@
 
 <script>
 import { moment } from "../../utils/moment";
-import { getBooking, cancelBooking } from "../../common/vmeitime-http";
+import { cancelBooking } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
-import { handlePayment, fetchUser, checkLogin, wechatLogin } from "../../services";
-import { _ } from "../../utils/lodash";
 
 export default {
   data() {
     return {
       form: {
         reason: null
-      },
-      booking: {}
+      }
     };
-  },
-  async onLoad({ id }) {
-    // await wechatLogin();
-    console.log(`load booking ${id}`);
-    const { data } = await getBooking({ id });
-    this.booking = data;
   },
   computed: {
     user: sync("auth/user"),
+    bookingStore: sync("booking"),
+    booking() {
+      return this.bookingStore.curBooking || {};
+    },
     cancelable() {
-      console.log(this.booking.id, this.booking.status, this.form.reason);
       return this.booking.id && this.booking.status === "booked" && this.form.reason;
     }
   },
@@ -84,11 +78,12 @@ export default {
       });
     },
     async handleCancelBooking() {
-      console.log("Cancel booking " + this.booking.id);
       const { id } = this.booking;
       const { reason } = this.form;
-      await cancelBooking({ id, reason });
-      uni.navigateTo({ url: "/pages/booking/cancel-status?id=" + id });
+      const { data: booking } = await cancelBooking({ id, reason });
+      this.bookingStore.curBooking = booking;
+      console.log(this.bookingStore.curBooking);
+      uni.redirectTo({ url: "/pages/booking/cancel-status" });
     },
     chooseReason(e) {
       this.form.reason = e.detail.value;

@@ -210,12 +210,12 @@
       {
         "name": "取消预约",
         "path": "pages/booking/cancel",
-        "query": "id=5ef77235d6a60e2fec87532a"
+        "query": ""
       },
       {
         "name": "取消预约进度",
         "path": "pages/booking/cancel-status",
-        "query": "id=5ef77235d6a60e2fec87532a"
+        "query": ""
       }
     ]
   }
