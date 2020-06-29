@@ -82,7 +82,7 @@ export default {
       const res = await getBrand();
       if (res.data) {
         this.brands = res.data;
-        this.brand = this.brand[0];
+        this.brand = this.brands[0];
       }
     },
     goStoreDetail() {
