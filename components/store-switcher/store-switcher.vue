@@ -13,6 +13,7 @@
 <script>
 import { sync } from "vuex-pathify";
 import * as service from "@/services";
+import store from "../../store";
 export default {
   computed: {
     currentStore: sync("store/currentStore"),
@@ -25,7 +26,20 @@ export default {
   },
   methods: {
     async selectStore() {
-      await service.handleSelectStore();
+      const storeModule = store.state.store;
+      uni.showActionSheet({
+        itemList: storeModule.stores.map(i => `MINIMARS ${i.name}`),
+        success: function(res) {
+          const store = storeModule.stores[res.tapIndex];
+          storeModule.currentStore = store;
+          uni.setStorageSync("localStoreId", store.id);
+          resolve(store);
+        },
+        fail: function(res) {
+          console.log(res.errMsg);
+          reject();
+        }
+      });
     }
   }
 };
