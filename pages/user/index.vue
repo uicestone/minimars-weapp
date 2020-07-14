@@ -34,20 +34,18 @@
               view.swiper-item
                 booking-item.w-full(:item="item")
 
-          view.with-padding(@click="navigateTo('/pages/card/sell')")
-            card-title(title="我的卡券包" action="购买更多")
+          view.with-padding(@click="navigateTo('/pages/card/list')")
+            card-title(title="我的卡券包" action="历史卡券")
           view.card-list.with-padding
-            img.w-full.get-more(v-if="userCards && !userCards.length" src="/static/img/no-card.png" mode='widthFix' @click="navigateTo('/pages/card/sell')")
-            view.card-list-item(v-for="(item,index) in userCards" :key="index" )
+            view.card-list-item(v-for="(item,index) in activeUserCards" :key="index" )
               card-list-item(:item="item" withAction @click="goCardSelling(item)")
+            img.w-full.get-more.margin-bottom(src="/static/img/no-card.png" mode='widthFix' @click="navigateTo('/pages/card/sell')")
         view.user-qr(v-if="status == 'userQR'")
           view.title {{user.name}}
           view.flex.justify-center
             canvas.img(canvas-id="qrcode") 
           view.text 会员二维码
           img.img1(src="/static/img/qrcode-bottom.png" mode="widthFix" style="width: 200upx; margin-top: 100upx")
-        
-        
 </template>
 
 <script>
@@ -72,6 +70,9 @@ export default {
     bookings: sync("booking/bookings"),
     activeBookings() {
       return this.bookings.filter(i => ["pending", "booked", "in_service"].includes(i.status));
+    },
+    activeUserCards() {
+      return this.userCards.filter(c => ["valid", "activated"].includes(c.status));
     }
   },
   async mounted() {

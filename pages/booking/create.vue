@@ -8,7 +8,7 @@
             view.title 选择我的权益卡
             switch.primary(@change='onUseCard' :class="useCard?'checked':''" :checked='useCard?true:false')
         mi-card-selecter(v-if="useCard" :items="cards" :curItem.sync="curCard")
-        view.title.margin-lr-lg.text-center
+        view.title.margin-lr-lg.text-center(v-if="useCard")
           text {{curCard.title}}
           text(v-if="curCard.type === 'times'") （剩余{{curCard.timesLeft}}次）
     view.content

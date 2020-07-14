@@ -17,11 +17,14 @@
       .selector
         mi-card-selecter(:items="curCards" :check="false" :curItem.sync="curCard")
       view.card-info(v-if="curCard.id")
-        view
+        view.margin-bottom
           text {{curCard.title}}
-        view(v-if="curCard.type==='times'")
+        view(v-if="curCard.times")
           text 剩余次数：
           text {{ curCard.timesLeft }}
+        view(v-if="curCard.expiresAt")
+          text 有效期至：
+          text {{ moment(curCard.expiresAt).format('YYYY-MM-DD') }}
         view(v-if="curCard.type==='period'")
           text 有效期间：
           text {{ moment(curCard.start || curCard.createdAt).format("YYYY-MM-DD") }} - {{ moment(curCard.end || curCard.expiresAt).format("YYYY-MM-DD") }}

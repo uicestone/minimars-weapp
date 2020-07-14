@@ -106,6 +106,12 @@
       "style": {
         "navigationStyle": "custom"
       }
+    },
+    {
+      "path": "pages/card/list",
+      "style": {
+        "navigationBarTitleText": "历史卡券"
+      }
     }
   ],
   "globalStyle": {
