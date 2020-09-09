@@ -1,7 +1,11 @@
 import http from "./interface";
 import store from "../../store";
-import { config } from "../../config";
-import { _ } from "../../utils/lodash";
+import {
+  config
+} from "../../config";
+import {
+  _
+} from "../../utils/lodash";
 
 /**
  * 将业务所有接口统一起来便于维护
@@ -55,7 +59,9 @@ http.interceptor.response = response => {
   return response;
 };
 
-export const wechatLogin = ({ code }) => {
+export const wechatLogin = ({
+  code
+}) => {
   return http.request({
     url: `/wechat/login`,
     method: "POST",
@@ -66,16 +72,28 @@ export const wechatLogin = ({ code }) => {
   });
 };
 
-export const wechatSignup = ({ session_key, encryptedData, iv }) => {
+export const wechatSignup = ({
+  session_key,
+  encryptedData,
+  iv
+}) => {
   return http.request({
     url: `/wechat/signup`,
     method: "POST",
     dataType: "json",
-    data: { session_key, encryptedData, iv }
+    data: {
+      session_key,
+      encryptedData,
+      iv
+    }
   });
 };
 
-export const wechatDecrypt = ({ session_key, encryptedData, iv }) => {
+export const wechatDecrypt = ({
+  session_key,
+  encryptedData,
+  iv
+}) => {
   return http.request({
     url: `/wechat/decrypt`,
     method: "POST",
@@ -88,7 +106,12 @@ export const wechatDecrypt = ({ session_key, encryptedData, iv }) => {
   });
 };
 
-export const updateMobile = ({ session_key, encryptedData, iv, openid }) => {
+export const updateMobile = ({
+  session_key,
+  encryptedData,
+  iv,
+  openid
+}) => {
   return http.request({
     url: `/wechat/update-mobile`,
     method: "POST",
@@ -102,7 +125,10 @@ export const updateMobile = ({ session_key, encryptedData, iv, openid }) => {
   });
 };
 
-export const updateUser = ({ userId, data }) => {
+export const updateUser = ({
+  userId,
+  data
+}) => {
   return http.request({
     url: `/user/${userId}`,
     method: "PUT",
@@ -123,8 +149,30 @@ export const getStores = () => {
   });
 };
 
-export const createBooking = ({ store, date, adultsCount, kidsCount, card, type = "play", paymentGateway, event, gift, quantity, useBalance = true }) => {
-  const data = _.omitBy({ store, date, adultsCount, kidsCount, card, type, event, gift, quantity }, _.isNil);
+export const createBooking = ({
+  store,
+  date,
+  adultsCount,
+  kidsCount,
+  card,
+  type = "play",
+  paymentGateway,
+  event,
+  gift,
+  quantity,
+  useBalance = true
+}) => {
+  const data = _.omitBy({
+    store,
+    date,
+    adultsCount,
+    kidsCount,
+    card,
+    type,
+    event,
+    gift,
+    quantity
+  }, _.isNil);
   return http.request({
     url: `/booking?paymentGateway=${paymentGateway}&useBalance=${useBalance}`,
     method: "POST",
@@ -133,8 +181,29 @@ export const createBooking = ({ store, date, adultsCount, kidsCount, card, type 
   });
 };
 
-export const getBookingPrice = ({ store, date, adultsCount, kidsCount, card, type = "play", paymentGateway, event, gift, quantity }) => {
-  const data = _.omitBy({ store, date, adultsCount, kidsCount, card, type, event, gift, quantity }, _.isNil);
+export const getBookingPrice = ({
+  store,
+  date,
+  adultsCount,
+  kidsCount,
+  card,
+  type = "play",
+  paymentGateway,
+  event,
+  gift,
+  quantity
+}) => {
+  const data = _.omitBy({
+    store,
+    date,
+    adultsCount,
+    kidsCount,
+    card,
+    type,
+    event,
+    gift,
+    quantity
+  }, _.isNil);
   return http.request({
     url: `/booking-price`,
     method: "POST",
@@ -143,7 +212,9 @@ export const getBookingPrice = ({ store, date, adultsCount, kidsCount, card, typ
   });
 };
 
-export const userDeposit = ({ depositLevel }) => {
+export const userDeposit = ({
+  depositLevel
+}) => {
   return http.request({
     url: `/user-deposit`,
     method: "POST",
@@ -162,8 +233,17 @@ export const getConfigs = () => {
   });
 };
 
-export const getAvailabilityBooking = ({ type, month, date, hours }) => {
-  const data = _.omitBy({ month, date, hours }, _.isNil);
+export const getAvailabilityBooking = ({
+  type,
+  month,
+  date,
+  hours
+}) => {
+  const data = _.omitBy({
+    month,
+    date,
+    hours
+  }, _.isNil);
   return http.request({
     url: `/booking-availability/${type}`,
     method: "GET",
@@ -172,7 +252,10 @@ export const getAvailabilityBooking = ({ type, month, date, hours }) => {
   });
 };
 
-export const getListData = ({ type, data } = {}) => {
+export const getListData = ({
+  type,
+  data
+} = {}) => {
   data = _.omitBy(data, _.isNil);
   return http.request({
     url: `/${type}`,
@@ -190,7 +273,9 @@ export const getPayments = () => {
   });
 };
 
-export const getPayment = ({ id }) => {
+export const getPayment = ({
+  id
+}) => {
   return http.request({
     url: `/payment/${id}`,
     method: "GET",
@@ -198,7 +283,9 @@ export const getPayment = ({ id }) => {
   });
 };
 
-export const getBooking = ({ id }) => {
+export const getBooking = ({
+  id
+}) => {
   return http.request({
     url: `/booking/${id}`,
     method: "GET",
@@ -206,12 +293,17 @@ export const getBooking = ({ id }) => {
   });
 };
 
-export const cancelBooking = ({ id, reason }) => {
+export const cancelBooking = ({
+  id,
+  reason
+}) => {
   return http.request({
     url: `/booking/${id}?reason=${reason}`,
     method: "PUT",
     dataType: "json",
-    data: { status: "canceled" }
+    data: {
+      status: "canceled"
+    }
   });
 };
 
@@ -223,7 +315,9 @@ export const getAuthUser = () => {
   });
 };
 
-export const postUserMembership = ({ cardType }) => {
+export const postUserMembership = ({
+  cardType
+}) => {
   return http.request({
     url: `/user-membership`,
     method: "POST",
@@ -234,8 +328,16 @@ export const postUserMembership = ({ cardType }) => {
   });
 };
 
-export const getBookings = ({ status = null, limit = 10, skip = 0 } = {}) => {
-  const data = _.omitBy({ status, limit, skip }, _.isNil);
+export const getBookings = ({
+  status = null,
+  limit = 10,
+  skip = 0
+} = {}) => {
+  const data = _.omitBy({
+    status,
+    limit,
+    skip
+  }, _.isNil);
   return http.request({
     url: `/booking`,
     method: "GET",
@@ -244,15 +346,23 @@ export const getBookings = ({ status = null, limit = 10, skip = 0 } = {}) => {
   });
 };
 
-export const getCardType = () => {
+export const getCardType = ({
+  include
+}) => {
+  const data = _.omitBy({
+    include
+  }, _.isNil);
   return http.request({
     url: `/card-type`,
     method: "GET",
+    data,
     dataType: "json"
   });
 };
 
-export const getUserCards = ({ customer }) => {
+export const getUserCards = ({
+  customer
+}) => {
   return http.request({
     url: `/card`,
     method: "GET",
@@ -263,8 +373,17 @@ export const getUserCards = ({ customer }) => {
   });
 };
 
-export const getEvents = ({ limit = 10, skip = 0, tag, storeId = null } = {}) => {
-  const data = _.omitBy({ limit, skip, tag }, _.isNil);
+export const getEvents = ({
+  limit = 10,
+  skip = 0,
+  tag,
+  storeId = null
+} = {}) => {
+  const data = _.omitBy({
+    limit,
+    skip,
+    tag
+  }, _.isNil);
   return http.request({
     url: `/event` + (storeId ? `?store=${storeId}` : ""),
     method: "GET",
@@ -273,7 +392,10 @@ export const getEvents = ({ limit = 10, skip = 0, tag, storeId = null } = {}) =>
   });
 };
 
-export const getItem = ({ id, type }) => {
+export const getItem = ({
+  id,
+  type
+}) => {
   return http.request({
     url: `/${type}/${id}`,
     method: "GET",
@@ -281,8 +403,14 @@ export const getItem = ({ id, type }) => {
   });
 };
 
-export const getGifts = ({ limit = 10, skip = 0 } = {}) => {
-  const data = _.omitBy({ limit, skip }, _.isNil);
+export const getGifts = ({
+  limit = 10,
+  skip = 0
+} = {}) => {
+  const data = _.omitBy({
+    limit,
+    skip
+  }, _.isNil);
   return http.request({
     url: `/gift`,
     method: "GET",
@@ -291,7 +419,10 @@ export const getGifts = ({ limit = 10, skip = 0 } = {}) => {
   });
 };
 
-export const postCard = ({ card, method = "POST" }) => {
+export const postCard = ({
+  card,
+  method = "POST"
+}) => {
   return http.request({
     url: `/card`,
     method,
@@ -300,7 +431,11 @@ export const postCard = ({ card, method = "POST" }) => {
   });
 };
 
-export const postCardById = ({ id, card, method = "POST" }) => {
+export const postCardById = ({
+  id,
+  card,
+  method = "POST"
+}) => {
   return http.request({
     url: `/card/${id}`,
     method,

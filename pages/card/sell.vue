@@ -56,7 +56,7 @@ export default {
   },
   async onLoad(data) {
     uni.showLoading();
-    await service.loadCard();
+    await service.loadCard({ id: data.id });
     if (data.id) {
       const card = this.cards.find(i => i.id == data.id);
       console.log({ card });

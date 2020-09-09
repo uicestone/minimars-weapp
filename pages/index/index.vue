@@ -1,15 +1,13 @@
 <template lang="pug">
-  scroll-view(scroll-y)
-    login
-    get-phonenumber
-    tab-bar
-    home(v-if="currentTab=='/pages/home/index'")
-    event(v-if="currentTab=='/pages/event/index'")
-    mall(v-if="currentTab=='/pages/mall/index'")
-    user(v-if="currentTab=='/pages/user/index'")
-    booking-modal
-
-
+scroll-view(scroll-y)
+  login
+  get-phonenumber
+  tab-bar
+  home(v-if="currentTab == '/pages/home/index'")
+  event(v-if="currentTab == '/pages/event/index'")
+  mall(v-if="currentTab == '/pages/mall/index'")
+  user(v-if="currentTab == '/pages/user/index'")
+  booking-modal
 </template>
 
 <script>
@@ -38,7 +36,7 @@ export default {
     bookingStore: sync("booking"),
     banners: sync("banners")
   },
-  onLoad({ tab, giftCode }) {
+  onLoad({ tab, giftCode, cardSell }) {
     this.loadBanners();
     this.loadConfig();
     service.loadStore();
@@ -46,6 +44,9 @@ export default {
       if (giftCode) {
         this.handleGiftCode(giftCode);
         return; // avoid below code executing
+      }
+      if (cardSell) {
+        return this.handleCardSell(cardSell);
       }
       // this.checkStore();
       service.loadBookings();
@@ -94,6 +95,10 @@ export default {
         uni.navigateTo({ url: `/pages/card/detail?id=${res.data.id}` });
       }
       return true;
+    },
+    handleCardSell(cardSell) {
+      if (!cardSell) return;
+      uni.navigateTo({ url: `/pages/card/sell?id=${cardSell}` });
     },
     checkStore() {
       const localStoreId = uni.getStorageSync("localStoreId");
