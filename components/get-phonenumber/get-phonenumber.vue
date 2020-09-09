@@ -1,10 +1,9 @@
 <template lang="pug">
-  view.cu-modal.bottom-modal(:class="[auth.showGetPhone ? 'show':'']")
-    view.cu-dialog.no-bg
-      view.cu-bar.flex
-        button.bg-grey.round.flex-sub.margin-sm(v-if="auth.showGetPhone!=='FORCE'" @click="cancel") 暂不获取
-        button.bg-primary.round.flex-sub.margin-sm(open-type='getPhoneNumber' @getphonenumber="getPhoneNumber") 获取手机号
- 
+view.cu-modal.bottom-modal(:class="[auth.showGetPhone ? 'show' : '']")
+  view.cu-dialog.no-bg
+    view.cu-bar.flex
+      button.bg-grey.round.flex-sub.margin-sm(v-if="auth.showGetPhone !== 'FORCE'", @click="cancel") 暂不获取
+      button.bg-primary.round.flex-sub.margin-sm(open-type="getPhoneNumber", @getphonenumber="getPhoneNumber") 获取手机号
 </template>
 
 <script>
@@ -22,11 +21,7 @@ export default {
     async getPhoneNumber(res) {
       if (!res.detail.encryptedData) return;
       try {
-        //debug
-        let firstTime = new Date().valueOf();
         await getPhoneNumber(res);
-        let secondTime = new Date().valueOf();
-        console.log("获取手机号: " + (secondTime - firstTime) + "ms");
         await loadUserCard();
         this.auth.showGetPhone = false;
         event.emit("mobile");

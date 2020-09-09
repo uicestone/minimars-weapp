@@ -1,14 +1,18 @@
 <template lang="pug">
-  button.cu-btn.round.bg-primary.action-button(@click="$emit('click')"  :open-type="openType" :disabled="disabled")
-    view.title {{title}}
-    view.sub-title(v-if="subTitle") {{subTitle}}
-    slot(name="append")
-    
+button.cu-btn.round.bg-primary.action-button(@click="$emit('click')", :open-type="openType", :disabled="disabled", @getphonenumber="getPhoneNumber")
+  view.title {{ title }}
+  view.sub-title(v-if="subTitle") {{ subTitle }}
+  slot(name="append")
 </template>
 
 <script>
 export default {
-  props: ["title", "subTitle", "disabled", "openType"]
+  props: ["title", "subTitle", "disabled", "openType"],
+  methods: {
+    getPhoneNumber(res) {
+      this.$emit("getphonenumber", res);
+    }
+  }
 };
 </script>
 

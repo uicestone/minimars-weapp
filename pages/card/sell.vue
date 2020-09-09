@@ -1,37 +1,43 @@
 <template lang="pug">
-  view
-    get-phonenumber
-    cu-custom(isBack @back="uni.navigateBack()")
-    view.card-selling
-      view.with-padding
-        img.img1(src="/static/img/buy-card.png" mode='aspectFill')
-        view.text
-          view.title Hello,
-          view.title {{user.name}}
-          view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
-          view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
-      view.card-selector
-        view(v-for="(item,index) in cardTypes" :key="index" @click="selectCard(item)" :class="[curCardType == item.value ? 'active': '', 'card']")
-          img.img(:src="item.img")
-          view.label {{item.label}}
-      view.prompt(@click="goCardRule" v-if="curCard.id") （点击查看会员权益及使用规则）
-      .selector
-        mi-card-selecter(:items="curCards" :curItem.sync="curCard")
-      view
-        text {{curCard.title}}
-      view(v-if="curCard.store")
-        text {{curCard.store.name}}
-      view.confirm
-        menu-link(:title="curCard.price?'确认购买':'确认领取'" :subTitle="curCard.price?'':'Confirm'" @click="handleBuyCard" :disabled="!buyable")
-          text.margin-right.text-orange(v-if="curCard.price" slot="append" style="font-size:40upx;font-weight:bold") ￥{{curCard.price}}
-
+view
+  get-phonenumber
+  cu-custom(isBack, @back="uni.navigateBack()")
+  view.card-selling
+    view.with-padding
+      img.img1(src="/static/img/buy-card.png", mode="aspectFill")
+      view.text
+        view.title Hello,
+        view.title {{ user.name }}
+        view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
+        view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
+    view.card-selector
+      view(v-for="(item, index) in cardTypes", :key="index", @click="selectCard(item)", :class="[curCardType == item.value ? 'active' : '', 'card']")
+        img.img(:src="item.img")
+        view.label {{ item.label }}
+    view.prompt(@click="goCardRule", v-if="curCard.id") （点击查看会员权益及使用规则）
+    .selector
+      mi-card-selecter(:items="curCards", :curItem.sync="curCard")
+    view
+      text {{ curCard.title }}
+    view(v-if="curCard.store")
+      text {{ curCard.store.name }}
+    view.confirm
+      menu-link(
+        :title="curCard.price ? '确认购买' : '确认领取'",
+        :subTitle="curCard.price ? '' : 'Confirm'",
+        :disabled="!buyable",
+        :open-type="user.mobile ? '' : 'getPhoneNumber'",
+        @click="handleBuyCard",
+        @getphonenumber="getPhoneNumber"
+      )
+        text.margin-right.text-orange(v-if="curCard.price", slot="append", style="font-size:40upx;font-weight:bold") ￥{{ curCard.price }}
 </template>
 
 <script>
 import { sync } from "vuex-pathify";
 import { postCard, getItem, getAuthUser } from "../../common/vmeitime-http";
 import { _ } from "../../utils/lodash";
-import { handlePayment, loadUserCard, checkMobile, fetchUser } from "../../services";
+import { handlePayment, loadUserCard, checkMobile, fetchUser, getPhoneNumber } from "../../services";
 import * as service from "../..//services";
 export default {
   data() {
@@ -49,7 +55,6 @@ export default {
     };
   },
   async onLoad(data) {
-    await checkMobile();
     uni.showLoading();
     await service.loadCard();
     if (data.id) {
@@ -91,7 +96,13 @@ export default {
         url: `/pages/card/rule?id=${this.curCard.id}`
       });
     },
+    async getPhoneNumber(res) {
+      uni.showLoading();
+      getPhoneNumber(res);
+      uni.hideLoading();
+    },
     async handleBuyCard() {
+      if (!this.user.mobile) return;
       const res = await postCard({ card: this.curCard });
       const payment = _.get(res, "data.payments.0");
       if (payment) {
