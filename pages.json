@@ -39,6 +39,12 @@
       }
     },
     {
+      "path": "pages/card/coupon",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/payment/list",
       "style": {
         "navigationStyle": "custom"
@@ -225,6 +231,11 @@
         "name": "cardSell测试",
         "path": "pages/index/index",
         "query": "cardSell=5ef0c68bbd39d160c7d9dc95"
+      },
+      {
+        "name": "团购测试",
+        "path": "pages/index/index",
+        "query": "coupon=test-coupon"
       }
     ]
   }

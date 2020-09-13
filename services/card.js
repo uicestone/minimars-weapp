@@ -6,7 +6,7 @@ import store from "../store";
 
 export const loadCard = async ({
   id
-}) => {
+} = {}) => {
   const res = await getCardType({
     include: id ? id : null
   });

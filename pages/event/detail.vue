@@ -76,7 +76,7 @@
 import { getItem, createBooking } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
 import { _ } from "../../utils/lodash";
-import { handlePayment, checkLogin, checkMobile } from "../../services";
+import { handlePayment, checkUserInfo, checkMobile } from "../../services";
 import { moment } from "../../utils/moment";
 
 export default {

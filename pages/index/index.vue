@@ -36,7 +36,7 @@ export default {
     bookingStore: sync("booking"),
     banners: sync("banners")
   },
-  onLoad({ tab, giftCode, cardSell }) {
+  onLoad({ tab, giftCode, cardSell, coupon }) {
     this.loadBanners();
     this.loadConfig();
     service.loadStore();
@@ -47,6 +47,9 @@ export default {
       }
       if (cardSell) {
         return this.handleCardSell(cardSell);
+      }
+      if (coupon) {
+        return this.handleCoupon(coupon);
       }
       // this.checkStore();
       service.loadBookings();
@@ -99,6 +102,10 @@ export default {
     handleCardSell(cardSell) {
       if (!cardSell) return;
       uni.navigateTo({ url: `/pages/card/sell?id=${cardSell}` });
+    },
+    handleCoupon(coupon) {
+      if (!coupon) return;
+      uni.navigateTo({ url: `/pages/card/coupon?coupon=${coupon}` });
     },
     checkStore() {
       const localStoreId = uni.getStorageSync("localStoreId");

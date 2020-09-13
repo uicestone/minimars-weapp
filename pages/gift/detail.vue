@@ -60,7 +60,7 @@
 <script>
 import { getItem, createBooking } from "../../common/vmeitime-http";
 import { sync } from "vuex-pathify";
-import { handlePayment, checkLogin, checkMobile } from "../../services";
+import { handlePayment, checkUserInfo, checkMobile } from "../../services";
 import { _ } from "../../utils/lodash";
 export default {
   data() {

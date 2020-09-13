@@ -7,7 +7,7 @@
 
 <script>
 import { sync, get } from "vuex-pathify";
-import { checkLogin } from "../../services";
+import { checkUserInfo } from "../../services";
 export default {
   props: ["redirect"],
   data() {
@@ -56,7 +56,7 @@ export default {
   methods: {
     async handleRouteChange(item) {
       if (item.requireAuth) {
-        await checkLogin();
+        await checkUserInfo();
       }
       // if (item.page) {
       //   uni.navigateTo({ url: item.key });

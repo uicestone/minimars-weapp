@@ -2,10 +2,10 @@
 import Vue from "vue";
 
 export default {
-  onLaunch: function() {
+  onLaunch: function () {
     console.log("App Launch");
     uni.getSystemInfo({
-      success: function(e) {
+      success: function (e) {
         Vue.prototype.StatusBar = e.statusBarHeight;
         // #ifndef MP
         if (e.platform == "android") {
@@ -26,10 +26,10 @@ export default {
       }
     });
   },
-  onShow: function() {
+  onShow: function () {
     console.log("App Show");
   },
-  onHide: function() {
+  onHide: function () {
     console.log("App Hide");
   }
 };
@@ -96,6 +96,12 @@ $color-primary-light = #d1fddf
   bottom 0
   left 0
   width 100%
+.flex
+  display flex
+.items-center
+  align-items center
+.justify-between
+  justify-content space-between
 .flex-1
   flex 1
 .top-fixed

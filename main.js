@@ -13,7 +13,7 @@ import login from "./pages/login.vue";
 import mall from "./pages/mall/index.vue";
 
 import cuCustom from "./common/colorui/components/cu-custom.vue";
-import { checkLogin, checkMobile } from "./services";
+import { checkUserInfo, checkMobile } from "./services";
 
 Vue.config.productionTip = false;
 Vue.component("cu-custom", cuCustom);
@@ -29,7 +29,7 @@ global.store = store; // for debug
 
 Vue.prototype.back = () => {
   uni.navigateBack({
-    delta: 1,
+    delta: 1
   });
 };
 
@@ -39,7 +39,7 @@ Vue.prototype.navigateTo = async (url, opt = {}) => {
     await checkMobile();
   }
   if (opt.checkAuth) {
-    await checkLogin();
+    await checkUserInfo();
   }
   if (tab) {
     store.state.currentTab = url;
@@ -58,6 +58,6 @@ Vue.prototype._ = _;
 
 const app = new Vue({
   store,
-  ...App,
+  ...App
 });
 app.$mount();

@@ -1,6 +1,7 @@
 import * as api from "../common/vmeitime-http/index";
 import store from "../store";
 import { event } from "./event";
+import { wechatLogin } from "../services";
 
 export const fetchUser = async () => {
   const res = await api.getAuthUser();
@@ -8,7 +9,13 @@ export const fetchUser = async () => {
   return res.data;
 };
 
-export const checkLogin = () =>
+export const checkLogin = async () => {
+  if (!store.state.auth.token) {
+    await wechatLogin();
+  }
+};
+
+export const checkUserInfo = () =>
   new Promise((res, rej) => {
     if (!store.state.auth.user.name) {
       event.once("login", () => {

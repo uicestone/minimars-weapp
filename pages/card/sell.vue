@@ -37,7 +37,7 @@ view
 import { sync } from "vuex-pathify";
 import { postCard, getItem, getAuthUser } from "../../common/vmeitime-http";
 import { _ } from "../../utils/lodash";
-import { handlePayment, loadUserCard, checkMobile, fetchUser, getPhoneNumber } from "../../services";
+import { handlePayment, loadUserCard, checkMobile, fetchUser, getPhoneNumber, checkLogin } from "../../services";
 import * as service from "../..//services";
 export default {
   data() {
@@ -55,6 +55,7 @@ export default {
     };
   },
   async onLoad(data) {
+    await checkLogin();
     uni.showLoading();
     await service.loadCard({ id: data.id });
     if (data.id) {

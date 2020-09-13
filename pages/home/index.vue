@@ -24,7 +24,7 @@
         view.h3 门店介绍
         view.flex.store-bar(v-if="stores.length > 0")
           button.cu-btn.round.action-button(v-for="(store, index) in stores" :key="store.id" :class="[store.id == currentLocalStore.id ? 'active' : '']" @click="switchStore(store)") {{store.name.substr(0,2)}}店
-        img.cover(:src="currentLocalStore.posterUrl ? currentLocalStore.posterUrl : _.get(stores,'0.posterUrl')" mode='aspectFill'  @click="goStoreDetail")
+        img.cover(v-if="currentLocalStore" :src="currentLocalStore.posterUrl ? currentLocalStore.posterUrl : _.get(stores,'0.posterUrl')" mode='aspectFill'  @click="goStoreDetail")
         view.h3.margin-top 品牌介绍
         view.flex.store-bar(v-if="brands.length > 0")
           button.cu-btn.round.action-button.bg-primary(v-for="(item, index) in brands" :key="item.id" :class="[item.id == brand.id ? 'active': '']" @click="switchBrand(item)") {{item.title}}

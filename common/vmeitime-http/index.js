@@ -468,3 +468,30 @@ export const getCardRule = () => {
     dataType: "json"
   });
 };
+
+export const handleType = ({
+  type,
+  data,
+  method = "POST"
+}) => {
+  return http.request({
+    url: `/${type}`,
+    method,
+    dataType: "json",
+    data
+  });
+};
+
+export const handleItem = ({
+  type,
+  id,
+  data,
+  method = "POST"
+}) => {
+  return http.request({
+    url: `/${type}/${id}`,
+    method,
+    dataType: "json",
+    data
+  });
+};
