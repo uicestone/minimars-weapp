@@ -84,7 +84,7 @@ export default {
     currentStore: sync("store/currentStore"),
     currentLocalStore: sync("store/currentLocalStore"),
     cards() {
-      return this.userCards.filter(i => i.status == "activated" && ["times", "period", "balance"].includes(i.type) && (!i.store || i.store === this.currentStore.id));
+      return this.userCards.filter(i => i.status == "activated" && ["times", "period", "balance"].includes(i.type) && (!i.stores.length || i.stores.includes(this.currentStore.id)));
     },
     payable() {
       return !!this.currentStore.id;

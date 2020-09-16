@@ -19,8 +19,8 @@ view
       mi-card-selecter(:items="curCards", :curItem.sync="curCard")
     view
       text {{ curCard.title }}
-    view(v-if="curCard.store")
-      text {{ curCard.store.name }}
+    view(v-if="curCard.stores && curCard.stores.length")
+      text {{ curCard.stores.map((s) => s.name).join('、') }}
     view.confirm
       menu-link(
         :title="curCard.price ? '确认购买' : '确认领取'",
