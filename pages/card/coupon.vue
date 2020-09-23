@@ -7,7 +7,7 @@ scroll-view.card-coupon(scroll-y)
   view.cu-modal.bottom-modal(:class="showModal ? 'show' : ''", @tap="showModal = false")
     view.cu-dialog
       view.modal-list
-        view.list1(v-for="(item, index) in coupons", @click="selectCard(item)")
+        view.list1(v-for="(item, index) in coupons" :key="item.id", @click="selectCard(item)")
           view.with-padding.flex.justify-between.items-center
             view
               view.name {{ item.title }}
@@ -40,7 +40,7 @@ scroll-view.card-coupon(scroll-y)
     view.action
       button.cu-btn.round.bg-primary.action-button(@click="handleBuyCard") 微信支付
   view.store-list(v-if="state == 'store'")
-    view.list1(v-for="(item, index) in stores")
+    view.list1(v-for="(item, index) in stores" :key="item.id")
       view.with-padding
         view.name {{ item.name }}
         view.date {{ item.address }}
@@ -54,9 +54,9 @@ scroll-view.card-coupon(scroll-y)
           view.title {{ item.title }}
           view.subTitle {{ item.content }}
           view.price 
-            text ￥1300
+            text ￥{{ couponsMinPrice }}
           view.info-bar.flex.items-center
-            view.info.flex.items-center
+            view.info.flex.items-center(v-if="coupons.some(c=>c.maxPerCustomer)")
               text.cuIcon-info.text-primary
               text.color-hematite.info-text 限购
             view.info.flex.items-center
@@ -66,14 +66,14 @@ scroll-view.card-coupon(scroll-y)
           view.label.flex.justify-between
             text 适用门店 ({{ stores.length }})
             text.cuIcon-right
-          view.list1(v-for="(item, index) in stores.slice(0, 1)")
+          view.list1(v-for="(item, index) in stores.slice(0, 1)" :key="item.id")
             view
               view.name {{ item.name }}
               view.date {{ item.address }}
         view.card-bar
           view.with-padding.label
             text 套餐
-          view.list1(v-for="(item, index) in coupons")
+          view.list1(v-for="(item, index) in coupons" :key="item.id")
             view.with-padding.flex.justify-between.items-center
               view
                 view.name {{ item.title }}
@@ -105,18 +105,21 @@ export default {
   },
   computed: {
     headerText() {
-      if (this.state == "init") return "创建预约";
+      if (this.state == "init") return "团购详情";
       if (this.state == "store") return "适用门店";
       if (this.state == "order") return "填写订单";
     },
     user: sync("auth/user"),
     stores: sync("store/stores"),
     allowStores() {
-      if (this.coupons.some(i => !i.store)) {
+      if (this.coupons.some(i => !i.stores.length)) {
         return this.stores;
       } else {
-        return this.coupon.map(i => i.store);
+        return this.coupons.reduce((stores, coupon) => stores.concat(coupon.stores), []);
       }
+    },
+    couponsMinPrice() {
+      return _.minBy(this.coupons, c => c.price).price;
     }
   },
   onLoad({ coupon }) {
@@ -155,7 +158,7 @@ export default {
     },
     async loadItem(id) {
       uni.showLoading();
-      const [itemRes, cardRes] = await Promise.all([getItem({ id, type: "post" }), handleType({ type: "card-type", method: "GET", data: { type: "coupon", couponSlug: id } })]);
+      const [itemRes, cardRes] = await Promise.all([getItem({ id, type: "post" }), handleType({ type: "card-type", method: "GET", data: { couponSlug: id } })]);
       if (itemRes.data) {
         itemRes.data.content = utils.html.convertHtmlToText(itemRes.data.content);
         this.item = itemRes.data;
