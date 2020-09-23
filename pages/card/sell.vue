@@ -8,7 +8,7 @@ view
       view.text
         view.title Hello,
         view.title {{ user.name }}
-        view.subtitle1 购买M尊享会员卡选择你喜欢的卡面吧
+        view.subtitle1 购买M尊享会员卡
         view.subtitle2 你可以从每个类型的权益卡中选择你喜欢的！
     view.card-selector
       view(v-for="(item, index) in cardTypes", :key="index", @click="selectCard(item)", :class="[curCardType == item.value ? 'active' : '', 'card']")
@@ -73,7 +73,7 @@ export default {
   computed: {
     cards: sync("booking/cardTypes"),
     curCards() {
-      return this.cards.filter(i => (["times", "coupon"].includes(this.curCardType) ? ["times", "coupon"].includes(i.type) : i.type === this.curCardType));
+      return this.cards.filter(i => (["times", "coupon"].includes(this.curCardType) ? ["times", "coupon"].includes(i.type) : i.type === this.curCardType) && !i.couponSlug);
     },
     buyable() {
       return !!this.curCard.id;

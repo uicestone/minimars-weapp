@@ -119,7 +119,7 @@ export default {
       }
     },
     couponsMinPrice() {
-      return _.minBy(this.coupons, c => c.price).price;
+      return _.minBy(this.coupons, c => c.price)?.price;
     }
   },
   onLoad({ coupon }) {
