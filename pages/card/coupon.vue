@@ -21,6 +21,7 @@ scroll-view.card-coupon(scroll-y)
     view.with-padding
       view.name {{ curCard.title }}
       view.date 有效期：{{ moment(item.start).format('YYYY/MM/DD') }}-{{ moment(item.end).format('YYYY/MM/DD') }}
+    view.divider-bar
     view.info
       view.flex.with-padding
         view.label 联系人信息
@@ -34,9 +35,11 @@ scroll-view.card-coupon(scroll-y)
         view.label1 手机
         view.field {{ user.mobile }}
       view(style="margin: 40upx 0")
+      view.divider-bar
       view.flex.with-padding.align-center.justify-between
         view.label 产品金额
         view.price ￥{{ curCard.price }}
+      view.divider-bar
     view.action
       button.cu-btn.round.bg-primary.action-button(@click="handleBuyCard") 微信支付
   view.store-list(v-if="state == 'store'")
@@ -55,13 +58,15 @@ scroll-view.card-coupon(scroll-y)
           view.subTitle {{ item.content }}
           view.price 
             text ￥{{ couponsMinPrice }}
-          view.info-bar.flex.items-center
-            view.info.flex.items-center(v-if="coupons.some(c=>c.maxPerCustomer)")
-              text.cuIcon-info.text-primary
-              text.color-hematite.info-text 限购
-            view.info.flex.items-center
-              text.cuIcon-info.text-primary
-              text.color-hematite.info-text 需在线预约
+        view.divider-bar
+        view.info-bar.flex.items-center.with-padding
+          view.info.flex.items-center(v-if="coupons.some(c=>c.maxPerCustomer)")
+            text.cuIcon-info.text-primary
+            text.color-hematite.info-text 限购
+          view.info.flex.items-center
+            text.cuIcon-info.text-primary
+            text.color-hematite.info-text 需在线预约
+        view.divider-bar
         view.with-padding.store-bar(@click="showStores")
           view.label.flex.justify-between
             text 适用门店 ({{ stores.length }})
@@ -70,6 +75,7 @@ scroll-view.card-coupon(scroll-y)
             view
               view.name {{ item.name }}
               view.date {{ item.address }}
+        view.divider-bar
         view.card-bar
           view.with-padding.label
             text 套餐
@@ -81,6 +87,8 @@ scroll-view.card-coupon(scroll-y)
               view
                 text.price ￥{{ item.price }}
             view.divider(v-if="index !== coupons.length - 1")
+          view.divider-bar(style="margin-top: 32upx")
+          
 
         view.action(@click="showModal = true")
           button.cu-btn.round.bg-primary.action-button 立即购买
@@ -112,7 +120,7 @@ export default {
     user: sync("auth/user"),
     stores: sync("store/stores"),
     allowStores() {
-      if (this.coupons.some(i => !i.stores.length)) {
+      if (this.coupons.some(i => !i.stores?.length)) {
         return this.stores;
       } else {
         return this.coupons.reduce((stores, coupon) => stores.concat(coupon.stores), []);
@@ -152,8 +160,8 @@ export default {
       }
       await loadUserCard();
       await fetchUser();
-      uni.navigateTo({
-        url: `/pages/card/success?id=${res.data.id}`
+      uni.redirectTo({
+        url: `/pages/index/index?route=/pages/user/index`
       });
     },
     async loadItem(id) {
@@ -211,9 +219,8 @@ export default {
           line-height 48upx
           color #57FF9A
       .info-bar
-        margin-top 62upx
         .info
-          margin-right 44upx
+          margin-right 4upx
           .info-text
             font-size 22upx
             font-family PingFangSC-Regular, PingFang SC
@@ -222,7 +229,6 @@ export default {
             line-height 32upx
             margin-left 12upx
       .store-bar
-        margin-top 64upx
         .label
           margin-bottom 24upx
           font-size 30upx
@@ -232,7 +238,7 @@ export default {
           color #888
           font-size 34upx
       .card-bar
-        margin-top 70upx
+        margin-top 6upx
         .label
           margin-bottom 16upx
           font-size 30upx
@@ -240,7 +246,13 @@ export default {
           line-height 42upx
   .store-list
     padding-top 200upx
+    width 100vw
+    height 100vh
+    background white
   .order-panel
+    width 100vw
+    height 100vh
+    background white
     padding-top 200upx
     .info
       margin-top 76upx
@@ -271,16 +283,20 @@ export default {
   .action-button
     width 570upx
     height 100upx
+.divider-bar
+  height 16upx
+  background #F2F2F2
+  margin 24upx 0
 .list1
   text-align left
   .divider
     margin 16upx 0 18upx 0
     height 4upx
-    background #bdbec0
+    background #c7c7c7
   .divider2
     margin 30upx 0 18upx 0
     height 4upx
-    background #bdbec0
+    background #ececec
   .name
     font-size 28upx
     font-family PingFangSC-Medium, PingFang SC

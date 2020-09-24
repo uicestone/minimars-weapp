@@ -36,7 +36,7 @@ export default {
     bookingStore: sync("booking"),
     banners: sync("banners")
   },
-  onLoad({ tab, giftCode, cardSell, coupon }) {
+  onLoad({ tab, giftCode, cardSell, coupon, route }) {
     this.loadBanners();
     this.loadConfig();
     service.loadStore();
@@ -44,6 +44,9 @@ export default {
       if (giftCode) {
         this.handleGiftCode(giftCode);
         return; // avoid below code executing
+      }
+      if (route) {
+        return this.handleRoute(route);
       }
       if (cardSell) {
         return this.handleCardSell(cardSell);
@@ -98,6 +101,10 @@ export default {
         uni.navigateTo({ url: `/pages/card/detail?id=${res.data.id}` });
       }
       return true;
+    },
+    handleRoute(route) {
+      if (!route) return;
+      uni.navigateTo({ url: route });
     },
     handleCardSell(cardSell) {
       if (!cardSell) return;
