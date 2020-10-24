@@ -11,7 +11,7 @@ scroll-view.card-coupon(scroll-y)
           view.with-padding.flex.justify-between.items-center
             view
               view.name {{ item.title }}
-              view.date 有效期：{{ moment(item.start).format('YYYY/MM/DD') }}-{{ moment(item.end).format('YYYY/MM/DD') }}
+              view.date(v-if="item.start&&item.end") 有效期：{{ moment(item.start).format('YYYY/MM/DD') }}-{{ moment(item.end).format('YYYY/MM/DD') }}
             view
               text.color-primary ￥
               text.price {{ item.price }}
