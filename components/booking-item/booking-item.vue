@@ -28,7 +28,7 @@ export default {
       if (this.item.type == "play") {
         return "widthFix";
       } else {
-        return "scaleToFit";
+        return "aspectFill";
       }
     },
     bookingStore: sync("booking"),
