@@ -15,7 +15,7 @@
           img.img(:src="item.img")
           view.label {{item.label}}
       .selector
-        mi-card-selecter(:items="curCards" :check="false" :curItem.sync="curCard")
+        mi-card-selecter(:items="curCards" :check="false" :curItem.sync="curCard"  @update:curItem="clickCard")
       view.card-info(v-if="curCard.id")
         view.margin-bottom
           text {{curCard.title}}
@@ -31,6 +31,9 @@
         view(v-if="curCard.type==='balance'")
           text 面值：
           text {{ curCard.balance }}
+          text(v-if="curCard.status==='expired'") （已充入您的账户余额）
+        view(v-if="curCard.type==='partner'")
+          text 点击卡片前往活动页面
           text(v-if="curCard.status==='expired'") （已充入您的账户余额）
       view.confirm.margin-top
         menu-link.margin-lr(title="赠予他人" openType="share" subTitle="Share" v-if="shareAble" style="width:320upx")
@@ -117,6 +120,15 @@ export default {
       uni.navigateTo({
         url: `/pages/card/rule?id=${this.curCard.id}`
       });
+    },
+    clickCard(card) {
+      if (card.type === "partner") {
+        const weappUrlMatch = card.partnerUrl.match(/^weapp\:\/\/(.*?)(\/.*$)/);
+        console.log(card.partnerUrl, weappUrlMatch);
+        if (weappUrlMatch) {
+          uni.navigateToMiniProgram({ appId: weappUrlMatch[1], path: weappUrlMatch[2] });
+        }
+      }
     }
   }
 };
