@@ -118,6 +118,12 @@
       "style": {
         "navigationBarTitleText": "历史卡券"
       }
+    },
+    {
+      "path": "pages/food/index",
+      "style": {
+        "navigationBarTitleText": "点餐"
+      }
     }
   ],
   "globalStyle": {
@@ -238,6 +244,11 @@
         "name": "团购测试",
         "path": "pages/index/index",
         "query": "coupon=xiaowanzi"
+      },
+      {
+        "name": "点餐测试",
+        "path": "pages/food/index",
+        "query": ""
       }
     ]
   }
