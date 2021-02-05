@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { loadCard, fetchUser } from "../../services";
+import { loadCard, fetchUser, loadUserCard } from "../../services";
 import { sync } from "vuex-pathify";
 import uQRCode from "../../common/uqrcode";
 import * as service from "@/services";
@@ -61,7 +61,7 @@ export default {
       isShowBooking: false,
       curBooking: null,
       cards: [],
-      swiperList: []
+      swiperList: [],
     };
   },
   computed: {
@@ -73,11 +73,11 @@ export default {
     },
     activeUserCards() {
       return this.userCards.filter(c => ["valid", "activated"].includes(c.status));
-    }
+    },
   },
   async mounted() {
     uni.showLoading();
-    await Promise.all([loadCard(), fetchUser(), service.loadBookings()]);
+    await Promise.all([loadCard(), loadUserCard(), fetchUser(), service.loadBookings()]);
     uni.hideLoading();
   },
   methods: {
@@ -98,7 +98,7 @@ export default {
         correctLevel: uQRCode.defaults.correctLevel,
         success: res => {
           console.log(res);
-        }
+        },
       });
     },
     cardSwiper(e) {
@@ -106,10 +106,10 @@ export default {
     },
     goCardSelling(item) {
       uni.navigateTo({
-        url: `/pages/card/detail?id=${item.id}`
+        url: `/pages/card/detail?id=${item.id}`,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

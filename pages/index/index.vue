@@ -20,7 +20,7 @@ import { event } from "../../services/event";
 import { errorHandler } from "../../utils";
 export default {
   coπmponents: {
-    login
+    login,
   },
   data() {
     return {};
@@ -34,7 +34,7 @@ export default {
     configs: sync("configs"),
     stores: sync("store/stores"),
     bookingStore: sync("booking"),
-    banners: sync("banners")
+    banners: sync("banners"),
   },
   onLoad({ tab, giftCode, cardSell, coupon, route }) {
     this.loadBanners();
@@ -70,7 +70,7 @@ export default {
   onShareAppMessage(res) {
     return {
       title: "MINIMARS+",
-      path: `/pages/index/index?tab=${this.currentTab}`
+      path: `/pages/index/index?tab=${this.currentTab}`,
     };
   },
   onReachBottom() {
@@ -94,12 +94,13 @@ export default {
         errorHandler(error);
       }
     },
-    handleGiftCode(code) {
+    async handleGiftCode(code) {
       if (!code) return false;
-      const res = postCard({ card: { giftCode: code } });
-      if (res.data) {
-        uni.navigateTo({ url: `/pages/card/detail?id=${res.data.id}` });
-      }
+      // const res = await postCard({ card: { giftCode: code } });
+      // console.log("handleGiftCode", res);
+      // if (res.data) {
+      uni.navigateTo({ url: `/pages/card/detail?code=${code}` });
+      // }
       return true;
     },
     handleRoute(route) {
@@ -123,10 +124,10 @@ export default {
     selectStore() {
       return;
       uni.navigateTo({
-        url: "/pages/store/list"
+        url: "/pages/store/list",
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

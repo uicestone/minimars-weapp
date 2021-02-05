@@ -50,18 +50,24 @@ export default {
     return {
       curCard: {},
       form: {
-        amount: 1
+        amount: 1,
       },
       curCardType: "times",
       cardTypes: [
         { label: "次卡", value: "times", img: "/static/img/card-times-round.png" },
         { label: "时效卡", value: "period", img: "/static/img/card-period.round.png" },
-        { label: "礼品卡", value: "balance", img: "/static/img/card-credit-round.png" }
-      ]
+        { label: "礼品卡", value: "balance", img: "/static/img/card-credit-round.png" },
+      ],
     };
   },
   async onLoad(data) {
     await checkMobile();
+    if (data.code) {
+      const {
+        data: { id: giftCardId },
+      } = await postCard({ card: { giftCode: data.code } });
+      data.id = giftCardId;
+    }
     uni.showLoading();
     await loadUserCard();
     if (data.id) {
@@ -86,16 +92,17 @@ export default {
     },
     activeAble() {
       return !!this.curCard.id && this.curCard.status == "valid";
-    }
+    },
   },
   onShareAppMessage(res) {
+    console.log(res);
     if (res.from === "button") {
       console.log(res.target);
     }
     return {
-      title: "分享卡片",
-      // imageUrl: "/static/share.jpg",
-      path: `/pages/index/index?giftCode=${this.curCard.giftCode}`
+      title: "赠送你1张MINI MARS礼品卡",
+      imageUrl: this.curCard.posterUrl,
+      path: `/pages/index/index?giftCode=${this.curCard.giftCode}`,
     };
   },
   methods: {
@@ -118,7 +125,7 @@ export default {
     goCardRule() {
       if (!this.curCard.id) return;
       uni.navigateTo({
-        url: `/pages/card/rule?id=${this.curCard.id}`
+        url: `/pages/card/rule?id=${this.curCard.id}`,
       });
     },
     clickCard(card) {
@@ -129,8 +136,8 @@ export default {
           uni.navigateToMiniProgram({ appId: weappUrlMatch[1], path: weappUrlMatch[2] });
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
