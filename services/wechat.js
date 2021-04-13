@@ -36,8 +36,9 @@ export const wechatGetUserInfo = () =>
   new Promise((resolve, reject) => {
     const provider = "weixin";
     uni.showLoading();
-    uni.getUserInfo({
-      provider,
+    uni.getUserProfile({
+      // provider,
+      desc: "注册",
       lang: "zh_CN",
       success: async (userData) => {
         // console.log(userData);

@@ -3,7 +3,7 @@
     view.cu-dialog.no-bg
       view.cu-bar.flex
         button.bg-grey.round.flex-sub.margin-sm(v-if="auth.showLogin!=='FORCE'" @click="cancelLogin()") 暂不登录
-        button.bg-primary.round.flex-sub.margin-sm(open-type='getUserInfo', @getuserinfo='wechatGetUserInfo', withcredentials='true') 微信登录
+        button.bg-primary.round.flex-sub.margin-sm(@click='wechatGetUserInfo', withcredentials='true') 微信登录
  
 </template>
 
@@ -19,7 +19,6 @@ export default {
   },
   methods: {
     async wechatGetUserInfo(data) {
-      if(!data.detail.encryptedData) return
       try {
         // debug
         let firstTime = new Date().valueOf();

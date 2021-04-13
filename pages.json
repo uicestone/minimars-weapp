@@ -249,6 +249,11 @@
         "name": "点餐测试",
         "path": "pages/food/index",
         "query": ""
+      },
+      {
+        "name": "门店入口购卡",
+        "path": "pages/index/index",
+        "query": "atStore=5e723574768573042a9c141a"
       }
     ]
   }
