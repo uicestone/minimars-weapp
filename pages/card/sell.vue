@@ -78,7 +78,8 @@ export default {
     buyable() {
       return !!this.curCard.id;
     },
-    user: sync("auth/user")
+    user: sync("auth/user"),
+    atStore: sync("store/atStore")
   },
   methods: {
     setCard() {
@@ -104,7 +105,7 @@ export default {
     },
     async handleBuyCard() {
       if (!this.user.mobile) return;
-      const res = await postCard({ card: this.curCard });
+      const res = await postCard({ card: this.curCard, atStore: this.atStore });
       const payment = _.get(res, "data.payments.0");
       if (payment) {
         await handlePayment(payment.payArgs);

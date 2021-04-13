@@ -30,13 +30,14 @@ export default {
     currentTab: sync("currentTab"),
     currentLocalStore: sync("store/currentLocalStore"),
     currentStore: sync("store/currentStore"),
+    atStore: sync("store/atStore"),
     tabs: sync("configs@tabs"),
     configs: sync("configs"),
     stores: sync("store/stores"),
     bookingStore: sync("booking"),
     banners: sync("banners"),
   },
-  onLoad({ tab, giftCode, cardSell, coupon, route }) {
+  onLoad({ tab, giftCode, cardSell, coupon, route, atStore }) {
     this.loadBanners();
     this.loadConfig();
     service.loadStore();
@@ -60,6 +61,9 @@ export default {
     });
     if (tab) {
       this.currentTab = tab;
+    }
+    if (atStore) {
+      this.atStore = atStore;
     }
   },
   onShow() {

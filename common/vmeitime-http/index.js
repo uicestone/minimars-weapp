@@ -421,10 +421,11 @@ export const getGifts = ({
 
 export const postCard = ({
   card,
-  method = "POST"
+  method = "POST",
+  atStore = null
 }) => {
   return http.request({
-    url: `/card`,
+    url: `/card${atStore ? `?atStore=${atStore}` : ""}`,
     method,
     dataType: "json",
     data: card

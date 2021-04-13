@@ -10,6 +10,7 @@ const state = {
     id: null,
     name: "",
   },
+  atStore: null,
 };
 
 const mutations = make.mutations(state);
