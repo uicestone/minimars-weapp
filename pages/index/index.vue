@@ -41,6 +41,9 @@ export default {
     this.loadBanners();
     this.loadConfig();
     service.loadStore();
+    if (atStore) {
+      this.atStore = atStore;
+    }
     this.wechatLogin().then(() => {
       if (giftCode) {
         this.handleGiftCode(giftCode);
@@ -61,9 +64,6 @@ export default {
     });
     if (tab) {
       this.currentTab = tab;
-    }
-    if (atStore) {
-      this.atStore = atStore;
     }
   },
   onShow() {
