@@ -5,7 +5,7 @@
       view.title {{user.name}}
       view.subtitle1 您已购买成功
     gift-card.gift-card(:item="item")
-    view.prompt （请至前台核销并兑换实体卡）
+    //- view.prompt （请至门店核销）
     view.info
       view 卡片类型: {{item.title}}
       //- view 有效期: 2020年6月26日——2021年6月26日
